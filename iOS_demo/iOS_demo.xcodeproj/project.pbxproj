@@ -35,15 +35,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-<<<<<<< HEAD
 		122413381F09F14200FD6A25 /* FontAndColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontAndColorMacros.h; sourceTree = "<group>"; };
 		122413391F09F14200FD6A25 /* URLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLMacros.h; sourceTree = "<group>"; };
 		1224133A1F09F14200FD6A25 /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
-=======
 		122413341F09D81000FD6A25 /* FontAndColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontAndColorMacros.h; sourceTree = "<group>"; };
 		122413351F09D81000FD6A25 /* URLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLMacros.h; sourceTree = "<group>"; };
 		122413361F09D81000FD6A25 /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
->>>>>>> developer
 		126769A91EDAB9A700F77D00 /* iOS_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126769AD1EDAB9A700F77D00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		126769B21EDAB9A700F77D00 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -87,7 +84,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-<<<<<<< HEAD
+
 		122413371F09F14200FD6A25 /* Macro */ = {
 			isa = PBXGroup;
 			children = (
@@ -99,9 +96,9 @@
 			sourceTree = "<group>";
 		};
 		126769A01EDAB9A700F77D00 = {
-=======
+
 		122413251F09D68900FD6A25 /* Classes */ = {
->>>>>>> developer
+
 			isa = PBXGroup;
 			children = (
 				122413261F09D68900FD6A25 /* Discover(发现) */,
@@ -123,7 +120,7 @@
 		122413271F09D68900FD6A25 /* Home(首页) */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
+
 				122413371F09F14200FD6A25 /* Macro */,
 				12F014511EF979DD006ECD35 /* AppDelegate */,
 				12F014471EF979D4006ECD35 /* Manager */,
@@ -138,8 +135,7 @@
 				126769BA1EDAB9A700F77D00 /* LaunchScreen.storyboard */,
 				126769BD1EDAB9A700F77D00 /* Info.plist */,
 				126769AC1EDAB9A700F77D00 /* Supporting Files */,
-=======
->>>>>>> developer
+
 			);
 			path = "Home(首页)";
 			sourceTree = "<group>";
@@ -165,9 +161,8 @@
 			path = "publish(发布)";
 			sourceTree = "<group>";
 		};
-<<<<<<< HEAD
+
 		12F014471EF979D4006ECD35 /* Manager */ = {
-=======
 		1224132B1F09D74B00FD6A25 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,7 +215,7 @@
 			sourceTree = "<group>";
 		};
 		122413321F09D7DF00FD6A25 /* Manager */ = {
->>>>>>> developer
+
 			isa = PBXGroup;
 			children = (
 			);
