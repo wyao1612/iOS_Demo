@@ -35,6 +35,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		122413341F09D81000FD6A25 /* FontAndColorMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontAndColorMacros.h; sourceTree = "<group>"; };
+		122413351F09D81000FD6A25 /* URLMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLMacros.h; sourceTree = "<group>"; };
+		122413361F09D81000FD6A25 /* UtilsMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
 		126769A91EDAB9A700F77D00 /* iOS_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		126769AD1EDAB9A700F77D00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		126769B21EDAB9A700F77D00 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -51,9 +54,6 @@
 		126769D31EDAB9A700F77D00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12F014521EF979DD006ECD35 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		12F014531EF979DD006ECD35 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		12F014551EF97A17006ECD35 /* UtilsMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UtilsMacros.h; sourceTree = "<group>"; };
-		12F014561EF97A2F006ECD35 /* URLMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = URLMacros.h; sourceTree = "<group>"; };
-		12F014571EF97A45006ECD35 /* FontAndColorMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontAndColorMacros.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +81,121 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		122413251F09D68900FD6A25 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				122413261F09D68900FD6A25 /* Discover(发现) */,
+				122413271F09D68900FD6A25 /* Home(首页) */,
+				122413281F09D68900FD6A25 /* Message(消息) */,
+				122413291F09D68900FD6A25 /* Mine(我的) */,
+				1224132A1F09D68900FD6A25 /* publish(发布) */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		122413261F09D68900FD6A25 /* Discover(发现) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Discover(发现)";
+			sourceTree = "<group>";
+		};
+		122413271F09D68900FD6A25 /* Home(首页) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Home(首页)";
+			sourceTree = "<group>";
+		};
+		122413281F09D68900FD6A25 /* Message(消息) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Message(消息)";
+			sourceTree = "<group>";
+		};
+		122413291F09D68900FD6A25 /* Mine(我的) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Mine(我的)";
+			sourceTree = "<group>";
+		};
+		1224132A1F09D68900FD6A25 /* publish(发布) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "publish(发布)";
+			sourceTree = "<group>";
+		};
+		1224132B1F09D74B00FD6A25 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		1224132C1F09D7DF00FD6A25 /* BaseClasses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = BaseClasses;
+			sourceTree = "<group>";
+		};
+		1224132D1F09D7DF00FD6A25 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		1224132E1F09D7DF00FD6A25 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		1224132F1F09D7DF00FD6A25 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		122413301F09D7DF00FD6A25 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				122413311F09D7DF00FD6A25 /* HttpHelper */,
+				122413321F09D7DF00FD6A25 /* Manager */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		122413311F09D7DF00FD6A25 /* HttpHelper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HttpHelper;
+			sourceTree = "<group>";
+		};
+		122413321F09D7DF00FD6A25 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		122413331F09D81000FD6A25 /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				122413341F09D81000FD6A25 /* FontAndColorMacros.h */,
+				122413351F09D81000FD6A25 /* URLMacros.h */,
+				122413361F09D81000FD6A25 /* UtilsMacros.h */,
+			);
+			path = Macro;
+			sourceTree = "<group>";
+		};
 		126769A01EDAB9A700F77D00 = {
 			isa = PBXGroup;
 			children = (
@@ -105,11 +220,11 @@
 			isa = PBXGroup;
 			children = (
 				12F014511EF979DD006ECD35 /* AppDelegate */,
-				12F014461EF979D4006ECD35 /* Define */,
-				12F014471EF979D4006ECD35 /* Manager */,
-				12F014481EF979D4006ECD35 /* Modules */,
+				122413331F09D81000FD6A25 /* Macro */,
 				12F0144E1EF979D4006ECD35 /* Resource */,
-				12F0144F1EF979D4006ECD35 /* ThridParty */,
+				1224132B1F09D74B00FD6A25 /* Vendor */,
+				122413251F09D68900FD6A25 /* Classes */,
+				12F014471EF979D4006ECD35 /* Manager */,
 				12F014501EF979D4006ECD35 /* Utils */,
 				126769B21EDAB9A700F77D00 /* ViewController.h */,
 				126769B31EDAB9A700F77D00 /* ViewController.m */,
@@ -148,68 +263,11 @@
 			path = iOS_demoUITests;
 			sourceTree = "<group>";
 		};
-		12F014461EF979D4006ECD35 /* Define */ = {
-			isa = PBXGroup;
-			children = (
-				12F014551EF97A17006ECD35 /* UtilsMacros.h */,
-				12F014561EF97A2F006ECD35 /* URLMacros.h */,
-				12F014571EF97A45006ECD35 /* FontAndColorMacros.h */,
-			);
-			path = Define;
-			sourceTree = "<group>";
-		};
 		12F014471EF979D4006ECD35 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		12F014481EF979D4006ECD35 /* Modules */ = {
-			isa = PBXGroup;
-			children = (
-				12F014491EF979D4006ECD35 /* Discover(发现) */,
-				12F0144A1EF979D4006ECD35 /* Home(首页) */,
-				12F0144B1EF979D4006ECD35 /* Message(消息) */,
-				12F0144C1EF979D4006ECD35 /* Mine(我的) */,
-				12F0144D1EF979D4006ECD35 /* publish(发布) */,
-			);
-			path = Modules;
-			sourceTree = "<group>";
-		};
-		12F014491EF979D4006ECD35 /* Discover(发现) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Discover(发现)";
-			sourceTree = "<group>";
-		};
-		12F0144A1EF979D4006ECD35 /* Home(首页) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Home(首页)";
-			sourceTree = "<group>";
-		};
-		12F0144B1EF979D4006ECD35 /* Message(消息) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Message(消息)";
-			sourceTree = "<group>";
-		};
-		12F0144C1EF979D4006ECD35 /* Mine(我的) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Mine(我的)";
-			sourceTree = "<group>";
-		};
-		12F0144D1EF979D4006ECD35 /* publish(发布) */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "publish(发布)";
 			sourceTree = "<group>";
 		};
 		12F0144E1EF979D4006ECD35 /* Resource */ = {
@@ -219,16 +277,14 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		12F0144F1EF979D4006ECD35 /* ThridParty */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ThridParty;
-			sourceTree = "<group>";
-		};
 		12F014501EF979D4006ECD35 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				1224132C1F09D7DF00FD6A25 /* BaseClasses */,
+				1224132D1F09D7DF00FD6A25 /* Categories */,
+				1224132E1F09D7DF00FD6A25 /* DataBase */,
+				1224132F1F09D7DF00FD6A25 /* Public */,
+				122413301F09D7DF00FD6A25 /* Tools */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
