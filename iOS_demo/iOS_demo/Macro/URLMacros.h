@@ -11,20 +11,20 @@
 #ifndef URLMacros_h
 #define URLMacros_h
 
-//测试地址
-#define kBaseUrlStr_Test @"https://coding.net/"
-
-//手机版地址
-#define kBaseUrlStr_Phone @"https://m.coding.net/"
-
 //Coding App 的专属链接
 #define kCodingAppScheme @"coding-net:"
 
-//appStore地址
-#define kAppUrl  @"http://itunes.apple.com/app/id923676989"
-#define kAppReviewURL   @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=923676989"
+
+#define kAppUrl         @""//appStore地址
+#define kAppReviewURL   @""//检查更新
 
 
+//API
+#ifdef DEBUG
+    #define HostAPI    @"http://192.168.19.126:9080/powerstationframework/"
+#else
+    #define TestAPI    @"http://115.236.69.110:8525/powerstationframework/"
+#endif
 
 
 #endif /* URLMacros_h */

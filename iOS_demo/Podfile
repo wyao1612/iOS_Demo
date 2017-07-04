@@ -19,6 +19,7 @@ target 'iOS_demo' do
     pod 'Masonry', '~> 1.0.2'
     pod 'IQKeyboardManager', '~> 4.0.10'
     pod 'MBProgressHUD', '1.0.0'
+    pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'#先集成在删除切换
     pod 'TTTAttributedLabel', '~> 2.0.0' #富文本编辑
     pod 'RegexKitLite-NoWarning', '1.1.0'#正则表达式
     pod 'SDCAlertView','~>2.5.2' #提示窗
@@ -28,7 +29,9 @@ target 'iOS_demo' do
     pod 'iCarousel', '~> 1.8.3'
     pod 'FDFullscreenPopGesture', '1.1'#全局侧滑
     pod 'CYLTabBarController', '~> 1.13.1'
-
+    pod 'DZNEmptyDataSet', '~> 1.8.1'
+    pod 'FMDB', '~> 2.7.2'
+    pod 'MLeaksFinder', '~> 0.2.1'
 
   target 'iOS_demoTests' do
     inherit! :search_paths

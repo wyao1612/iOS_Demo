@@ -11,10 +11,6 @@
 #define UtilsMacros_h
 
 
-//版本号
-#define kVersion_Coding [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
-#define kVersionBuild_Coding [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
-
 /**
  日志打印
  */
@@ -27,6 +23,62 @@
 
 
 #define kTipAlert(_S_, ...)     [[[UIAlertView alloc] initWithTitle:@"提示" message:[NSString stringWithFormat:(_S_), ##__VA_ARGS__] delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil] show]
+
+
+/*
+ 获取系统版本号
+ */
+#define Device_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
+/*
+ 获取屏幕宽度与高度
+ */
+#define SCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+//相对iphone6 屏幕宽度比
+#define KWidth_Scale    [UIScreen mainScreen].bounds.size.width/375.0f
+//相对iPhone6 屏幕高度比
+#define KHeight_Scale [UIScreen mainScreen].bounds.size.height/667.0f
+
+//版本号
+#define kVersion_Coding [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"]
+#define kVersionBuild_Coding [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
+
+
+/*
+ 获取通知中心
+ */
+#define WSDNotificationCenter [NSNotificationCenter defaultCenter]
+/*
+ 获取缓存
+ */
+#define  WSDUserDefault [NSUserDefaults standardUserDefaults]
+/*
+ 读取图片
+ */
+#define LOADIMAGE(file,ext) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle]pathForResource:file ofType:ext]]
+#define IMAGE(imageName) [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageName]]
+/*
+ 当前view宽高
+ */
+#define WIDTH_CELL self.frame.size.width
+#define HEIGHT_CELL self.frame.size.height
+#define STL_ORIGIN_X        self.frame.origin.x                             //坐标X
+#define STL_ORIGIN_Y        self.frame.origin.y                             //坐标Y
+#define PAGESIZE @15        //每页获取数据数量宏
+#define NaviBar_HEIGHT 64   //获取导航栏高度(包括状态栏高度20)
+#define TabBar_HEIGHT 49    //获取标签栏高度
+/**
+ 占位图
+ */
+#define Placeholder_small   IMAGE(@"placeholder60")
+#define Placeholder_middle  IMAGE(@"placeholder160")
+#define Placeholder_big     IMAGE(@"placeholder750")
+#define EmptyImage          IMAGE(@"empty")
+/** 经纬度*/
+#define LongTi     [GOLFUserDefault objectForKey:@"longti"];
+#define LatTi      [GOLFUserDefault objectForKey:@"latti"];
+#define AreaID     [GOLFUserDefault objectForKey:@"areaId"];
+
 
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 #define kScaleFrom_iPhone5_Desgin(_X_) (_X_ * (kScreen_Width/320))
@@ -60,8 +112,6 @@
 #define IS_IOS7 ([[[UIDevice currentDevice] systemVersion] floatValue] >=7.0 ? YES : NO)
 
 // 获取屏幕 宽度、高度 bounds就是屏幕的全部区域
-#define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
-#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 #define IS_IPHONE4 [UIScreen mainScreen].bounds.size.height == 480
 
 // 获取当前屏幕的高度 applicationFrame就是app显示的区域，不包含状态栏
@@ -78,11 +128,8 @@
 // 设置颜色RGB
 #define COLOR(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
 
-//获取系统版本
-#define IOS_VERSION [[[UIDevice currentDevice] systemVersion] floatValue]
-
 //定义UIImage对象
-#define IMAGE(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
+#define IMAGELocal(A) [UIImage imageWithContentsOfFile:[[NSBundle mainBundle] pathForResource:A ofType:nil]]
 #define ImageNamed(name) [UIImage imageNamed:name]
 
 

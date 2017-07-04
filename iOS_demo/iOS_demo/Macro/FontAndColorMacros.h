@@ -27,7 +27,7 @@
 #define GRAYCOLOR RGBColor(230, 230, 230)//---浅色//e6e6e6、/切割线色
 #define GLOBALCOLOR RGBColor(27,158,106)//绿色///
 #define OrangeCOLOR RGBColor(252,84,0)//橘色、价格数据颜色
-
+#define kColorD8DDE4 [UIColor colorWithHex:0xD8DDE4]
 /**
  字体
  */
@@ -66,24 +66,6 @@
 #define HB11 [UIFont boldSystemFontOfSize:11]
 #define HB10 [UIFont boldSystemFontOfSize:10]
 #define HB8 [UIFont boldSystemFontOfSize:8]
-
-///常用颜色
-#define black_color     [UIColor blackColor]
-#define blue_color      [UIColor blueColor]
-#define brown_color     [UIColor brownColor]
-#define clear_color     [UIColor clearColor]
-#define darkGray_color  [UIColor darkGrayColor]
-#define darkText_color  [UIColor darkTextColor]
-#define white_color     [UIColor whiteColor]
-#define yellow_color    [UIColor yellowColor]
-#define red_color       [UIColor redColor]
-#define orange_color    [UIColor orangeColor]
-#define purple_color    [UIColor purpleColor]
-#define lightText_color [UIColor lightTextColor]
-#define lightGray_color [UIColor lightGrayColor]
-#define green_color     [UIColor greenColor]
-#define gray_color      [UIColor grayColor]
-#define magenta_color   [UIColor magentaColor]
 
 #define kBackColor UIColorFromRGB(0xd81460)
 

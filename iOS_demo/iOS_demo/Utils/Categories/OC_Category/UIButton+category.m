@@ -45,28 +45,34 @@ static const void *IndieBandNameKey = &IndieBandNameKey;
     float bottomInset = (titleSize.height - imageSize.height)>0?(titleSize.height - imageSize.height)/2:0;
     float rightInset = MIN(halfWidth, titleSize.width);
     
-    UIEdgeInsets titleInsets;
-    UIEdgeInsets imageInsets;
+    UIEdgeInsets titleInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+    UIEdgeInsets imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     
 
     switch (style) {
-        case WYCustomerButtonStyleTop:
+        case WYCustomerButtonStyleTop:{
             titleInsets = UIEdgeInsetsMake(-titleSize.height - margin, - halfWidth, imageSize.height + margin, halfWidth);
             [self setContentEdgeInsets:UIEdgeInsetsMake(topInset + margin, leftInset, -bottomInset, -rightInset)];
+        }
             break;
-        case WYCustomerButtonStyleBelow:
+        case WYCustomerButtonStyleBelow:{
             titleInsets = UIEdgeInsetsMake(imageSize.height + margin, - halfWidth, -titleSize.height - margin, halfWidth);
             [self setContentEdgeInsets:UIEdgeInsetsMake(-bottomInset, leftInset, topInset + margin, -rightInset)];
+        }
             break;
-        case WYCustomerButtonStyleLeft:     
+        case WYCustomerButtonStyleLeft: {
             titleInsets = UIEdgeInsetsMake(0, -self.imageView.image.size.width, 0, self.imageView.image.size.width);
             imageInsets = UIEdgeInsetsMake(0, self.titleLabel.bounds.size.width + margin , 0, -self.titleLabel.bounds.size.width - margin);
+        }
             break;
-        case WYCustomerButtonStyleRight:
+        case WYCustomerButtonStyleRight:{
             /*系统默认的方式，只需要设置边距即可*/
-            titleInsets = UIEdgeInsetsMake(0, margin, 0, - margin);
-            [self setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, margin)];
+            titleInsets = UIEdgeInsetsMake(0, margin, 0, 0);
+            imageInsets = UIEdgeInsetsMake(0, - margin , 0,  0);
+//            [self setContentEdgeInsets:UIEdgeInsetsMake(0, 0, 0, margin)];
+        }
             break;
+            
         default:
             break;
     }

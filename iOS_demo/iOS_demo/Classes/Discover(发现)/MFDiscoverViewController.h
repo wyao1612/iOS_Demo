@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MFDiscoverViewController : UIViewController
+@interface MFDiscoverViewController : BaseViewController
 
 @end

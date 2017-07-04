@@ -18,6 +18,7 @@
     UILabel* label = [[self alloc] init];
     label.text = text;
     label.textColor = textColor;
+    label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont systemFontOfSize:fontSize];
     return label;
 }
