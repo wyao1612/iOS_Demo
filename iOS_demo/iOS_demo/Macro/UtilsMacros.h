@@ -16,7 +16,7 @@
  */
 //DEBUG 模式下打印日志,当前行
 #ifdef DEBUG
-# define DebugLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+# define NSLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
 #else
 # define NSLog(...)
 #endif

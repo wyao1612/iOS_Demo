@@ -54,6 +54,8 @@ PODS:
   - SVProgressHUD (2.1.2)
   - TMCache (2.1.0)
   - TTTAttributedLabel (2.0.0)
+  - YTKKeyValueStore (0.1.2):
+    - FMDB (~> 2.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
@@ -80,6 +82,7 @@ DEPENDENCIES:
   - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
   - TMCache (= 2.1.0)
   - TTTAttributedLabel (~> 2.0.0)
+  - YTKKeyValueStore (~> 0.1.2)
 
 EXTERNAL SOURCES:
   SVProgressHUD:
@@ -118,7 +121,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: d65371a8e4482380deddb9fe60e14e59ddb30eb3
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
+  YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 87bd64a9ef2189ce1b530ef0ed913d34486eb203
+PODFILE CHECKSUM: 88f3edf8fb19992e2ff8103e4e9c01313e2a6395
 
 COCOAPODS: 1.2.1

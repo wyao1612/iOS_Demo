@@ -28,6 +28,10 @@
 		120E89CC1F0B35D8003A7B92 /* YW_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89CB1F0B35D8003A7B92 /* YW_TextField.m */; };
 		120E89D01F0B38B7003A7B92 /* BaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89CF1F0B38B7003A7B92 /* BaseNavigationController.m */; };
 		120E89D41F0B3EC9003A7B92 /* MFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89D31F0B3EC9003A7B92 /* MFNetAPIClient.m */; };
+		120E89D71F0B43C5003A7B92 /* MF_NetAPIManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89D61F0B43C5003A7B92 /* MF_NetAPIManager.m */; };
+		120E89DD1F0BA513003A7B92 /* MBProgressHUD+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89DC1F0BA513003A7B92 /* MBProgressHUD+HUD.m */; };
+		120E89E01F0BB072003A7B92 /* AppDelegate+Check.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89DF1F0BB072003A7B92 /* AppDelegate+Check.m */; };
+		120E89E31F0BB0B0003A7B92 /* MFAppHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 120E89E21F0BB0B0003A7B92 /* MFAppHelper.m */; };
 		1215D7981F0A92DC00CD95BC /* CYLTabBarControllerConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215D7971F0A92DC00CD95BC /* CYLTabBarControllerConfig.m */; };
 		1215D79B1F0A933000CD95BC /* MFHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215D79A1F0A933000CD95BC /* MFHomeViewController.m */; };
 		1215D79E1F0A93B600CD95BC /* MFMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1215D79D1F0A93B600CD95BC /* MFMessageViewController.m */; };
@@ -110,6 +114,14 @@
 		120E89CF1F0B38B7003A7B92 /* BaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNavigationController.m; sourceTree = "<group>"; };
 		120E89D21F0B3EC9003A7B92 /* MFNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFNetAPIClient.h; sourceTree = "<group>"; };
 		120E89D31F0B3EC9003A7B92 /* MFNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFNetAPIClient.m; sourceTree = "<group>"; };
+		120E89D51F0B43C5003A7B92 /* MF_NetAPIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MF_NetAPIManager.h; sourceTree = "<group>"; };
+		120E89D61F0B43C5003A7B92 /* MF_NetAPIManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MF_NetAPIManager.m; sourceTree = "<group>"; };
+		120E89DB1F0BA513003A7B92 /* MBProgressHUD+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+HUD.h"; sourceTree = "<group>"; };
+		120E89DC1F0BA513003A7B92 /* MBProgressHUD+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+HUD.m"; sourceTree = "<group>"; };
+		120E89DE1F0BB072003A7B92 /* AppDelegate+Check.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Check.h"; sourceTree = "<group>"; };
+		120E89DF1F0BB072003A7B92 /* AppDelegate+Check.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Check.m"; sourceTree = "<group>"; };
+		120E89E11F0BB0B0003A7B92 /* MFAppHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFAppHelper.h; sourceTree = "<group>"; };
+		120E89E21F0BB0B0003A7B92 /* MFAppHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFAppHelper.m; sourceTree = "<group>"; };
 		1215D7961F0A92DC00CD95BC /* CYLTabBarControllerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CYLTabBarControllerConfig.h; sourceTree = "<group>"; };
 		1215D7971F0A92DC00CD95BC /* CYLTabBarControllerConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CYLTabBarControllerConfig.m; sourceTree = "<group>"; };
 		1215D7991F0A933000CD95BC /* MFHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHomeViewController.h; sourceTree = "<group>"; };
@@ -218,8 +230,12 @@
 		120E89D11F0B3E23003A7B92 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				120E89E11F0BB0B0003A7B92 /* MFAppHelper.h */,
+				120E89E21F0BB0B0003A7B92 /* MFAppHelper.m */,
 				120E89D21F0B3EC9003A7B92 /* MFNetAPIClient.h */,
 				120E89D31F0B3EC9003A7B92 /* MFNetAPIClient.m */,
+				120E89D51F0B43C5003A7B92 /* MF_NetAPIManager.h */,
+				120E89D61F0B43C5003A7B92 /* MF_NetAPIManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -407,6 +423,10 @@
 		122414171F0A251200FD6A25 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				120E89DE1F0BB072003A7B92 /* AppDelegate+Check.h */,
+				120E89DF1F0BB072003A7B92 /* AppDelegate+Check.m */,
+				120E89DB1F0BA513003A7B92 /* MBProgressHUD+HUD.h */,
+				120E89DC1F0BA513003A7B92 /* MBProgressHUD+HUD.m */,
 				120E89BE1F0B3467003A7B92 /* STL_CommonIdea */,
 			);
 			path = Common;
@@ -811,14 +831,18 @@
 				126769AE1EDAB9A700F77D00 /* main.m in Sources */,
 				120E89C91F0B3596003A7B92 /* YWCountDown.m in Sources */,
 				1215D7981F0A92DC00CD95BC /* CYLTabBarControllerConfig.m in Sources */,
+				120E89E31F0BB0B0003A7B92 /* MFAppHelper.m in Sources */,
 				120E89921F0B2C12003A7B92 /* BaseViewController.m in Sources */,
 				120E89D01F0B38B7003A7B92 /* BaseNavigationController.m in Sources */,
 				120E89BD1F0B3428003A7B92 /* UIView+Extension.m in Sources */,
 				120E89B61F0B3428003A7B92 /* UIButton+Addtion.m in Sources */,
+				120E89DD1F0BA513003A7B92 /* MBProgressHUD+HUD.m in Sources */,
+				120E89D71F0B43C5003A7B92 /* MF_NetAPIManager.m in Sources */,
 				120E89B31F0B3428003A7B92 /* NSDictionary+Log.m in Sources */,
 				120E89B11F0B3428003A7B92 /* NSArray+Properties.m in Sources */,
 				1215D7A41F0A940C00CD95BC /* MFMineViewController.m in Sources */,
 				1215D79B1F0A933000CD95BC /* MFHomeViewController.m in Sources */,
+				120E89E01F0BB072003A7B92 /* AppDelegate+Check.m in Sources */,
 				12F014541EF979DD006ECD35 /* AppDelegate.m in Sources */,
 				120E89B51F0B3428003A7B92 /* UIBarButtonItem+YB_Extension.m in Sources */,
 				120E89D41F0B3EC9003A7B92 /* MFNetAPIClient.m in Sources */,

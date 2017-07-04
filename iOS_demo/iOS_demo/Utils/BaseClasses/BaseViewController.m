@@ -35,7 +35,19 @@ DZNEmptyDataSetDelegate
     UIBarButtonItem *leftBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
     self.navigationItem.leftBarButtonItem = leftBarItem;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(netReachableOperation) name:@"netReflash" object:nil];
+    
 }
+
+//有网络信号时候重新刷新数据
+- (void)netReachableOperation{
+    [self loadData];
+}
+
+-(void)loadData{
+    
+}
+
 
 #pragma mark - 返回点击事件
 - (void)back{
@@ -315,5 +327,8 @@ DZNEmptyDataSetDelegate
     return rtnObject;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

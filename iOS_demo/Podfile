@@ -32,6 +32,7 @@ target 'iOS_demo' do
     pod 'DZNEmptyDataSet', '~> 1.8.1'
     pod 'FMDB', '~> 2.7.2'
     pod 'MLeaksFinder', '~> 0.2.1'
+    pod 'YTKKeyValueStore', '~> 0.1.2'#本地网络数据缓存
 
   target 'iOS_demoTests' do
     inherit! :search_paths

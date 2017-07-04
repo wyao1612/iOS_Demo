@@ -16,3 +16,4 @@
 #define kUnReadKey_notification_AT @"notification_at"
 #define kUnReadKey_notification_Comment @"notification_comment"
 #define kUnReadKey_notification_System @"notification_system"
+#define kRAFNChangedNotification @"kRAFNChangedNotification"

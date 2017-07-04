@@ -55,6 +55,9 @@ UITableViewDataSource
 -(void)setTitleCHView:(NSString*)titleCHname andEngName:(NSString*)titleEngname;
 
 
+- (void)netReachableOperation;
+-(void)loadData;
+
 //- (void)tabBarItemClicked;
 //- (void)loginOutToLoginVC;
 //+ (void)handleNotificationInfo:(NSDictionary *)userInfo applicationState:(UIApplicationState)applicationState;
