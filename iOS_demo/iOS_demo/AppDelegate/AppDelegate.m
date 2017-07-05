@@ -18,10 +18,39 @@
 
 #define RANDOM_COLOR [UIColor colorWithHue: (arc4random() % 256 / 256.0) saturation:((arc4random()% 128 / 256.0 ) + 0.5) brightness:(( arc4random() % 128 / 256.0 ) + 0.5) alpha:1]
 
+
+/** IQKeyboardManager设置*/
+-(void)setKeyBoardAPI{
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;//关闭设置为NO, 默认值为NO.
+    manager.shouldResignOnTouchOutside = YES;//这个是点击空白区域键盘收缩的开关
+    manager.enableAutoToolbar = NO;//这个是它自带键盘工具条开关
+    [manager setToolbarManageBehaviour:IQAutoToolbarBySubviews];//设置键盘returnKey的关键字 ,点击键盘上的next键，自动跳转到下一个输入框，最后一个输入框点击完成，自动收起键盘。
+}
+
+/** 设置程序API*/
+- (void)settingAPI{
+    //初始化服务器，默认为正式服务器
+    if (![MFUserDefault objectForKey:@"currentAPI"]) {
+        [MFUserDefault setObject:HostAPI forKey:@"currentAPI"];
+        [MFUserDefault synchronize];
+    }else{//覆盖最新的
+        [MFUserDefault setObject:HostAPI forKey:@"currentAPI"];
+        [MFUserDefault synchronize];
+    }
+    
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 设置主窗口,并设置根控制器
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
+    
+    
+    //设置API
+    [self settingAPI];
+    //设置键盘
+    [self setKeyBoardAPI];
     
     /** 自定义tabbar*/
     [CYLPlusButtonSubclass registerPlusButton];

@@ -7,6 +7,8 @@
 //
 
 #import "MFHomeViewController.h"
+#import "MFLoginViewController.h"
+
 
 @interface MFHomeViewController ()
 
@@ -20,20 +22,20 @@
     self.view.backgroundColor = WHITECOLOR;
     self.name = @"首页";
 
-    [MFNetAPIClient getWithUrl:@"https://api.douban.com/v2/book/1220562" refreshCache:YES success:^(id responseObject) {
-        
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseObject options:NSJSONWritingPrettyPrinted error:nil];
-        NSLog(@"%@",[[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
-        [MBProgressHUD showError:@"缓存大小为"];
-        NSLog(@"缓存大小为%@",  [MFNetAPIClient fileSizeWithDBPath]);
-    } fail:^(NSError *error) {
-        [MBProgressHUD showError:@"错误"];
-    }];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 50, 20)];
+    btn.backgroundColor = OrangeCOLOR;
+    [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)btnClick{
+    MFLoginViewController *vc = [[MFLoginViewController alloc] init];
+    vc.showDismissButton = YES;
+    UINavigationController *nav = [[BaseNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

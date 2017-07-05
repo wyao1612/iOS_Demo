@@ -2,12 +2,12 @@
 //  MFNetAPIClient.h
 //  iOS_demo
 //
-//  Created by wyao on 2017/7/4.
+//  Created by wyao on 2017/7/5.
 //  Copyright © 2017年 wyao. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPSessionManager.h"
+
 /**
  *该类默认只要导入头文件就会自动检测网络状态，且会在没有网络和未知网络的时候，自动从本地数据库中读取缓存。
  *数据库网络缓存是基于猿题库公司对FMDB进行封装的轻量级 key-value 存储框架
@@ -17,7 +17,7 @@
 
 
 
-@interface MFNetAPIClient : AFHTTPSessionManager
+@interface MFNetAPIClient : NSObject
 
 
 typedef NS_ENUM(NSUInteger, YWRequestSerializer) {
@@ -44,7 +44,6 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  *********************************************************************/
 - (NSString *)analyticalHttpErrorDescription:(NSError *)error;
 
-+ (MFNetAPIClient*)sharedTools;
 
 
 #pragma mark - 网络监测
@@ -186,6 +185,23 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
 
 
 /**
+ 不需要缓存的网络请求API
+ 
+ @param httpMethod 网络方式
+ @param url        url地址
+ @param params     参数
+ @param progress   进度
+ @param success    请求成功回调
+ @param fail       请求失败回调
+ */
++ (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
+                                  url:(NSString *)url
+                               params:(NSDictionary *)params
+                             progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
+                              success:(void(^)(id responseObject))success
+                                 fail:(void(^)(NSError *error))fail;
+
+/**
  *  取消指定标记的网络请求
  *
  *  @param requestID 指定标记id
@@ -198,4 +214,6 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  *  @param requestIDList 指定标记组
  */
 - (void)cancelRequestWithRequestIDList:(NSArray *)requestIDList;
+
++ (instancetype)new UNAVAILABLE_ATTRIBUTE;
 @end

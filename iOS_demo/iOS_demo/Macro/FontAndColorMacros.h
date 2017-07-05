@@ -10,7 +10,7 @@
 #ifndef FontAndColorMacros_h
 #define FontAndColorMacros_h
 
-
+#import "UIColor+expanded.h"
 
 /**
  颜色
@@ -25,13 +25,36 @@
 #define SHENTEXTCOLOR RGBColor(102, 102, 102)//深色/666666
 #define LIGHTTEXTCOLOR RGBColor(153, 153, 153)//灰色///999999
 #define GRAYCOLOR RGBColor(230, 230, 230)//---浅色//e6e6e6、/切割线色
-#define GLOBALCOLOR RGBColor(27,158,106)//绿色///
+#define GLOBALCOLOR [UIColor colorWithHex:0xffffff]
 #define OrangeCOLOR RGBColor(252,84,0)//橘色、价格数据颜色
 #define kColorD8DDE4 [UIColor colorWithHex:0xD8DDE4]
 /**
  字体
  */
 #define FONT(F)  [UIFont systemFontOfSize:F]
+
+#define kColorNavBG                 [UIColor colorWithString:@"0xF8F8F8"]
+#define kColorNavTitle              [UIColor colorWithString:@"0x323A45"]
+#define kColorTableBG               [UIColor colorWithString:@"0xFFFFFF"]
+#define kColorTableSectionBg        [UIColor colorWithString:@"0xF2F4F6"]
+#define kColor222                   [UIColor colorWithString:@"0x222222"]
+#define kColor666                   [UIColor colorWithString:@"0x666666"]
+#define kColor999                   [UIColor colorWithString:@"0x999999"]
+#define kColorBrandGreen            [UIColor colorWithString:@"0x2EBE76"]
+#define kColorBrandRed              [UIColor colorWithString:@"0xF56061"]
+
+#pragma mark New Color
+#define kColorDark3                 [UIColor colorWithString:@"0x323A45"]
+#define kColorDark4                 [UIColor colorWithString:@"0x425063"]
+#define kColorDark7                 [UIColor colorWithString:@"0x76808E"]
+#define kColorDarkA                 [UIColor colorWithString:@"0xA9B3BE"]
+#define kColorDarkD                 [UIColor colorWithString:@"0xD8DDE4"]
+#define kColorDarkF                 [UIColor colorWithString:@"0xF2F4F6"]
+#define kColorWhite                 [UIColor colorWithString:@"0xFFFFFF"]
+#define kColorActionGreen           [UIColor colorWithString:@"0x2EBE76"]
+#define kColorActionRed             [UIColor colorWithString:@"0xF56061"]
+#define kColorActionYellow          [UIColor colorWithString:@"0xF3C033"]
+
 
 ///正常字体
 #define H30 [UIFont systemFontOfSize:30]
@@ -67,11 +90,10 @@
 #define HB10 [UIFont boldSystemFontOfSize:10]
 #define HB8 [UIFont boldSystemFontOfSize:8]
 
-#define kBackColor UIColorFromRGB(0xd81460)
 
 //链接颜色
-#define kLinkAttributes     @{(__bridge NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],(NSString *)kCTForegroundColorAttributeName : (__bridge id)kColorBrandGreen.CGColor}
-#define kLinkAttributesActive       @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],(NSString *)kCTForegroundColorAttributeName : (__bridge id)[[UIColor colorWithHexString:@"0x1b9d59"] CGColor]}
+#define kLinkAttributes     @{(__bridge NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],(NSString *)kCTForegroundColorAttributeName : (__bridge id)[[UIColor colorWithHexString:@"0xff798d"] CGColor]}
+#define kLinkAttributesActive       @{(NSString *)kCTUnderlineStyleAttributeName : [NSNumber numberWithBool:NO],(NSString *)kCTForegroundColorAttributeName : (__bridge id)[[UIColor colorWithHexString:@"0xff798d"] CGColor]}
 
 
 #endif /* FontAndColorMacros_h */

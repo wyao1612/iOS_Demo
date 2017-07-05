@@ -11,6 +11,7 @@
 @implementation YW_TextField
 
 -(void)setTextFiledLeftImageName:(NSString*)image{
+    
     self.leftViewMode = UITextFieldViewModeAlways;
     self.leftView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:image]];
     //设置边框的颜色
@@ -21,8 +22,8 @@
     self.layer.borderColor = [borderColor CGColor];
     // 设置光标的颜色
     self.tintColor = [UIColor redColor];
-    // 设置占位文字的颜色为红色(注意下面的'self'代表你要修改占位文字的UITextField控件)
-    [self setValue:LIGHTTEXTCOLOR forKeyPath:@"_placeholderLabel.textColor"];
+    // 设置占位文字的颜色(注意下面的'self'代表你要修改占位文字的UITextField控件)
+    [self setValue:WHITECOLOR forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 //重写左边图标的X值

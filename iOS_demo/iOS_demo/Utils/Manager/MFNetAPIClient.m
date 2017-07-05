@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, YWNetworkStatus) {
 @interface MFNetAPIClient()
 @property (nonatomic, strong) NSMutableDictionary *dataTaskdict;
 @property (nonatomic, strong) NSNumber *recordedRequestId;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 @end
 
 
@@ -83,24 +84,32 @@ static YTKKeyValueStore *_store;
 static YWNetworkStatus  _status;
 static BOOL    _isHasNetWork;
 
-static MFNetAPIClient *manager = nil;
-static dispatch_once_t onceToken;
-
 #pragma mark - 单例方法
-+ (MFNetAPIClient*)sharedTools {
+
++ (instancetype)sharedInstance{
     
+    static MFNetAPIClient *_MFNetAPIClient = nil;
+    static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        _MFNetAPIClient = [[MFNetAPIClient alloc] init];
+    });
+    return _MFNetAPIClient;
+}
+
+- (id)init{
+    self = [super init];
+    if (self) {
         
         [AFNetworkActivityIndicatorManager sharedManager].enabled = YES;
-        manager = [MFNetAPIClient manager];
+        _manager = [AFHTTPSessionManager manager];
         //设置返回数据为json
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.requestSerializer.stringEncoding  = NSUTF8StringEncoding;
-        manager.requestSerializer.timeoutInterval = 10.f;
+        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        _manager.requestSerializer.stringEncoding  = NSUTF8StringEncoding;
+        _manager.requestSerializer.timeoutInterval = 10;
         // 设置当前 instance 的可接受类型
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"text/html",@"text/json",@"text/plain",@"text/javascript",@"text/xml",@"image/*"]];
-    });
-    return manager;
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithArray:@[@"application/json",@"text/html",@"text/json",@"text/plain",@"text/javascript",@"text/xml",@"image/*"]];
+    }
+    return self;
 }
 
 /**
@@ -109,7 +118,7 @@ static dispatch_once_t onceToken;
 +(void)startMonitoringNetworkStatus
 {
     _isHasNetWork = YES;
-
+    
     AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
     [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status)
@@ -137,7 +146,7 @@ static dispatch_once_t onceToken;
                 break;
         }
         //暂时不适用AFN的请求
-       //[[NSNotificationCenter defaultCenter] postNotificationName:kRAFNChangedNotification object:nil];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:kRAFNChangedNotification object:nil];
     }];
     [manager startMonitoring];
 }
@@ -170,7 +179,7 @@ static dispatch_once_t onceToken;
              responseType:(YWResponseSerializer)responseType
 {
     
-    MFNetAPIClient *httpMethod  = [MFNetAPIClient sharedTools];
+    AFHTTPSessionManager *httpMethod = [MFNetAPIClient sharedInstance].manager;
     httpMethod.requestSerializer.timeoutInterval = timeOut;
     switch (requestType) {
         case YWRequestSerializerJSON:
@@ -202,7 +211,7 @@ static dispatch_once_t onceToken;
  */
 + (void)setHttpBodyWithDic:(NSDictionary *)httpBody
 {
-    MFNetAPIClient *httpMethod = [MFNetAPIClient sharedTools];
+    AFHTTPSessionManager *httpMethod = [MFNetAPIClient sharedInstance].manager;
     for (NSString *key in httpBody.allKeys) {
         if (httpBody[key] != nil) {
             [httpMethod.requestSerializer setValue:httpBody[key] forHTTPHeaderField:key];
@@ -220,7 +229,7 @@ static dispatch_once_t onceToken;
     return _isHasNetWork;
 }
 
-#pragma mark -  /**************GET 请求API ******************/
+#pragma mark -  **************GET 请求API ******************
 #pragma mark - GET请求
 + (MFNetAPIClient *)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
@@ -253,37 +262,47 @@ static dispatch_once_t onceToken;
     [_store createTableWithName:httpCache];
     MFNetAPIClient *request = nil;
     
-    NSURLSessionDataTask *dataTask;
-    NSNumber *requestId = [MFNetAPIClient sharedTools].recordedRequestId;
+    NSURLSessionDataTask *dataTask = nil;
+    NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
+    
+    
+    //拼接地址
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",[MFUserDefault objectForKey:@"currentAPI"],url];
     
     if ([[MFAppHelper sharedInstance] isReachable]) {//有网络操作
         if (!refreshCache) {
-            [self requestNotCacheWithHttpMethod:0 url:url params:params progress:progress success:success fail:fail];
+            [self requestNotCacheWithHttpMethod:0 url:urlString params:params progress:progress success:success fail:fail];
         }else {
-            NSDictionary *dict = [_store getObjectById:url  fromTable:httpCache];
+            
+            NSDictionary *dict = [_store getObjectById:urlString  fromTable:httpCache];
             if (dict) {
                 success(dict);
             }else {
-             dataTask = [[MFNetAPIClient sharedTools] GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+                dataTask = [[MFNetAPIClient sharedInstance].manager GET:urlString parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+                    
                     progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
+                    
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                    
                     //缓存返回的数据
-                    [_store putObject:responseObject withId:url intoTable:httpCache];
-                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+                    [_store putObject:responseObject withId:urlString intoTable:httpCache];
+                    
+                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
                     if (storedTask == nil) {
                         success?success(nil):nil;
                         return;// 如果这个operation是被cancel的，那就不用处理回调了。
                     }
+                    
                     //保存此次操作
-                    [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+                    [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
                     //返回数据
                     success?success(responseObject):nil;
-                    NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",url,params,responseObject);
+                    NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",urlString,params,responseObject);
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                     
-                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
                     if (storedTask == nil) return;
-                    [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+                    [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
                     
                     fail?fail(error):nil;
                     NSLog(@"error = %@",error.description);
@@ -291,7 +310,7 @@ static dispatch_once_t onceToken;
             }
         }
     } else {//无网络操作
-        NSDictionary *dict = [_store getObjectById:url  fromTable:httpCache];
+        NSDictionary *dict = [_store getObjectById:urlString  fromTable:httpCache];
         if (dict) {
             success(dict);
         }else {
@@ -299,6 +318,9 @@ static dispatch_once_t onceToken;
             NSLog(@"当前为无网络状态，本地也没有缓存数据");
         }
     }
+    
+    [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
+    
     return request;
 }
 
@@ -308,53 +330,56 @@ static dispatch_once_t onceToken;
 
 #pragma mark - POST请求带params参数
 + (MFNetAPIClient *)postWithUrl:(NSString *)url
-                        refreshCache:(BOOL)refreshCache
-                              params:(NSDictionary *)params
-                             success:(void(^)(id responseObject))success
-                                fail:(void(^)(NSError *error))fail
+                   refreshCache:(BOOL)refreshCache
+                         params:(NSDictionary *)params
+                        success:(void(^)(id responseObject))success
+                           fail:(void(^)(NSError *error))fail
 {
     return [self postWithUrl:url refreshCache:refreshCache params:params progress:nil success:success fail:fail];
 }
 #pragma mark - POST请求带进度
 + (MFNetAPIClient *)postWithUrl:(NSString *)url
-                        refreshCache:(BOOL)refreshCache
-                              params:(NSDictionary *)params
-                            progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
-                             success:(void(^)(id responseObject))success
-                                fail:(void(^)(NSError *error))fail
+                   refreshCache:(BOOL)refreshCache
+                         params:(NSDictionary *)params
+                       progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
+                        success:(void(^)(id responseObject))success
+                           fail:(void(^)(NSError *error))fail
 {
     MFNetAPIClient *request = nil;
     
     NSURLSessionDataTask *dataTask;
-    NSNumber *requestId = [MFNetAPIClient sharedTools].recordedRequestId;
+    NSNumber *requestId = [[MFNetAPIClient sharedInstance] recordedRequestId];
+    
+    //拼接地址
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",[MFUserDefault objectForKey:@"currentAPI"],url];
     
     if ([MFNetAPIClient getCurrentNetWorkStatus]) {
         if (!refreshCache) {
-            [self requestNotCacheWithHttpMethod:1 url:url params:params progress:progress success:success fail:fail];
+            [self requestNotCacheWithHttpMethod:1 url:urlString params:params progress:progress success:success fail:fail];
         }else {
-            NSDictionary *dict =   [_store getObjectById:url  fromTable:httpCache];
+            NSDictionary *dict =   [_store getObjectById:urlString  fromTable:httpCache];
             if (dict) {
                 success(dict);
             }else {
-              dataTask = [[MFNetAPIClient sharedTools] POST:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+                dataTask = [[MFNetAPIClient sharedInstance].manager POST:urlString parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
                     progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     //缓存返回的数据
-                    [_store putObject:responseObject withId:url intoTable:httpCache];
-                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+                    [_store putObject:responseObject withId:urlString intoTable:httpCache];
+                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
                     if (storedTask == nil) {
                         success?success(nil):nil;
                         return;// 如果这个operation是被cancel的，那就不用处理回调了。
                     }
                     //保存此次操作
-                    [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+                    [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
                     //返回数据
                     success?success(responseObject):nil;
-                    NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",url,params,responseObject);
+                    NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",urlString,params,responseObject);
                 } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+                    NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
                     if (storedTask == nil) return;
-                    [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+                    [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
                     
                     fail?fail(error):nil;
                     NSLog(@"error = %@",error.description);
@@ -362,7 +387,7 @@ static dispatch_once_t onceToken;
             }
         }
     } else {
-        NSDictionary *dict =  [_store getObjectById:url  fromTable:httpCache];
+        NSDictionary *dict =  [_store getObjectById:urlString  fromTable:httpCache];
         if (dict) {
             success(dict);
         }else {
@@ -374,7 +399,7 @@ static dispatch_once_t onceToken;
         }
     }
     
-    [MFNetAPIClient sharedTools].dataTaskdict[requestId] = dataTask;
+    [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
     
     return request;
 }
@@ -389,65 +414,68 @@ static dispatch_once_t onceToken;
                               success:(void(^)(id responseObject))success
                                  fail:(void(^)(NSError *error))fail
 {
-    NSURLSessionDataTask *dataTask;
-    NSNumber *requestId = [MFNetAPIClient sharedTools].recordedRequestId;
+    
+    NSURLSessionDataTask *dataTask = nil;
+    NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
     
     if (httpMethod == 0) {
-       dataTask =  [[MFNetAPIClient sharedTools]   GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
+        dataTask =  [[MFNetAPIClient sharedInstance].manager   GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
             progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+            
             //缓存返回的数据
             [_store putObject:responseObject withId:url intoTable:httpCache];
-            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
             if (storedTask == nil) {
                 success?success(nil):nil;
                 return;// 如果这个operation是被cancel的，那就不用处理回调了。
             }
             //保存此次操作
-            [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+            [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
             //返回数据
             success?success(responseObject):nil;
             NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",url,params,responseObject);
-
+            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
-            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
             if (storedTask == nil) return;
-            [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+            [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
             
             fail?fail(error):nil;
             NSLog(@"error = %@",error.description);
         }];
     }else {
-       dataTask =  [[MFNetAPIClient sharedTools]  POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
+        dataTask =  [[MFNetAPIClient sharedInstance].manager  POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
             progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-          
+            
             //缓存返回的数据
             [_store putObject:responseObject withId:url intoTable:httpCache];
-            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
             if (storedTask == nil) {
                 success?success(nil):nil;
                 return;// 如果这个operation是被cancel的，那就不用处理回调了。
             }
             //保存此次操作
-            [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+            [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
             //返回数据
             success?success(responseObject):nil;
             NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",url,params,responseObject);
-
+            
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             
-            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedTools].dataTaskdict[requestId];
+            NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
             if (storedTask == nil) return;
-            [[MFNetAPIClient sharedTools].dataTaskdict removeObjectForKey:requestId];
+            [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
             
             fail?fail(error):nil;
             NSLog(@"error = %@",error.description);
         }];
     }
+    
+      [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
 }
 
 #pragma mark - 取消对应Id的网络方法

@@ -51,7 +51,7 @@
 /*
  获取缓存
  */
-#define  WSDUserDefault [NSUserDefaults standardUserDefaults]
+#define  MFUserDefault [NSUserDefaults standardUserDefaults]
 /*
  读取图片
  */

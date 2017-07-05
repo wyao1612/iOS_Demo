@@ -12,7 +12,7 @@
 #define URLMacros_h
 
 //Coding App 的专属链接
-#define kCodingAppScheme @"coding-net:"
+#define kCodingAppScheme @""
 
 
 #define kAppUrl         @""//appStore地址
@@ -21,9 +21,9 @@
 
 //API
 #ifdef DEBUG
-    #define HostAPI    @"http://192.168.19.126:9080/powerstationframework/"
+    #define HostAPI   @"http://api.miss-f.cn/app_dev.php"
 #else
-    #define TestAPI    @"http://115.236.69.110:8525/powerstationframework/"
+    #define HostAPI   @"http://api.miss-f.cn/app_dev.php"
 #endif
 
 
