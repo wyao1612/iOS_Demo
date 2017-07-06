@@ -84,8 +84,8 @@
     titleStr = titleStr.length > 0? titleStr: @"正在获取数据...";
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:kKeyWindow animated:YES];
     hud.tag = kHUDQueryViewTag;
-    hud.labelText = titleStr;
-    hud.labelFont = [UIFont boldSystemFontOfSize:15.0];
+    hud.label.text = titleStr;
+    hud.label.font = [UIFont boldSystemFontOfSize:15.0];
     hud.margin = 10.f;
     return hud;
 }

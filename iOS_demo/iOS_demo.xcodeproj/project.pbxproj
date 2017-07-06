@@ -64,6 +64,7 @@
 		12AB05881F0CD9E40089E13A /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AB05831F0CD9E40089E13A /* UIDevice+Info.m */; };
 		12AB05891F0CD9E40089E13A /* UIImage+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AB05851F0CD9E40089E13A /* UIImage+Common.m */; };
 		12AB058A1F0CD9E40089E13A /* UILabel+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AB05871F0CD9E40089E13A /* UILabel+Common.m */; };
+		12AB058D1F0CF1260089E13A /* NSObject+params.m in Sources */ = {isa = PBXBuildFile; fileRef = 12AB058C1F0CF1260089E13A /* NSObject+params.m */; };
 		12F014541EF979DD006ECD35 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12F014531EF979DD006ECD35 /* AppDelegate.m */; };
 		19E7DCF06CBBAF79F216EDAD /* libPods-iOS_demoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 074134E8EE43072D43F5DE4B /* libPods-iOS_demoTests.a */; };
 		53C50C2616CC1133D558A393 /* libPods-iOS_demoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BCF5FFD299F3B61096B6F072 /* libPods-iOS_demoUITests.a */; };
@@ -202,6 +203,8 @@
 		12AB05851F0CD9E40089E13A /* UIImage+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Common.m"; sourceTree = "<group>"; };
 		12AB05861F0CD9E40089E13A /* UILabel+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+Common.h"; sourceTree = "<group>"; };
 		12AB05871F0CD9E40089E13A /* UILabel+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Common.m"; sourceTree = "<group>"; };
+		12AB058B1F0CF1260089E13A /* NSObject+params.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+params.h"; sourceTree = "<group>"; };
+		12AB058C1F0CF1260089E13A /* NSObject+params.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+params.m"; sourceTree = "<group>"; };
 		12F014521EF979DD006ECD35 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		12F014531EF979DD006ECD35 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		28747986577E054B3275DDBC /* Pods-iOS_demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS_demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-iOS_demo/Pods-iOS_demo.release.xcconfig"; sourceTree = "<group>"; };
@@ -450,6 +453,8 @@
 				120E899B1F0B3428003A7B92 /* NSDictionary+Log.m */,
 				120E899C1F0B3428003A7B92 /* NSString+extension.h */,
 				120E899D1F0B3428003A7B92 /* NSString+extension.m */,
+				12AB058B1F0CF1260089E13A /* NSObject+params.h */,
+				12AB058C1F0CF1260089E13A /* NSObject+params.m */,
 				120E899E1F0B3428003A7B92 /* UIBarButtonItem+YB_Extension.h */,
 				120E899F1F0B3428003A7B92 /* UIBarButtonItem+YB_Extension.m */,
 				120E89A01F0B3428003A7B92 /* UIButton+Addtion.h */,
@@ -967,6 +972,7 @@
 				128D58CF1F0BED0D002A42A3 /* MFLoginViewController.m in Sources */,
 				120E89BD1F0B3428003A7B92 /* UIView+Extension.m in Sources */,
 				120E89B61F0B3428003A7B92 /* UIButton+Addtion.m in Sources */,
+				12AB058D1F0CF1260089E13A /* NSObject+params.m in Sources */,
 				120E89DD1F0BA513003A7B92 /* MBProgressHUD+HUD.m in Sources */,
 				120E89D71F0B43C5003A7B92 /* MF_NetAPIManager.m in Sources */,
 				120E89B31F0B3428003A7B92 /* NSDictionary+Log.m in Sources */,

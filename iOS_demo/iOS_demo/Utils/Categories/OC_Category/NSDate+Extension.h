@@ -97,7 +97,7 @@
 - (NSInteger) hoursBeforeDate: (NSDate *) aDate;
 - (NSInteger) daysAfterDate: (NSDate *) aDate;
 - (NSInteger) daysBeforeDate: (NSDate *) aDate;
-- (NSInteger)distanceInDaysToDate:(NSDate *)anotherDate;
+- (NSInteger) distanceInDaysToDate:(NSDate *)anotherDate;
 
 // Decomposing dates
 @property (readonly) NSInteger nearestHour;
@@ -113,12 +113,6 @@
 
 - (NSDate *)dateWithYMD;
 - (NSDate *)dateWithFormatter:(NSString *)formatter;
-
-/**
- * 比较from和self的时间差值
- */
-- (NSDateComponents *)deltaFrom:(NSDate *)from;
-
 
 
 

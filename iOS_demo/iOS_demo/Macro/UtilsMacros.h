@@ -10,6 +10,8 @@
 #ifndef UtilsMacros_h
 #define UtilsMacros_h
 
+#define  MFApp_Secret    @"56180453e4dcc790f4bf0cd3b0d4d7f9"
+#define  MFApp_key       @"56180453e"
 
 /**
  日志打印

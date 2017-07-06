@@ -32,24 +32,13 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
 };
 
 
-
-
-/*********************************************************************
- 函数名称 : analyticalHttpErrorDescription:
- 函数描述 : 解析http 200之外的错误日志信息
- 输入参数 :
- 输出参数 :
- 返回值 :
- 作者   : wyao
- *********************************************************************/
-- (NSString *)analyticalHttpErrorDescription:(NSError *)error;
-
-
+#pragma mark - 单例方法
++ (instancetype)sharedInstance;
 
 #pragma mark - 网络监测
-+ (void)startMonitoringNetworkStatus;
-+ (BOOL)isNetReachable;
-+ (BOOL)isWifiOn;
+- (void)startMonitoringNetworkStatus;
+- (BOOL)isNetReachable;
+- (BOOL)isWifiOn;
 
 #pragma mark - 程序入口设置网络请求头API  一般调用一次即可
 /**
@@ -59,7 +48,7 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param responseType 默认响应格式为JSON格式
  @param timeOut      请求超时时间 默认为20秒
  */
-+(void)setTimeOutWithTime:(NSTimeInterval)timeOut
+-(void)setTimeOutWithTime:(NSTimeInterval)timeOut
               requestType:(YWRequestSerializer)requestType
              responseType:(YWResponseSerializer)responseType;
 
@@ -68,7 +57,7 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  
  @param httpBody 根据服务器要求 配置相应的请求体
  */
-+ (void)setHttpBodyWithDic:(NSDictionary *)httpBody;
+- (void)setHttpBodyWithDic:(NSDictionary *)httpBody;
 
 #pragma mark - 网络工具 API
 /**
@@ -76,18 +65,18 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  
  @return YES 有网  NO 没有联网
  */
-+(BOOL)getCurrentNetWorkStatus;
+-(BOOL)getCurrentNetWorkStatus;
 
 /**
  获取网络缓存 文件大小
  
  @return size  单位M 默认保留两位小数 如: 0.12M
  */
-+ (NSString *)fileSizeWithDBPath;
+- (NSString *)fileSizeWithDBPath;
 /**
  清除所有网络缓存
  */
-+ (void)cleanNetWorkRefreshCache;
+- (void)cleanNetWorkRefreshCache;
 
 #pragma mark -  GET 请求API
 
@@ -98,10 +87,9 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param refreshCache 是否对该页面进行缓存
  @param success      请求成功回调
  @param fail         请求失败回调
- 
- @return self
+
  */
-+ (MFNetAPIClient *)getWithUrl:(NSString *)url
+- (void)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
                        success:(void(^)(id responseObject))success
                           fail:(void(^)(NSError *error))fail;
@@ -114,10 +102,9 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param params       请求数据向服务器传的参数
  @param success      请求成功回调
  @param fail         请求失败回调
- 
- @return self
+
  */
-+ (MFNetAPIClient *)getWithUrl:(NSString *)url
+- (void)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
                         params:(NSDictionary *)params
                        success:(void(^)(id responseObject))success
@@ -132,10 +119,9 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param progress     请求进度回调
  @param success      请求成功回调
  @param fail         请求失败回调
- 
- @return self
+
  */
-+ (MFNetAPIClient *)getWithUrl:(NSString *)url
+- (void)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
                         params:(NSDictionary *)params
                       progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
@@ -155,9 +141,8 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param success      请求成功回调
  @param fail         请求失败回调
  
- @return self
  */
-+ (MFNetAPIClient *)postWithUrl:(NSString *)url
+- (void)postWithUrl:(NSString *)url
                    refreshCache:(BOOL)refreshCache
                          params:(NSDictionary *)params
                         success:(void(^)(id responseObject))success
@@ -173,10 +158,9 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param progress     请求进度回调
  @param success      请求成功回调
  @param fail         请求失败回调
- 
- @return self
+
  */
-+ (MFNetAPIClient *)postWithUrl:(NSString *)url
+- (void)postWithUrl:(NSString *)url
                    refreshCache:(BOOL)refreshCache
                          params:(NSDictionary *)params
                        progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
@@ -194,7 +178,7 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param success    请求成功回调
  @param fail       请求失败回调
  */
-+ (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
+- (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
                                   url:(NSString *)url
                                params:(NSDictionary *)params
                              progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
@@ -215,5 +199,4 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  */
 - (void)cancelRequestWithRequestIDList:(NSArray *)requestIDList;
 
-+ (instancetype)new UNAVAILABLE_ATTRIBUTE;
 @end

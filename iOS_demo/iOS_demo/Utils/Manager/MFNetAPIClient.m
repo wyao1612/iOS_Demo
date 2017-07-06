@@ -11,7 +11,7 @@
 #import "AFNetworkActivityIndicatorManager.h"
 #import "MFAppHelper.h"
 
-#define PATH_OF_NetWork    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+#define PATH_OF_NetWork   [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 #define NoNetworkCode -1001
 #define NoNetworkDomain @"网络出走了~"
 
@@ -53,30 +53,6 @@ typedef NS_ENUM(NSUInteger, YWNetworkStatus) {
     return _dataTaskdict;
 }
 
-- (NSString *)analyticalHttpErrorDescription:(NSError *)error
-{
-    __weak NSDictionary *userInfo = error.userInfo;
-    if (userInfo.count > 0) {
-        return [self stringForValue:[userInfo objectForKey:@"NSLocalizedDescription"]];
-    }
-    return error.description;
-}
-
-- (NSString *)stringForValue:(id)obj
-{
-    if (obj == nil||
-        obj == NULL||
-        [obj isKindOfClass:[NSNull class]]) {
-        return @"";
-    }
-    else if ([obj isKindOfClass:[NSString class]]){
-        return obj;
-    }
-    else if ([obj isKindOfClass:[NSNumber class]]){
-        return [obj stringValue];
-    }
-    return @"";
-}
 
 
 static NSString *const  httpCache = @"MFNetworkCache";
@@ -115,7 +91,7 @@ static BOOL    _isHasNetWork;
 /**
  监测网络状态 (在程序入口，调用一次即可)
  */
-+(void)startMonitoringNetworkStatus
+-(void)startMonitoringNetworkStatus
 {
     _isHasNetWork = YES;
     
@@ -153,15 +129,15 @@ static BOOL    _isHasNetWork;
 
 
 //判断是否联网
-+ (BOOL)isNetReachable{
+- (BOOL)isNetReachable{
     return [self isWifiOn] || [self isWWanReachable];
 }
 //是否在无线状态下
-+ (BOOL)isWifiOn{
+- (BOOL)isWifiOn{
     return [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWiFi;
 }
 //是否在手机信号状态下
-+ (BOOL)isWWanReachable{
+- (BOOL)isWWanReachable{
     return [AFNetworkReachabilityManager sharedManager].networkReachabilityStatus == AFNetworkReachabilityStatusReachableViaWWAN;
 }
 
@@ -174,7 +150,7 @@ static BOOL    _isHasNetWork;
  @param responseType 默认响应格式为JSON格式
  @param timeOut      请求超时时间 默认为20秒
  */
-+(void)setTimeOutWithTime:(NSTimeInterval)timeOut
+-(void)setTimeOutWithTime:(NSTimeInterval)timeOut
               requestType:(YWRequestSerializer)requestType
              responseType:(YWResponseSerializer)responseType
 {
@@ -209,7 +185,7 @@ static BOOL    _isHasNetWork;
  
  @param httpBody 根据服务器要求 配置相应的请求体
  */
-+ (void)setHttpBodyWithDic:(NSDictionary *)httpBody
+- (void)setHttpBodyWithDic:(NSDictionary *)httpBody
 {
     AFHTTPSessionManager *httpMethod = [MFNetAPIClient sharedInstance].manager;
     for (NSString *key in httpBody.allKeys) {
@@ -224,31 +200,31 @@ static BOOL    _isHasNetWork;
  获取当前的网络状态
  @return YES 有网  NO 没有联网
  */
-+(BOOL)getCurrentNetWorkStatus
+-(BOOL)getCurrentNetWorkStatus
 {
     return _isHasNetWork;
 }
 
 #pragma mark -  **************GET 请求API ******************
 #pragma mark - GET请求
-+ (MFNetAPIClient *)getWithUrl:(NSString *)url
+- (void)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
                        success:(void(^)(id responseObject))success
                           fail:(void(^)(NSError *error))fail
 {
-    return [self getWithUrl:url refreshCache:refreshCache params:nil success:success fail:fail];
+     [self getWithUrl:url refreshCache:refreshCache params:nil success:success fail:fail];
 }
 #pragma mark - GET请求带params参数
-+ (MFNetAPIClient *)getWithUrl:(NSString *)url
+- (void)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
                         params:(NSDictionary *)params
                        success:(void(^)(id responseObject))success
                           fail:(void(^)(NSError *error))fail
 {
-    return [self getWithUrl:url refreshCache:refreshCache params:params progress:nil success:success fail:fail];
+     [self getWithUrl:url refreshCache:refreshCache params:params progress:nil success:success fail:fail];
 }
 #pragma mark - GET请求带进度回调
-+ (MFNetAPIClient *)getWithUrl:(NSString *)url
+- (void)getWithUrl:(NSString *)url
                   refreshCache:(BOOL)refreshCache
                         params:(NSDictionary *)params
                       progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
@@ -256,12 +232,11 @@ static BOOL    _isHasNetWork;
                           fail:(void(^)(NSError *error))fail
 {
     
-    if (!url) return nil;
+    if (!url) return;
     
     _store = [[YTKKeyValueStore alloc] initDBWithName:httpCache];
     [_store createTableWithName:httpCache];
-    MFNetAPIClient *request = nil;
-    
+
     NSURLSessionDataTask *dataTask = nil;
     NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
     
@@ -273,6 +248,8 @@ static BOOL    _isHasNetWork;
         if (!refreshCache) {
             [self requestNotCacheWithHttpMethod:0 url:urlString params:params progress:progress success:success fail:fail];
         }else {
+            //处理参数
+            params =  [NSObject KeyWithParams:params];
             
             NSDictionary *dict = [_store getObjectById:urlString  fromTable:httpCache];
             if (dict) {
@@ -320,8 +297,6 @@ static BOOL    _isHasNetWork;
     }
     
     [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
-    
-    return request;
 }
 
 
@@ -329,40 +304,43 @@ static BOOL    _isHasNetWork;
 #pragma mark - /*********************** POST 请求API **********************/
 
 #pragma mark - POST请求带params参数
-+ (MFNetAPIClient *)postWithUrl:(NSString *)url
+- (void)postWithUrl:(NSString *)url
                    refreshCache:(BOOL)refreshCache
                          params:(NSDictionary *)params
                         success:(void(^)(id responseObject))success
                            fail:(void(^)(NSError *error))fail
 {
-    return [self postWithUrl:url refreshCache:refreshCache params:params progress:nil success:success fail:fail];
+     [self postWithUrl:url refreshCache:refreshCache params:params progress:nil success:success fail:fail];
 }
 #pragma mark - POST请求带进度
-+ (MFNetAPIClient *)postWithUrl:(NSString *)url
+- (void)postWithUrl:(NSString *)url
                    refreshCache:(BOOL)refreshCache
                          params:(NSDictionary *)params
                        progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
                         success:(void(^)(id responseObject))success
                            fail:(void(^)(NSError *error))fail
 {
-    MFNetAPIClient *request = nil;
-    
+  
     NSURLSessionDataTask *dataTask;
-    NSNumber *requestId = [[MFNetAPIClient sharedInstance] recordedRequestId];
+    NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
     
     //拼接地址
     NSString *urlString = [NSString stringWithFormat:@"%@%@",[MFUserDefault objectForKey:@"currentAPI"],url];
     
-    if ([MFNetAPIClient getCurrentNetWorkStatus]) {
+    if ([self getCurrentNetWorkStatus]) {
         if (!refreshCache) {
             [self requestNotCacheWithHttpMethod:1 url:urlString params:params progress:progress success:success fail:fail];
         }else {
+            //处理参数
+            params =  [NSObject KeyWithParams:params];
+            
             NSDictionary *dict =   [_store getObjectById:urlString  fromTable:httpCache];
+            
             if (dict) {
                 success(dict);
             }else {
                 dataTask = [[MFNetAPIClient sharedInstance].manager POST:urlString parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
-                    progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
+                    //NSLog(@"uploadProgress:%f",uploadProgress.fractionCompleted);
                 } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                     //缓存返回的数据
                     [_store putObject:responseObject withId:urlString intoTable:httpCache];
@@ -395,19 +373,17 @@ static BOOL    _isHasNetWork;
             NSLog(@"当前为无网络状态，本地也没有缓存数据");
             NSError *error =  [NSError errorWithDomain:NoNetworkDomain code:NoNetworkCode userInfo:nil];
             fail?fail(error):nil;
-            return nil;
         }
     }
     
     [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
     
-    return request;
 }
 
 
 
 #pragma mark - 不需要缓存的网络请求API
-+ (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
+- (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
                                   url:(NSString *)url
                                params:(NSDictionary *)params
                              progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
@@ -417,6 +393,8 @@ static BOOL    _isHasNetWork;
     
     NSURLSessionDataTask *dataTask = nil;
     NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
+    
+    params =  [NSObject KeyWithParams:params];
     
     if (httpMethod == 0) {
         dataTask =  [[MFNetAPIClient sharedInstance].manager   GET:url parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -447,7 +425,7 @@ static BOOL    _isHasNetWork;
         }];
     }else {
         dataTask =  [[MFNetAPIClient sharedInstance].manager  POST:url parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
-            progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+            //NSLog(@"uploadProgress:%f",uploadProgress.fractionCompleted);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
             //缓存返回的数据
@@ -461,7 +439,7 @@ static BOOL    _isHasNetWork;
             [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
             //返回数据
             success?success(responseObject):nil;
-            NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",url,params,responseObject);
+            //NSLog(@"\nRequest success, URL: %@\n params:%@\n response:%@\n\n",url,params,responseObject);
             
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -471,7 +449,7 @@ static BOOL    _isHasNetWork;
             [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
             
             fail?fail(error):nil;
-            NSLog(@"error = %@",error.description);
+            //NSLog(@"error = %@",error.description);
         }];
     }
     
@@ -507,7 +485,7 @@ static BOOL    _isHasNetWork;
  获取网络缓存 文件大小
  @return size  单位M
  */
-+ (NSString *)fileSizeWithDBPath
+- (NSString *)fileSizeWithDBPath
 {
     NSFileManager* manager = [NSFileManager defaultManager];
     if ([manager fileExistsAtPath:[PATH_OF_NetWork stringByAppendingPathComponent:httpCache]]){
@@ -523,7 +501,7 @@ static BOOL    _isHasNetWork;
 /**
  清除所有网络缓存
  */
-+ (void)cleanNetWorkRefreshCache
+- (void)cleanNetWorkRefreshCache
 {
     NSError *error;
     BOOL isSuccess =  [[NSFileManager defaultManager]removeItemAtPath:[PATH_OF_NetWork stringByAppendingPathComponent:httpCache] error:&error];

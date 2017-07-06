@@ -64,7 +64,8 @@
 - (NSAttributedString *)attributeStrWithAttributes:(NSDictionary *)attributes range:(NSRange)range;
 /** 获取文字大小*/
 -(CGSize)sizeWithText:(NSString *)text font:(UIFont *)font maxW:(CGFloat)maxW;
-// 数据类型判断
+/** 数据类型判断*/
 + (NSString *)fc_judgeObj:(id)baseobj placeholder:(NSString *)placeholder;
+
 
 @end

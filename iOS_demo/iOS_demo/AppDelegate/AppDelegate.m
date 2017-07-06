@@ -84,7 +84,7 @@
     //来订阅实时的网络状态变化通知。然后注册一个对象来订阅网络状态变化的信息
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NetworkStatusChanged:) name:kRAFNChangedNotification object:nil];
     //通过检查某个主机能否访问来判断当前网络是否可用
-    [MFNetAPIClient startMonitoringNetworkStatus];
+    [[MFNetAPIClient sharedInstance] startMonitoringNetworkStatus];
     
     
     
@@ -202,7 +202,7 @@
 #pragma mark - 网络状态变化
 -(void)NetworkStatusChanged:(NSNotification *)note{
     
-    BOOL changeStatus = [MFNetAPIClient getCurrentNetWorkStatus];
+    BOOL changeStatus = [[MFNetAPIClient sharedInstance] getCurrentNetWorkStatus];
     self.isHasNetWork = YES;
     if(changeStatus){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接异常" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];

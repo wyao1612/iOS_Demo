@@ -130,6 +130,7 @@
         _phoneField.textColor = WHITECOLOR;
         _phoneField.font = FONT(15);
         _phoneField.borderColor = ClearColor;
+        _phoneField.tintColor = [UIColor colorWithHex:0xff8596];
         _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneField.keyboardType = UIKeyboardTypeNumberPad;
         [_phoneField setValue:WHITECOLOR forKeyPath:@"_placeholderLabel.textColor"];
@@ -144,6 +145,7 @@
         _passwordField.textColor = WHITECOLOR;
         _passwordField.font = FONT(15);
         _passwordField.borderColor = ClearColor;
+        _passwordField.tintColor = [UIColor colorWithHex:0xff8596];
         _passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [_passwordField setValue:WHITECOLOR forKeyPath:@"_placeholderLabel.textColor"];
     }
@@ -258,21 +260,49 @@
         [MBProgressHUD showError:@"请输入正确手机号码"];
         return;
     }
-
     NSDictionary *params = @{@"mobile": _phoneField.text,
-                            @"type": [NSString stringWithFormat:@"%@", @"100001"]};
+                             @"type": @"100001"
+                             };
     weak(self);
-    [MFNetAPIClient requestNotCacheWithHttpMethod:1 url:@"https://api.douban.com/v2/book/1220562" params:params progress:nil success:^(id responseObject) {
-        
-    } fail:^(NSError *error) {
-        
+    [[MF_NetAPIManager sharedManager] postRegCodeWithParameters:params success:^(id responObject) {
+        weakSelf.sendTestBtn.enabled = NO;
+        [weakSelf.sendTestBtn startWithSecond:60];
+        [MBProgressHUD showSuccess:responObject];
+    } failure:^(NSInteger errCode, NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
     }];
 }
 
+
 /** 点击登录按钮*/
-- (void)loginAction:(UITapGestureRecognizer*)sender{
+- (void)loginAction:(UIButton*)sender{
+    
     [self.view endEditing:YES];
+    
+    if (!_phoneField.text.length || ![_phoneField.text validateMobile]) {
+        [MBProgressHUD showError:@"请输入正确手机号码"];
+        return;
+    }
+    
+    if (!(_passwordField.text.length == 6)) {
+        [MBProgressHUD showError:@"验证码必须是6位数字"];
+        return ;
+    }
+    
+    NSDictionary *params = @{@"mobile": _phoneField.text,
+                             @"code": _passwordField.text
+                             };
+    
+    weak(self);
+    [[MF_NetAPIManager sharedManager] postLoginWithParameters:params success:^(id responObject) {
+        [MBProgressHUD showSuccess:responObject];
+    } failure:^(NSInteger errCode, NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
+    }];
+
+    
 }
+
 
 
 

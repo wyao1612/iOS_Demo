@@ -21,10 +21,14 @@
 
 //API
 #ifdef DEBUG
-    #define HostAPI   @"http://api.miss-f.cn/app_dev.php"
+    #define HostAPI   @"http://api.miss-f.cn/app_dev.php/api/v1"
 #else
-    #define HostAPI   @"http://api.miss-f.cn/app_dev.php"
+    #define HostAPI   @"http://api.miss-f.cn/app_dev.php/api/v1"
 #endif
 
+
+/**login*/
+#define kPostLogin_Code @"/sms/send/mobile.json"
+#define kPostLogin @"/user/login.json"
 
 #endif /* URLMacros_h */
