@@ -186,7 +186,7 @@ static NSString * const ID = @"CONTENTCELL";
     // 初始化标题高度
     _titleHeight = YZTitleScrollViewH;
     
-    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 - (void)setUp

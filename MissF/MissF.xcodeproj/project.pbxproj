@@ -82,6 +82,8 @@
 		12D4AF9F1F0E818100898F51 /* NSString+Emojize.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AF541F0E818100898F51 /* NSString+Emojize.m */; };
 		12D4AFA01F0E818100898F51 /* UIPopoverListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AF571F0E818100898F51 /* UIPopoverListView.m */; };
 		12D4AFA11F0E818100898F51 /* userViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AF5A1F0E818100898F51 /* userViewModel.m */; };
+		12D4AFA71F0E86F500898F51 /* YWScrollContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AFA41F0E86F500898F51 /* YWScrollContentView.m */; };
+		12D4AFA81F0E86F500898F51 /* YWSegmentTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AFA61F0E86F500898F51 /* YWSegmentTitleView.m */; };
 		D11E2502DEFBD57BA4F4482E /* libPods-MissF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 409F7987BC90656D6A83C1CF /* libPods-MissF.a */; };
 /* End PBXBuildFile section */
 
@@ -241,6 +243,10 @@
 		12D4AF571F0E818100898F51 /* UIPopoverListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIPopoverListView.m; sourceTree = "<group>"; };
 		12D4AF591F0E818100898F51 /* userViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userViewModel.h; sourceTree = "<group>"; };
 		12D4AF5A1F0E818100898F51 /* userViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userViewModel.m; sourceTree = "<group>"; };
+		12D4AFA31F0E86F500898F51 /* YWScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWScrollContentView.h; sourceTree = "<group>"; };
+		12D4AFA41F0E86F500898F51 /* YWScrollContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWScrollContentView.m; sourceTree = "<group>"; };
+		12D4AFA51F0E86F500898F51 /* YWSegmentTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YWSegmentTitleView.h; sourceTree = "<group>"; };
+		12D4AFA61F0E86F500898F51 /* YWSegmentTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWSegmentTitleView.m; sourceTree = "<group>"; };
 		154791B6B2AA5242E8B1080C /* Pods-MissFTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissFTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MissFTests/Pods-MissFTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2A347C204DD80773ACB1881F /* libPods-MissFUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MissFUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		409F7987BC90656D6A83C1CF /* libPods-MissF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MissF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +290,7 @@
 			isa = PBXGroup;
 			children = (
 				12D4AE801F0E80FB00898F51 /* MissF */,
+				12D4AEB81F0E818000898F51 /* Base.lproj */,
 				12D4AE9A1F0E80FB00898F51 /* MissFTests */,
 				12D4AEA51F0E80FB00898F51 /* MissFUITests */,
 				12D4AE7F1F0E80FB00898F51 /* Products */,
@@ -305,21 +312,20 @@
 		12D4AE801F0E80FB00898F51 /* MissF */ = {
 			isa = PBXGroup;
 			children = (
-				12D4AEB41F0E818000898F51 /* AppDelegate */,
-				12D4AEB71F0E818000898F51 /* Assets.xcassets */,
-				12D4AEB81F0E818000898F51 /* Base.lproj */,
-				12D4AEBB1F0E818000898F51 /* Classes */,
-				12D4AED11F0E818100898F51 /* Images.xcassets */,
-				12D4AED21F0E818100898F51 /* Info.plist */,
-				12D4AED31F0E818100898F51 /* iOS_Miss_F_PrefixHeader.pch */,
 				12D4AED41F0E818100898F51 /* Macro */,
-				12D4AEDB1F0E818100898F51 /* main.m */,
 				12D4AEDC1F0E818100898F51 /* Manager */,
 				12D4AEDD1F0E818100898F51 /* Model */,
 				12D4AEE61F0E818100898F51 /* Resource */,
 				12D4AEF81F0E818100898F51 /* Utils */,
 				12D4AF4D1F0E818100898F51 /* Vendor */,
 				12D4AF581F0E818100898F51 /* ViewModel */,
+				12D4AEB41F0E818000898F51 /* AppDelegate */,
+				12D4AEBB1F0E818000898F51 /* Classes */,
+				12D4AED11F0E818100898F51 /* Images.xcassets */,
+				12D4AEB71F0E818000898F51 /* Assets.xcassets */,
+				12D4AED21F0E818100898F51 /* Info.plist */,
+				12D4AED31F0E818100898F51 /* iOS_Miss_F_PrefixHeader.pch */,
+				12D4AEDB1F0E818100898F51 /* main.m */,
 			);
 			path = MissF;
 			sourceTree = "<group>";
@@ -356,7 +362,8 @@
 			children = (
 				12D4AEB91F0E818000898F51 /* LaunchScreen.storyboard */,
 			);
-			path = Base.lproj;
+			name = Base.lproj;
+			path = MissF/Base.lproj;
 			sourceTree = "<group>";
 		};
 		12D4AEBB1F0E818000898F51 /* Classes */ = {
@@ -694,6 +701,7 @@
 		12D4AF4D1F0E818100898F51 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				12D4AFA21F0E86F500898F51 /* YWScrollListContentView */,
 				12D4AF4E1F0E818100898F51 /* JKCountDownButton */,
 				12D4AF511F0E818100898F51 /* NSStringEmojize */,
 				12D4AF551F0E818100898F51 /* UIPopoverListView */,
@@ -736,6 +744,17 @@
 				12D4AF5A1F0E818100898F51 /* userViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		12D4AFA21F0E86F500898F51 /* YWScrollListContentView */ = {
+			isa = PBXGroup;
+			children = (
+				12D4AFA31F0E86F500898F51 /* YWScrollContentView.h */,
+				12D4AFA41F0E86F500898F51 /* YWScrollContentView.m */,
+				12D4AFA51F0E86F500898F51 /* YWSegmentTitleView.h */,
+				12D4AFA61F0E86F500898F51 /* YWSegmentTitleView.m */,
+			);
+			path = YWScrollListContentView;
 			sourceTree = "<group>";
 		};
 		62BFDC203F44494DAB9E7E74 /* Frameworks */ = {
@@ -1057,7 +1076,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12D4AFA81F0E86F500898F51 /* YWSegmentTitleView.m in Sources */,
 				12D4AF9A1F0E818100898F51 /* MFAppHelper.m in Sources */,
+				12D4AFA71F0E86F500898F51 /* YWScrollContentView.m in Sources */,
 				12D4AF831F0E818100898F51 /* GolfMJExtensionConfig.m in Sources */,
 				12D4AF8C1F0E818100898F51 /* UIColor+Addition.m in Sources */,
 				12D4AF8D1F0E818100898F51 /* UIColor+expanded.m in Sources */,
