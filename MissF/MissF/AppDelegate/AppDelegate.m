@@ -18,6 +18,11 @@
 
 #define RANDOM_COLOR [UIColor colorWithHue: (arc4random() % 256 / 256.0) saturation:((arc4random()% 128 / 256.0 ) + 0.5) brightness:(( arc4random() % 128 / 256.0 ) + 0.5) alpha:1]
 
+/** 设置SVProgessHUD*/
+- (void)settingSVProgressHUD{
+    [SVProgressHUD setMinimumDismissTimeInterval:1.0];
+    [SVProgressHUD setDefaultMaskType:SVProgressHUDMaskTypeBlack];
+}
 
 /** IQKeyboardManager设置*/
 -(void)setKeyBoardAPI{
@@ -52,7 +57,8 @@
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
     
-    
+    //提示窗
+    [self settingSVProgressHUD];
     //设置API
     [self settingAPI];
     //设置键盘
@@ -89,9 +95,6 @@
     
     
     /** 开启网络状况的监听*/
-    //来订阅实时的网络状态变化通知。然后注册一个对象来订阅网络状态变化的信息
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NetworkStatusChanged:) name:kRAFNChangedNotification object:nil];
-    //通过检查某个主机能否访问来判断当前网络是否可用
     [[MFNetAPIClient sharedInstance] startMonitoringNetworkStatus];
     
     
@@ -207,29 +210,6 @@
 }
 
 
-#pragma mark - 网络状态变化
--(void)NetworkStatusChanged:(NSNotification *)note{
-    
-    BOOL changeStatus = [[MFNetAPIClient sharedInstance] getCurrentNetWorkStatus];
-    self.isHasNetWork = YES;
-    if(changeStatus){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接异常" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
-        self.isHasNetWork = NO;
-        return;
-    }else{
-        /*
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"网络连接信息" message:@"网络连接正常" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alert show];
-         */
-        self.isHasNetWork = YES;
-    }
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kRAFNChangedNotification object:nil];
-}
 
 
 - (void)applicationWillResignActive:(UIApplication *)application {

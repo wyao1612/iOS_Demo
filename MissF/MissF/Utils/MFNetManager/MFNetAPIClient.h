@@ -31,6 +31,11 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
     YWResponseSerializerXML      // 设置响应数据为XML格式
 };
 
+typedef NS_ENUM(NSUInteger, YWRequestType) {
+    GET,
+    POST
+};
+
 
 #pragma mark - 单例方法
 + (instancetype)sharedInstance;
@@ -179,7 +184,7 @@ typedef NS_ENUM(NSUInteger, YWResponseSerializer) {
  @param success    请求成功回调
  @param fail       请求失败回调
  */
-- (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
+- (void)requestWithHttpMethod:(YWRequestType)httpMethod
                          refreshCache:(BOOL)refreshCache
                                   url:(NSString *)url
                                params:(NSDictionary *)params

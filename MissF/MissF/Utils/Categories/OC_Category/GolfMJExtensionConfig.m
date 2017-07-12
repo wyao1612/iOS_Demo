@@ -16,7 +16,8 @@
     [NSObject mj_setupReplacedKeyFromPropertyName:^NSDictionary *{
         return @{@"errorCode":@"status",
                  @"errorMsg":@"showMessage",
-                 @"ID":@"id"};
+                 @"ID":@"id",
+                 @"desc":@"description"};
     }];
 }
 

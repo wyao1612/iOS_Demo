@@ -56,14 +56,17 @@ static dispatch_once_t onceToken ;
 }
 
 
--(void)getUserModelFromCache{
+-(MFUserModel*)getUserModelFromCache{
     //缓存返回的数据
     NSString *urlString = [NSString stringWithFormat:@"%@%@",[MFUserDefault objectForKey:@"currentAPI"],kPostLogin];
     NSDictionary *dict = [_store getObjectById:urlString  fromTable:httpCache];
     if (dict) {
         MFUserModel *model = [MFUserModel  mj_objectWithKeyValues:dict[@"data"][@"userInfo"]];
         NSLog(@"%@",model);
+        return model;
     }
+    
+    return nil;
 }
 
 @end

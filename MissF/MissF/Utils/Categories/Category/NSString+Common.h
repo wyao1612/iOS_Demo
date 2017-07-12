@@ -61,4 +61,9 @@
 //是否包含语音解析的图标
 - (BOOL)hasListenChar;
 
+/**
+ 解析网络请求错误信息
+ */
++ (NSString *)analyticalHttpErrorDescription:(NSError *)error;
+
 @end

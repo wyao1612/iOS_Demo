@@ -13,5 +13,5 @@
 +(instancetype) shareInstance;
 @property(nonatomic,strong) MFUserModel *userModel;
 @property(copy,nonatomic) NSString* global_key;
--(void)getUserModelFromCache;
+-(MFUserModel*)getUserModelFromCache;
 @end

@@ -7,39 +7,11 @@
 //
 
 #import "MF_NetAPIManager.h"
-#import "KeychainUserTokenTool.h"
 #import "MFLoginModel.h"
 #import "userViewModel.h"
 
 
 @implementation MF_NetAPIManager
-
-- (NSString *)analyticalHttpErrorDescription:(NSError *)error
-{
-    __weak NSDictionary *userInfo = error.userInfo;
-    if (userInfo.count > 0) {
-        return [self stringForValue:[userInfo objectForKey:@"NSLocalizedDescription"]];
-    }
-    return error.description;
-}
-
-- (NSString *)stringForValue:(id)obj
-{
-    if (obj == nil||
-        obj == NULL||
-        [obj isKindOfClass:[NSNull class]]) {
-        return @"";
-    }
-    else if ([obj isKindOfClass:[NSString class]]){
-        return obj;
-    }
-    else if ([obj isKindOfClass:[NSNumber class]]){
-        return [obj stringValue];
-    }
-    return @"";
-}
-
-
 
 static MF_NetAPIManager *shareBaseManager = nil;
 /**不是使用alloc方法，而是调用[[super allocWithZone:NULL] init]
@@ -71,7 +43,6 @@ static MF_NetAPIManager *shareBaseManager = nil;
 
 
 - (void)postRegCodeWithParameters:(NSDictionary *)parameters success:(OBJBlock)responSuccess failure:(ERRORCODEBlock)responFailure{
-    weak(self);
     [[MFNetAPIClient sharedInstance] postWithUrl:kPostLogin_Code refreshCache:NO params:parameters success:^(id responseObject) {
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
             responSuccess(responseObject[@"message"]);
@@ -79,25 +50,27 @@ static MF_NetAPIManager *shareBaseManager = nil;
             responFailure([responseObject[@"code"] integerValue], responseObject[@"message"]);
         }
     } fail:^(NSError *error) {
-       responFailure(0, [weakSelf analyticalHttpErrorDescription:error]);
+       responFailure(0, [NSString analyticalHttpErrorDescription:error]);
     }];
 
 }
 
 - (void)postLoginWithParameters:(NSDictionary *)parameters success:(OBJBlock)responSuccess failure:(ERRORCODEBlock)responFailure{
     
-    weak(self);
     [[MFNetAPIClient sharedInstance] postWithUrl:kPostLogin refreshCache:YES params:parameters success:^(id responseObject) {
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
             MFLoginModel *model = [MFLoginModel  mj_objectWithKeyValues:responseObject[@"data"]];
             //保存用户信息
             [userViewModel shareInstance].userModel = model.userInfo;
+            //本地存储accessToken和refreshToken用于验证是否过期
+            [NSString SaveUserToDiskWith:model.oauth.accessToken withAccount:ACCESSTOKEN];
+            [NSString SaveUserToDiskWith:model.oauth.refreshToken withAccount:REFRESHTOKEN];
             responSuccess(responseObject[@"message"]);
         }else{
             responFailure([responseObject[@"code"] integerValue], responseObject[@"message"]);
         }
     } fail:^(NSError *error) {
-        responFailure(0, [weakSelf analyticalHttpErrorDescription:error]);
+        responFailure(0, [NSString analyticalHttpErrorDescription:error]);
     }];
 }
 

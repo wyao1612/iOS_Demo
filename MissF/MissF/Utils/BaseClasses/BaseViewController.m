@@ -164,7 +164,7 @@ DZNEmptyDataSetDelegate
     NSMutableArray *ary = [[NSMutableArray alloc] init];
     if (_rightStr_0) {
         rightItem = [[UIBarButtonItem alloc] initWithTitle:_rightStr_0 style:UIBarButtonItemStylePlain target:self action:@selector(right_0_action)];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:GLOBALCOLOR} forState:UIControlStateNormal];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateNormal];
         
     }else if (_rightIm_0){
         rightItem = [[UIBarButtonItem alloc] initWithImage:[_rightIm_0 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(right_0_action)];

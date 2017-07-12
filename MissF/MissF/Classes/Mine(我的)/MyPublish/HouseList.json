@@ -1,0 +1,94 @@
+{
+    "code": "200",
+    "message": "Success",
+    "success": true,
+    "data": {
+        "house": [
+                  {
+                  "id": "24",
+                  "title": "朝晖六区  采光好 朝晖六区 南北通透限女生",
+                  "description": "1",
+                  "images": "",
+                  "money": "2500.00",
+                  "address": "地址",
+                  "room": "1",
+                  "uid": "1",
+                  "paymentType": "1",
+                  "hall": "1",
+                  "toilet": "1",
+                  "floor": "1",
+                  "currentFloor": "1",
+                  "roomNumber": "101",
+                  "facilities": "1",
+                  "roommateRequires": "1",
+                  "updated": "",
+                  "houseRoom": [
+                  
+                  ],
+                  "viewTotal": "0",
+                  "commentTotal": "0",
+                  "shareTotal": "0",
+                  "latitude": "",
+                  "longitude": "",
+                  "cover": ""
+                  },
+                  {
+                  "id": "24",
+                  "title": "朝晖五区 南北通透限女生",
+                  "description": "1",
+                  "images": "",
+                  "money": "2500.00",
+                  "address": "地址",
+                  "room": "1",
+                  "uid": "1",
+                  "paymentType": "1",
+                  "hall": "1",
+                  "toilet": "1",
+                  "floor": "1",
+                  "currentFloor": "1",
+                  "roomNumber": "101",
+                  "facilities": "1",
+                  "roommateRequires": "1",
+                  "updated": "",
+                  "houseRoom": [
+                  
+                  ],
+                  "viewTotal": "0",
+                  "commentTotal": "0",
+                  "shareTotal": "0",
+                  "latitude": "",
+                  "longitude": "",
+                  "cover": ""
+                  },
+                  {
+                  "id": "24",
+                  "title": "朝晖四区 南北通透限女生",
+                  "description": "1",
+                  "images": "",
+                  "money": "2500.00",
+                  "address": "地址",
+                  "room": "1",
+                  "uid": "1",
+                  "paymentType": "1",
+                  "hall": "1",
+                  "toilet": "1",
+                  "floor": "1",
+                  "currentFloor": "1",
+                  "roomNumber": "101",
+                  "facilities": "1",
+                  "roommateRequires": "1",
+                  "updated": "",
+                  "houseRoom": [
+                  
+                  ],
+                  "viewTotal": "0",
+                  "commentTotal": "0",
+                  "shareTotal": "0",
+                  "latitude": "",
+                  "longitude": "",
+                  "cover": ""
+                  }
+                  ],
+        "mark": "22"
+    }
+}

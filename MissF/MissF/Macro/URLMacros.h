@@ -21,9 +21,9 @@
 
 //API
 #ifdef DEBUG
-    #define HostAPI   @"http://api.miss-f.cn/app_dev.php/api/v1"
+    #define HostAPI   @"https://api.miss-f.cn/app_dev.php/api/v1"
 #else
-    #define HostAPI   @"http://api.miss-f.cn/app_dev.php/api/v1"
+    #define HostAPI   @"https://api.miss-f.cn/app_dev.php/api/v1"
 #endif
 
 /** 本地数据缓存表示*/
@@ -31,8 +31,19 @@ static NSString *const  MFLocalCache = @"MFNetworkCache";
 static NSString *const  httpCache = @"MFNetworkCache";
 
 
-/**login*/
+/** login*/
 #define kPostLogin_Code @"/sms/send/mobile.json"
 #define kPostLogin @"/user/login.json"
+
+
+/** accessToken和refreshToken*/
+#define  ACCESSTOKEN @"accessToken"
+#define  REFRESHTOKEN @"refreshToken"
+
+/** 我的发布房源列表*/
+#define kHouseList          @"/publish/house/list.json" 
+#define kHousePeople        @"/publish/people.json"
+#define kHouse              @"/publish/house.json"
+#define kHouseDelete        @"/publish/house/delete.json"
 
 #endif /* URLMacros_h */

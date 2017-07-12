@@ -66,7 +66,7 @@
 #define HEIGHT_CELL self.frame.size.height
 #define STL_ORIGIN_X        self.frame.origin.x                             //坐标X
 #define STL_ORIGIN_Y        self.frame.origin.y                             //坐标Y
-#define PAGESIZE @15        //每页获取数据数量宏
+#define PAGESIZE @20        //每页获取数据数量宏
 #define NaviBar_HEIGHT 64   //获取导航栏高度(包括状态栏高度20)
 #define TabBar_HEIGHT 49    //获取标签栏高度
 /**

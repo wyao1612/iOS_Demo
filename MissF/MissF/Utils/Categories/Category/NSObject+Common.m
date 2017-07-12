@@ -39,8 +39,7 @@
     [defaults synchronize];
     
 //    [CodingNetAPIClient changeJsonClient];
-//    
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageWithColor:[self baseURLStrIsProduction]? kColorNavBG: kColorBrandGreen] forBarMetrics:UIBarMetricsDefault];
+
 }
 
 #pragma mark File M

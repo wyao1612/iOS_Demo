@@ -233,7 +233,7 @@ static BOOL    _isHasNetWork;
     if (!url) return;
     
     if ([[MFAppHelper sharedInstance] isReachable]) {//有网络操作
-        [self requestNotCacheWithHttpMethod:0 refreshCache:refreshCache url:url params:params progress:progress success:success fail:fail];
+        [self requestWithHttpMethod:GET refreshCache:refreshCache url:url params:params progress:progress success:success fail:fail];
     } else {//无网络操作
         NSDictionary *dict = [_store getObjectById:url  fromTable:httpCache];
         if (dict) {
@@ -271,7 +271,7 @@ static BOOL    _isHasNetWork;
     NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
     
     if ([self getCurrentNetWorkStatus]) {
-        [self requestNotCacheWithHttpMethod:0 refreshCache:refreshCache url:url params:params progress:progress success:success fail:fail];
+        [self requestWithHttpMethod:POST refreshCache:refreshCache url:url params:params progress:progress success:success fail:fail];
     } else {
         NSDictionary *dict =  [_store getObjectById:url  fromTable:httpCache];
         if (dict) {
@@ -291,13 +291,13 @@ static BOOL    _isHasNetWork;
 
 
 #pragma mark - 不需要缓存的网络请求API
-- (void)requestNotCacheWithHttpMethod:(NSInteger)httpMethod
-                         refreshCache:(BOOL)refreshCache
-                                  url:(NSString *)url
-                               params:(NSDictionary *)params
-                             progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
-                              success:(void(^)(id responseObject))success
-                                 fail:(void(^)(NSError *error))fail
+- (void)requestWithHttpMethod:(YWRequestType)httpMethod
+                 refreshCache:(BOOL)refreshCache
+                          url:(NSString *)url
+                       params:(NSDictionary *)params
+                     progress:(void(^)(int64_t bytesRead, int64_t totalBytesRead))progress
+                      success:(void(^)(id responseObject))success
+                         fail:(void(^)(NSError *error))fail
 {
     
     //任务初始化
@@ -311,7 +311,7 @@ static BOOL    _isHasNetWork;
     //拼接地址
     NSString *urlString = [NSString stringWithFormat:@"%@%@",[MFUserDefault objectForKey:@"currentAPI"],url];
     
-    if (httpMethod == 0) {
+    if (httpMethod == GET) {
         
         dataTask =  [[MFNetAPIClient sharedInstance].manager   GET:urlString parameters:params progress:^(NSProgress * _Nonnull downloadProgress) {
             progress(downloadProgress.completedUnitCount, downloadProgress.totalUnitCount);
@@ -341,7 +341,7 @@ static BOOL    _isHasNetWork;
             fail?fail(error):nil;
             NSLog(@"error = %@",error.description);
         }];
-    }else {
+    }else  if (httpMethod == POST){
         dataTask =  [[MFNetAPIClient sharedInstance].manager  POST:urlString parameters:params progress:^(NSProgress * _Nonnull uploadProgress) {
             //NSLog(@"uploadProgress:%f",uploadProgress.fractionCompleted);
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

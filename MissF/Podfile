@@ -32,7 +32,7 @@ target 'MissF' do
     pod 'FMDB', '~> 2.7.2'
     pod 'MLeaksFinder', '~> 0.2.1'
     pod 'YTKKeyValueStore', '~> 0.1.2'#本地网络数据缓存
-    pod 'YZDisplayViewController', '~> 1.0.6'
+
 
   target 'MissFTests' do
     inherit! :search_paths
