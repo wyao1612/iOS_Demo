@@ -209,6 +209,7 @@
             .bottomSpaceToView(self.view, 50);
             
             [self.view addSubview:self.houseBottomView];
+            
             self.houseBottomView.sd_layout
             .leftSpaceToView(self.view, 0)
             .rightSpaceToView(self.view, 0)

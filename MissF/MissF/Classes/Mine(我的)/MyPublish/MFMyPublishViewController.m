@@ -23,6 +23,7 @@ UIScrollViewDelegate>
 @property (copy, nonatomic)   NSString *firstSelectString;
 @property (copy, nonatomic)   NSString *secondSelectString;
 @property (nonatomic, strong) YWSegmentTitleView *titleView;
+@property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) UIScrollView *contentScrollView;
 
 @end
@@ -33,29 +34,35 @@ UIScrollViewDelegate>
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-     self.isAutoBack = NO;
-    
-    
+    self.isAutoBack = NO;
     [self setNav];
-    
     [self.view addSubview:self.titleView];
     [self.view addSubview:self.contentScrollView];
-    
-    
-    for (int i = 0; i < 2; i++) {
-        MFHousingListViewController *vc = [[MFHousingListViewController alloc] init];
-        [self addChildViewController:vc];
-    }
-    [self setUpOneChildController:0];
+}
 
+-(void)setNav{
+    //默认显示
+    self.rightStr_0 = @"选择";
+    self.firstSelectString = @"选择";
+    self.secondSelectString = @"选择";
+    self.navigationItem.titleView = self.segmentedControl;
+}
+
+
+
+-(NSArray *)titleArray{
+    if (!_titleArray) {
+        _titleArray = [NSArray arrayWithObjects:@"待租出",@"已租出",nil];
+    }
+    return _titleArray;
 }
 
 -(YWSegmentTitleView *)titleView{
     if (!_titleView) {
         _titleView = [[YWSegmentTitleView alloc] init];
-        _titleView.segmentTitles = [NSArray arrayWithObjects:@"待租出",@"已租出",nil];
+        _titleView.segmentTitles = self.titleArray;
         _titleView.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
-        _titleView.AvgBtnCount = 2;
+        _titleView.AvgBtnCount = self.titleArray.count;
         _titleView.itemMinMargin = 15.f;
         _titleView.delegate = self;
         _titleView.titleNormalColor = LIGHTTEXTCOLOR;
@@ -74,11 +81,21 @@ UIScrollViewDelegate>
         _contentScrollView = [[UIScrollView alloc] initWithFrame:rect];
         _contentScrollView.pagingEnabled = YES;
         _contentScrollView.showsHorizontalScrollIndicator  = NO;
+        [_contentScrollView setShowsVerticalScrollIndicator:NO];
         _contentScrollView.delegate = self;
+        _contentScrollView.bounces = NO;
         _contentScrollView.contentSize = CGSizeMake(2 * SCREEN_WIDTH, 0);
+        //添加子控制器和视图
+        for (int idx = 0; idx < self.titleArray.count; idx++) {
+            MFHousingListViewController *vc = [[MFHousingListViewController alloc] init];
+            vc.view.frame = CGRectMake(idx * SCREEN_WIDTH, 0, SCREEN_WIDTH, _contentScrollView.frame.size.height);
+            [_contentScrollView addSubview:vc.view];
+            [self addChildViewController:vc];
+        }
     }
     return _contentScrollView;
 }
+
 
 - (void)segmentTitleView:(YWSegmentTitleView *)segmentView selectedIndex:(NSInteger)selectedIndex lastSelectedIndex:(NSInteger)lastSelectedIndex{
     
@@ -87,55 +104,21 @@ UIScrollViewDelegate>
     }else if(selectedIndex == 1){
         self.rightStr_0 = self.secondSelectString;
     }
-    
     _childViewIndex = selectedIndex;
-    CGFloat x  = selectedIndex * SCREEN_WIDTH;
-    self.contentScrollView.contentOffset = CGPointMake(x, 0);
-    [self setUpOneChildController:selectedIndex];
-}
-
--(void)setUpOneChildController:(NSInteger)index{
+    //NSLog(@"选择的下标---->%zd",selectedIndex);
+    [self.contentScrollView setContentOffset:CGPointMake(selectedIndex*SCREEN_WIDTH, 0) animated:YES];
     
-    CGFloat x  = index * SCREEN_WIDTH;
-    MFHousingListViewController *vc  =  self.childViewControllers[index];
-    if (vc.view.superview) {//判断是否是父视图
-        return;
-    }
-    vc.view.frame = CGRectMake(x, 6.5, SCREEN_WIDTH, self.contentScrollView.frame.size.height);
-    //将子ViewController的View添加到contentScrollView上
-    [self.contentScrollView addSubview:vc.view];
-    [self.contentScrollView setContentOffset:CGPointMake(x, 0) animated:YES];
 }
-
 
 
 #pragma mark - UIScrollView  delegate
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if(scrollView == self.contentScrollView){
-        NSInteger i  = self.contentScrollView.contentOffset.x / SCREEN_WIDTH;
-        [self setUpOneChildController:i];
+    if (scrollView == _contentScrollView) {
+        NSInteger currentIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
+        self.titleView.selectedIndex = currentIndex;
     }
 }
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(scrollView == self.contentScrollView){
-        CGFloat offsetX  = scrollView.contentOffset.x;
-        NSLog(@"%f",offsetX);
-        NSInteger leftIndex  = offsetX / SCREEN_WIDTH;
-        self.titleView.selectedIndex = leftIndex;
-    }
-}
-
--(void)setNav{
-     //默认显示
-     self.rightStr_0 = @"选择";
-     self.firstSelectString = @"选择";
-     self.secondSelectString = @"选择";
-     self.navigationItem.titleView = self.segmentedControl;
-}
-
 
 -(UISegmentedControl *)segmentedControl{
     if (!_segmentedControl) {
@@ -168,6 +151,7 @@ UIScrollViewDelegate>
 }
 
 
+
 #pragma mark
 - (void)setCurIndex:(NSInteger)curIndex{
     _curIndex = curIndex;
@@ -186,18 +170,16 @@ UIScrollViewDelegate>
     switch (_childViewIndex) {
         case 0:
         {
+            MFHousingListViewController *vc  =  self.childViewControllers[0];
+            
             if ([self.firstSelectString isEqualToString:@"选择"]) {
                 self.rightStr_0 = @"取消";
                 self.firstSelectString = @"取消";
-                //进入编辑状态
-                MFHousingListViewController *vc  =  self.childViewControllers[0];
                 vc.isExpandItem = YES;
                 
             }else if ([self.firstSelectString isEqualToString:@"取消"]){
-                //取消编辑状态
                 self.rightStr_0 = @"选择";
                 self.firstSelectString = @"选择";
-                MFHousingListViewController *vc  =  self.childViewControllers[0];
                 vc.isExpandItem = NO;
                 [vc updateBottomViewWithCount:0];
             }
@@ -206,18 +188,15 @@ UIScrollViewDelegate>
         case 1:
         {
 
+            MFHousingListViewController *vc  =  self.childViewControllers[1];
             if ([self.secondSelectString isEqualToString:@"选择"]) {
                 self.rightStr_0 = @"取消";
                 self.secondSelectString = @"取消";
-                //进入编辑状态
-                MFHousingListViewController *vc  =  self.childViewControllers[1];
                 vc.isExpandItem = YES;
                 
             }else if ([self.secondSelectString isEqualToString:@"取消"]){
-                //取消编辑状态
                 self.rightStr_0 = @"选择";
                 self.secondSelectString = @"选择";
-                MFHousingListViewController *vc  =  self.childViewControllers[1];
                 vc.isExpandItem = NO;
                 [vc updateBottomViewWithCount:0];
             }
