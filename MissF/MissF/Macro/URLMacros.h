@@ -46,4 +46,8 @@ static NSString *const  httpCache = @"MFNetworkCache";
 #define kHouse              @"/publish/house.json"
 #define kHouseDelete        @"/publish/house/delete.json"
 
+
+/** 公共字典*/
+#define kcommonUrl  @"/common/configure.json"
+
 #endif /* URLMacros_h */

@@ -74,6 +74,4 @@ static MF_NetAPIManager *shareBaseManager = nil;
     }];
 }
 
-
-
 @end

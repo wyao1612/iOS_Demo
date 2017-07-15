@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		02A061C47D5A27A78B240697 /* libPods-MissFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD99134EF21B0C03C45A0601 /* libPods-MissFTests.a */; };
 		08544E33661FCEAA77D7D063 /* libPods-MissFUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A347C204DD80773ACB1881F /* libPods-MissFUITests.a */; };
-		1202B0201F15BCAB0097223B /* MFHouseTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B01F1F15BCAB0097223B /* MFHouseTableViewProxy.m */; };
 		1202B0231F1600A90097223B /* NSString+KeychainTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0221F1600A90097223B /* NSString+KeychainTool.m */; };
 		1202B0281F16091D0097223B /* MFbutton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0251F16091D0097223B /* MFbutton.m */; };
 		1202B0291F16091D0097223B /* YW_TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0271F16091D0097223B /* YW_TextField.m */; };
@@ -19,6 +18,23 @@
 		1202B0371F1609C00097223B /* MFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0341F1609C00097223B /* MFNetAPIClient.m */; };
 		1202B03A1F160AE30097223B /* NSObject+params.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0391F160AE30097223B /* NSObject+params.m */; };
 		1202B03D1F160B0D0097223B /* STL_CommonIdea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B03C1F160B0D0097223B /* STL_CommonIdea.m */; };
+		1217BC381F1724F500DC4B87 /* MFHouseTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */; };
+		1217BC391F1724F500DC4B87 /* MFHouseBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */; };
+		1217BC3A1F1724F500DC4B87 /* MFHouseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC281F1724F500DC4B87 /* MFHouseListCell.m */; };
+		1217BC3B1F1724F500DC4B87 /* MFHousingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC2B1F1724F500DC4B87 /* MFHousingListViewController.m */; };
+		1217BC3C1F1724F500DC4B87 /* MFHouseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC2E1F1724F500DC4B87 /* MFHouseViewModel.m */; };
+		1217BC3D1F1724F500DC4B87 /* MFRoommateTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC321F1724F500DC4B87 /* MFRoommateTableViewProxy.m */; };
+		1217BC3E1F1724F500DC4B87 /* MFRoommateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC361F1724F500DC4B87 /* MFRoommateViewController.m */; };
+		1217BC411F17273600DC4B87 /* MFRoommateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC401F17273600DC4B87 /* MFRoommateViewModel.m */; };
+		1217BC441F1728C500DC4B87 /* MFRoommateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC431F1728C500DC4B87 /* MFRoommateTableViewCell.m */; };
+		1217BC471F17549700DC4B87 /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC461F17549700DC4B87 /* UITapImageView.m */; };
+		12229FDE1F1880100075A102 /* tagsList.json in Resources */ = {isa = PBXBuildFile; fileRef = 12229FDD1F1880100075A102 /* tagsList.json */; };
+		12229FE11F188A960075A102 /* commonViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12229FE01F188A960075A102 /* commonViewModel.m */; };
+		12229FE41F188D0D0075A102 /* MFCommonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12229FE31F188D0D0075A102 /* MFCommonModel.m */; };
+		1222A0281F18CD2B0075A102 /* testHeder_hd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1222A0271F18CD2B0075A102 /* testHeder_hd.jpg */; };
+		1222A02A1F18CFBF0075A102 /* 4311500026847.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1222A0291F18CFBF0075A102 /* 4311500026847.jpg */; };
+		122439D21F17ACBD007A1610 /* MFRoommateTagsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */; };
+		122439D51F18640C007A1610 /* MFTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D41F18640C007A1610 /* MFTagsView.m */; };
 		12D4AE9C1F0E80FB00898F51 /* MissFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AE9B1F0E80FB00898F51 /* MissFTests.m */; };
 		12D4AEA71F0E80FB00898F51 /* MissFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEA61F0E80FB00898F51 /* MissFUITests.m */; };
 		12D4AF5B1F0E818100898F51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEB61F0E818000898F51 /* AppDelegate.m */; };
@@ -100,10 +116,6 @@
 		12D4AFD11F0F980300898F51 /* placeholder60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D4AFCD1F0F980300898F51 /* placeholder60@2x.png */; };
 		12D4AFD21F0F980300898F51 /* placeholder60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12D4AFCE1F0F980300898F51 /* placeholder60@3x.png */; };
 		12D4AFD41F0FCF8200898F51 /* HouseList.json in Resources */ = {isa = PBXBuildFile; fileRef = 12D4AFD31F0FCF8200898F51 /* HouseList.json */; };
-		12D4AFD81F0FE86C00898F51 /* MFHouseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AFD71F0FE86C00898F51 /* MFHouseListCell.m */; };
-		12D4AFDB1F0FE92E00898F51 /* MFHouseBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AFDA1F0FE92E00898F51 /* MFHouseBottomView.m */; };
-		12D4AFE41F107DA500898F51 /* MFHouseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AFE31F107DA500898F51 /* MFHouseViewModel.m */; };
-		12D4AFE81F107EAA00898F51 /* MFHousingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AFE71F107EAA00898F51 /* MFHousingListViewController.m */; };
 		D11E2502DEFBD57BA4F4482E /* libPods-MissF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 409F7987BC90656D6A83C1CF /* libPods-MissF.a */; };
 /* End PBXBuildFile section */
 
@@ -125,8 +137,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1202B01E1F15BCAB0097223B /* MFHouseTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseTableViewProxy.h; sourceTree = "<group>"; };
-		1202B01F1F15BCAB0097223B /* MFHouseTableViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseTableViewProxy.m; sourceTree = "<group>"; };
 		1202B0211F1600A90097223B /* NSString+KeychainTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+KeychainTool.h"; sourceTree = "<group>"; };
 		1202B0221F1600A90097223B /* NSString+KeychainTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+KeychainTool.m"; sourceTree = "<group>"; };
 		1202B0241F16091D0097223B /* MFbutton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFbutton.h; sourceTree = "<group>"; };
@@ -145,6 +155,37 @@
 		1202B0391F160AE30097223B /* NSObject+params.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+params.m"; sourceTree = "<group>"; };
 		1202B03B1F160B0D0097223B /* STL_CommonIdea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STL_CommonIdea.h; sourceTree = "<group>"; };
 		1202B03C1F160B0D0097223B /* STL_CommonIdea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STL_CommonIdea.m; sourceTree = "<group>"; };
+		1217BC221F1724F500DC4B87 /* MFHouseTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseTableViewProxy.h; sourceTree = "<group>"; };
+		1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseTableViewProxy.m; sourceTree = "<group>"; };
+		1217BC251F1724F500DC4B87 /* MFHouseBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseBottomView.h; sourceTree = "<group>"; };
+		1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseBottomView.m; sourceTree = "<group>"; };
+		1217BC271F1724F500DC4B87 /* MFHouseListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseListCell.h; sourceTree = "<group>"; };
+		1217BC281F1724F500DC4B87 /* MFHouseListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseListCell.m; sourceTree = "<group>"; };
+		1217BC2A1F1724F500DC4B87 /* MFHousingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHousingListViewController.h; sourceTree = "<group>"; };
+		1217BC2B1F1724F500DC4B87 /* MFHousingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHousingListViewController.m; sourceTree = "<group>"; };
+		1217BC2D1F1724F500DC4B87 /* MFHouseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseViewModel.h; sourceTree = "<group>"; };
+		1217BC2E1F1724F500DC4B87 /* MFHouseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseViewModel.m; sourceTree = "<group>"; };
+		1217BC311F1724F500DC4B87 /* MFRoommateTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRoommateTableViewProxy.h; sourceTree = "<group>"; };
+		1217BC321F1724F500DC4B87 /* MFRoommateTableViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTableViewProxy.m; sourceTree = "<group>"; };
+		1217BC351F1724F500DC4B87 /* MFRoommateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRoommateViewController.h; sourceTree = "<group>"; };
+		1217BC361F1724F500DC4B87 /* MFRoommateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateViewController.m; sourceTree = "<group>"; };
+		1217BC3F1F17273600DC4B87 /* MFRoommateViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRoommateViewModel.h; sourceTree = "<group>"; };
+		1217BC401F17273600DC4B87 /* MFRoommateViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateViewModel.m; sourceTree = "<group>"; };
+		1217BC421F1728C500DC4B87 /* MFRoommateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRoommateTableViewCell.h; sourceTree = "<group>"; };
+		1217BC431F1728C500DC4B87 /* MFRoommateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTableViewCell.m; sourceTree = "<group>"; };
+		1217BC451F17549700DC4B87 /* UITapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITapImageView.h; sourceTree = "<group>"; };
+		1217BC461F17549700DC4B87 /* UITapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITapImageView.m; sourceTree = "<group>"; };
+		12229FDD1F1880100075A102 /* tagsList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tagsList.json; sourceTree = "<group>"; };
+		12229FDF1F188A960075A102 /* commonViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commonViewModel.h; sourceTree = "<group>"; };
+		12229FE01F188A960075A102 /* commonViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commonViewModel.m; sourceTree = "<group>"; };
+		12229FE21F188D0D0075A102 /* MFCommonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCommonModel.h; sourceTree = "<group>"; };
+		12229FE31F188D0D0075A102 /* MFCommonModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFCommonModel.m; sourceTree = "<group>"; };
+		1222A0271F18CD2B0075A102 /* testHeder_hd.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testHeder_hd.jpg; sourceTree = "<group>"; };
+		1222A0291F18CFBF0075A102 /* 4311500026847.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4311500026847.jpg; sourceTree = "<group>"; };
+		122439D01F17ACBD007A1610 /* MFRoommateTagsViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFRoommateTagsViewCell.h; sourceTree = "<group>"; };
+		122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTagsViewCell.m; sourceTree = "<group>"; };
+		122439D31F18640C007A1610 /* MFTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsView.h; sourceTree = "<group>"; };
+		122439D41F18640C007A1610 /* MFTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsView.m; sourceTree = "<group>"; };
 		12D4AE7E1F0E80FB00898F51 /* MissF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D4AE971F0E80FB00898F51 /* MissFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MissFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D4AE9B1F0E80FB00898F51 /* MissFTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MissFTests.m; sourceTree = "<group>"; };
@@ -286,14 +327,6 @@
 		12D4AFCD1F0F980300898F51 /* placeholder60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder60@2x.png"; sourceTree = "<group>"; };
 		12D4AFCE1F0F980300898F51 /* placeholder60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder60@3x.png"; sourceTree = "<group>"; };
 		12D4AFD31F0FCF8200898F51 /* HouseList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HouseList.json; sourceTree = "<group>"; };
-		12D4AFD61F0FE86C00898F51 /* MFHouseListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseListCell.h; sourceTree = "<group>"; };
-		12D4AFD71F0FE86C00898F51 /* MFHouseListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseListCell.m; sourceTree = "<group>"; };
-		12D4AFD91F0FE92E00898F51 /* MFHouseBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseBottomView.h; sourceTree = "<group>"; };
-		12D4AFDA1F0FE92E00898F51 /* MFHouseBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseBottomView.m; sourceTree = "<group>"; };
-		12D4AFE21F107DA500898F51 /* MFHouseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseViewModel.h; sourceTree = "<group>"; };
-		12D4AFE31F107DA500898F51 /* MFHouseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseViewModel.m; sourceTree = "<group>"; };
-		12D4AFE61F107EA900898F51 /* MFHousingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHousingListViewController.h; sourceTree = "<group>"; };
-		12D4AFE71F107EAA00898F51 /* MFHousingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHousingListViewController.m; sourceTree = "<group>"; };
 		154791B6B2AA5242E8B1080C /* Pods-MissFTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MissFTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MissFTests/Pods-MissFTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2A347C204DD80773ACB1881F /* libPods-MissFUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MissFUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		409F7987BC90656D6A83C1CF /* libPods-MissF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MissF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -333,15 +366,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1202B01D1F15BA340097223B /* TableViewProxy */ = {
-			isa = PBXGroup;
-			children = (
-				1202B01E1F15BCAB0097223B /* MFHouseTableViewProxy.h */,
-				1202B01F1F15BCAB0097223B /* MFHouseTableViewProxy.m */,
-			);
-			path = TableViewProxy;
-			sourceTree = "<group>";
-		};
 		1202B02A1F1609480097223B /* YWCountDownManger */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +386,122 @@
 				1202B0341F1609C00097223B /* MFNetAPIClient.m */,
 			);
 			path = MFNetManager;
+			sourceTree = "<group>";
+		};
+		1217BC201F1724F500DC4B87 /* MFHouseList */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC211F1724F500DC4B87 /* TableViewProxy */,
+				1217BC241F1724F500DC4B87 /* view */,
+				1217BC291F1724F500DC4B87 /* ViewController */,
+				1217BC2C1F1724F500DC4B87 /* viewModel */,
+			);
+			path = MFHouseList;
+			sourceTree = "<group>";
+		};
+		1217BC211F1724F500DC4B87 /* TableViewProxy */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC221F1724F500DC4B87 /* MFHouseTableViewProxy.h */,
+				1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */,
+			);
+			path = TableViewProxy;
+			sourceTree = "<group>";
+		};
+		1217BC241F1724F500DC4B87 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC251F1724F500DC4B87 /* MFHouseBottomView.h */,
+				1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */,
+				1217BC271F1724F500DC4B87 /* MFHouseListCell.h */,
+				1217BC281F1724F500DC4B87 /* MFHouseListCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		1217BC291F1724F500DC4B87 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC2A1F1724F500DC4B87 /* MFHousingListViewController.h */,
+				1217BC2B1F1724F500DC4B87 /* MFHousingListViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1217BC2C1F1724F500DC4B87 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC2D1F1724F500DC4B87 /* MFHouseViewModel.h */,
+				1217BC2E1F1724F500DC4B87 /* MFHouseViewModel.m */,
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
+		1217BC2F1F1724F500DC4B87 /* MFRoommate */ = {
+			isa = PBXGroup;
+			children = (
+				12229FDD1F1880100075A102 /* tagsList.json */,
+				1217BC371F1724F500DC4B87 /* ViewModel */,
+				1217BC301F1724F500DC4B87 /* TableViewProxy */,
+				1217BC331F1724F500DC4B87 /* View */,
+				1217BC341F1724F500DC4B87 /* ViewController */,
+			);
+			path = MFRoommate;
+			sourceTree = "<group>";
+		};
+		1217BC301F1724F500DC4B87 /* TableViewProxy */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC311F1724F500DC4B87 /* MFRoommateTableViewProxy.h */,
+				1217BC321F1724F500DC4B87 /* MFRoommateTableViewProxy.m */,
+			);
+			path = TableViewProxy;
+			sourceTree = "<group>";
+		};
+		1217BC331F1724F500DC4B87 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC421F1728C500DC4B87 /* MFRoommateTableViewCell.h */,
+				1217BC431F1728C500DC4B87 /* MFRoommateTableViewCell.m */,
+				122439D01F17ACBD007A1610 /* MFRoommateTagsViewCell.h */,
+				122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1217BC341F1724F500DC4B87 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC351F1724F500DC4B87 /* MFRoommateViewController.h */,
+				1217BC361F1724F500DC4B87 /* MFRoommateViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		1217BC371F1724F500DC4B87 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC3F1F17273600DC4B87 /* MFRoommateViewModel.h */,
+				1217BC401F17273600DC4B87 /* MFRoommateViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1217BC481F1757D800DC4B87 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				1217BC491F1757D800DC4B87 /* cell */,
+				122439D31F18640C007A1610 /* MFTagsView.h */,
+				122439D41F18640C007A1610 /* MFTagsView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		1217BC491F1757D800DC4B87 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = cell;
 			sourceTree = "<group>";
 		};
 		12D4AE751F0E80FB00898F51 = {
@@ -390,12 +530,13 @@
 		12D4AE801F0E80FB00898F51 /* MissF */ = {
 			isa = PBXGroup;
 			children = (
-				12D4AED41F0E818100898F51 /* Macro */,
 				12D4AEDD1F0E818100898F51 /* Model */,
+				12D4AF581F0E818100898F51 /* ViewModel */,
+				1217BC481F1757D800DC4B87 /* view */,
+				12D4AED41F0E818100898F51 /* Macro */,
 				12D4AEE61F0E818100898F51 /* Resource */,
 				12D4AEF81F0E818100898F51 /* Utils */,
 				12D4AF4D1F0E818100898F51 /* Vendor */,
-				12D4AF581F0E818100898F51 /* ViewModel */,
 				12D4AEB41F0E818000898F51 /* AppDelegate */,
 				12D4AEBB1F0E818000898F51 /* Classes */,
 				12D4AED11F0E818100898F51 /* Images.xcassets */,
@@ -505,10 +646,8 @@
 		12D4AECB1F0E818100898F51 /* MyPublish */ = {
 			isa = PBXGroup;
 			children = (
-				1202B01D1F15BA340097223B /* TableViewProxy */,
-				12D4AFD51F0FE86C00898F51 /* view */,
-				12D4AFDE1F107D5400898F51 /* viewModel */,
-				12D4AFE51F107E8F00898F51 /* ViewController */,
+				1217BC201F1724F500DC4B87 /* MFHouseList */,
+				1217BC2F1F1724F500DC4B87 /* MFRoommate */,
 				12D4AECC1F0E818100898F51 /* MFMyPublishViewController.h */,
 				12D4AECD1F0E818100898F51 /* MFMyPublishViewController.m */,
 				12D4AFD31F0FCF8200898F51 /* HouseList.json */,
@@ -551,6 +690,8 @@
 				12D4AEE51F0E818100898F51 /* MFUserModel.m */,
 				12D4AFB21F0F2F8D00898F51 /* MFHouseListModel.h */,
 				12D4AFB31F0F2F8D00898F51 /* MFHouseListModel.m */,
+				12229FE21F188D0D0075A102 /* MFCommonModel.h */,
+				12229FE31F188D0D0075A102 /* MFCommonModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -566,6 +707,8 @@
 		12D4AEE71F0E818100898F51 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				1222A0291F18CFBF0075A102 /* 4311500026847.jpg */,
+				1222A0271F18CD2B0075A102 /* testHeder_hd.jpg */,
 				12D4AFCA1F0F980300898F51 /* placeholder */,
 				12D4AEE81F0E818100898F51 /* Common */,
 				12D4AEED1F0E818100898F51 /* Login */,
@@ -710,6 +853,8 @@
 		12D4AF321F0E818100898F51 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				1217BC451F17549700DC4B87 /* UITapImageView.h */,
+				1217BC461F17549700DC4B87 /* UITapImageView.m */,
 				1202B0241F16091D0097223B /* MFbutton.h */,
 				1202B0251F16091D0097223B /* MFbutton.m */,
 				1202B0381F160AE30097223B /* NSObject+params.h */,
@@ -784,6 +929,8 @@
 			children = (
 				12D4AF591F0E818100898F51 /* userViewModel.h */,
 				12D4AF5A1F0E818100898F51 /* userViewModel.m */,
+				12229FDF1F188A960075A102 /* commonViewModel.h */,
+				12229FE01F188A960075A102 /* commonViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -808,35 +955,6 @@
 				12D4AFCE1F0F980300898F51 /* placeholder60@3x.png */,
 			);
 			path = placeholder;
-			sourceTree = "<group>";
-		};
-		12D4AFD51F0FE86C00898F51 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				12D4AFD61F0FE86C00898F51 /* MFHouseListCell.h */,
-				12D4AFD71F0FE86C00898F51 /* MFHouseListCell.m */,
-				12D4AFD91F0FE92E00898F51 /* MFHouseBottomView.h */,
-				12D4AFDA1F0FE92E00898F51 /* MFHouseBottomView.m */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		12D4AFDE1F107D5400898F51 /* viewModel */ = {
-			isa = PBXGroup;
-			children = (
-				12D4AFE21F107DA500898F51 /* MFHouseViewModel.h */,
-				12D4AFE31F107DA500898F51 /* MFHouseViewModel.m */,
-			);
-			path = viewModel;
-			sourceTree = "<group>";
-		};
-		12D4AFE51F107E8F00898F51 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				12D4AFE61F107EA900898F51 /* MFHousingListViewController.h */,
-				12D4AFE71F107EAA00898F51 /* MFHousingListViewController.m */,
-			);
-			path = ViewController;
 			sourceTree = "<group>";
 		};
 		62BFDC203F44494DAB9E7E74 /* Frameworks */ = {
@@ -939,6 +1057,7 @@
 				TargetAttributes = {
 					12D4AE7D1F0E80FB00898F51 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = YT72B32XG4;
 						ProvisioningStyle = Automatic;
 					};
 					12D4AE961F0E80FB00898F51 = {
@@ -978,10 +1097,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12229FDE1F1880100075A102 /* tagsList.json in Resources */,
 				12D4AF661F0E818100898F51 /* Info.plist in Resources */,
 				12D4AFBA1F0F614E00898F51 /* bg_my_released@2x.png in Resources */,
 				12D4AFD11F0F980300898F51 /* placeholder60@2x.png in Resources */,
 				12D4AF6F1F0E818100898F51 /* btn_back@3x.png in Resources */,
+				1222A02A1F18CFBF0075A102 /* 4311500026847.jpg in Resources */,
 				12D4AF701F0E818100898F51 /* login_bg@2x.png in Resources */,
 				12D4AF6C1F0E818100898F51 /* bg_nav@2x.png in Resources */,
 				12D4AFD01F0F980300898F51 /* placeholder160@3x.png in Resources */,
@@ -995,6 +1116,7 @@
 				12D4AF651F0E818100898F51 /* Images.xcassets in Resources */,
 				12D4AF771F0E818100898F51 /* login_logo@3x.png in Resources */,
 				12D4AF791F0E818100898F51 /* login_slogan@3x.png in Resources */,
+				1222A0281F18CD2B0075A102 /* testHeder_hd.jpg in Resources */,
 				12D4AFC21F0F74F300898F51 /* Selected.png in Resources */,
 				12D4AF731F0E818100898F51 /* login_btn@3x.png in Resources */,
 				12D4AF5C1F0E818100898F51 /* Assets.xcassets in Resources */,
@@ -1176,11 +1298,13 @@
 				12D4AFA71F0E86F500898F51 /* YWScrollContentView.m in Sources */,
 				12D4AF831F0E818100898F51 /* GolfMJExtensionConfig.m in Sources */,
 				12D4AF8C1F0E818100898F51 /* UIColor+Addition.m in Sources */,
-				12D4AFDB1F0FE92E00898F51 /* MFHouseBottomView.m in Sources */,
 				12D4AF8D1F0E818100898F51 /* UIColor+expanded.m in Sources */,
+				1217BC391F1724F500DC4B87 /* MFHouseBottomView.m in Sources */,
+				1217BC381F1724F500DC4B87 /* MFHouseTableViewProxy.m in Sources */,
 				1202B0231F1600A90097223B /* NSString+KeychainTool.m in Sources */,
 				12D4AF941F0E818100898F51 /* AppDelegate+Check.m in Sources */,
 				12D4AF7B1F0E818100898F51 /* BaseTableViewCell.m in Sources */,
+				1217BC3E1F1724F500DC4B87 /* MFRoommateViewController.m in Sources */,
 				12D4AF7F1F0E818100898F51 /* NSString+Common.m in Sources */,
 				12D4AFA11F0E818100898F51 /* userViewModel.m in Sources */,
 				12D4AF611F0E818100898F51 /* MFMessageViewController.m in Sources */,
@@ -1192,6 +1316,8 @@
 				12D4AF9D1F0E818100898F51 /* ObjcRuntime.m in Sources */,
 				1202B03A1F160AE30097223B /* NSObject+params.m in Sources */,
 				12D4AF881F0E818100898F51 /* NSString+extension.m in Sources */,
+				12229FE41F188D0D0075A102 /* MFCommonModel.m in Sources */,
+				1217BC3C1F1724F500DC4B87 /* MFHouseViewModel.m in Sources */,
 				12D4AF5E1F0E818100898F51 /* MFDiscoverViewController.m in Sources */,
 				12D4AF7D1F0E818100898F51 /* CYLTabBarControllerConfig.m in Sources */,
 				12D4AF641F0E818100898F51 /* CYLPlusButtonSubclass.m in Sources */,
@@ -1201,38 +1327,43 @@
 				12D4AF961F0E818100898F51 /* MBProgressHUD+HUD.m in Sources */,
 				1202B0291F16091D0097223B /* YW_TextField.m in Sources */,
 				12D4AF5F1F0E818100898F51 /* MFHomeViewController.m in Sources */,
+				1217BC3A1F1724F500DC4B87 /* MFHouseListCell.m in Sources */,
+				1217BC471F17549700DC4B87 /* UITapImageView.m in Sources */,
 				12D4AF901F0E818100898F51 /* UILabel+Category.m in Sources */,
 				12D4AF621F0E818100898F51 /* MFMineViewController.m in Sources */,
 				12D4AF8A1F0E818100898F51 /* UIButton+Addtion.m in Sources */,
 				12D4AF7E1F0E818100898F51 /* NSObject+Common.m in Sources */,
+				1217BC3D1F1724F500DC4B87 /* MFRoommateTableViewProxy.m in Sources */,
+				122439D21F17ACBD007A1610 /* MFRoommateTagsViewCell.m in Sources */,
 				12D4AF8E1F0E818100898F51 /* UIImage+Extension.m in Sources */,
-				12D4AFD81F0FE86C00898F51 /* MFHouseListCell.m in Sources */,
 				12D4AF841F0E818100898F51 /* NSArray+Properties.m in Sources */,
 				12D4AF851F0E818100898F51 /* NSDate+Extension.m in Sources */,
 				12D4AF7C1F0E818100898F51 /* BaseViewController.m in Sources */,
 				12D4AF7A1F0E818100898F51 /* BaseNavigationController.m in Sources */,
+				1217BC441F1728C500DC4B87 /* MFRoommateTableViewCell.m in Sources */,
 				12D4AF631F0E818100898F51 /* MFMyPublishViewController.m in Sources */,
 				1202B0361F1609C00097223B /* MFAppHelper.m in Sources */,
-				1202B0201F15BCAB0097223B /* MFHouseTableViewProxy.m in Sources */,
 				1202B0281F16091D0097223B /* MFbutton.m in Sources */,
 				1202B0351F1609C00097223B /* MF_NetAPIManager.m in Sources */,
 				1202B03D1F160B0D0097223B /* STL_CommonIdea.m in Sources */,
-				12D4AFE41F107DA500898F51 /* MFHouseViewModel.m in Sources */,
 				12D4AF671F0E818100898F51 /* main.m in Sources */,
 				12D4AFB41F0F2F8D00898F51 /* MFHouseListModel.m in Sources */,
 				12D4AF981F0E818100898F51 /* UITTTAttributedLabel.m in Sources */,
 				1202B02D1F1609480097223B /* YWCountDown.m in Sources */,
+				1217BC411F17273600DC4B87 /* MFRoommateViewModel.m in Sources */,
 				12D4AF861F0E818100898F51 /* NSDictionary+Log.m in Sources */,
 				12D4AFA01F0E818100898F51 /* UIPopoverListView.m in Sources */,
+				1217BC3B1F1724F500DC4B87 /* MFHousingListViewController.m in Sources */,
 				12D4AF8F1F0E818100898F51 /* UIImageView+size.m in Sources */,
 				12D4AF9F1F0E818100898F51 /* NSString+Emojize.m in Sources */,
-				12D4AFE81F107EAA00898F51 /* MFHousingListViewController.m in Sources */,
 				12D4AF8B1F0E818100898F51 /* UIButton+category.m in Sources */,
 				12D4AF691F0E818100898F51 /* MFLoginModel.m in Sources */,
 				12D4AF821F0E818100898F51 /* UILabel+Common.m in Sources */,
 				12D4AF6A1F0E818100898F51 /* MFOAuthModel.m in Sources */,
+				12229FE11F188A960075A102 /* commonViewModel.m in Sources */,
 				12D4AF891F0E818100898F51 /* UIBarButtonItem+YB_Extension.m in Sources */,
 				12D4AF5B1F0E818100898F51 /* AppDelegate.m in Sources */,
+				122439D51F18640C007A1610 /* MFTagsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1376,11 +1507,12 @@
 			baseConfigurationReference = C85CACDEADADFB51EBD0ED51 /* Pods-MissF.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YT72B32XG4;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MissF/iOS_Miss_F_PrefixHeader.pch";
 				INFOPLIST_FILE = MissF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wyao.MissF.life;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MissF.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1390,11 +1522,12 @@
 			baseConfigurationReference = E6941E3F0A2C6FE5C3C40C01 /* Pods-MissF.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = YT72B32XG4;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MissF/iOS_Miss_F_PrefixHeader.pch";
 				INFOPLIST_FILE = MissF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = wyao.MissF.life;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MissF.life;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

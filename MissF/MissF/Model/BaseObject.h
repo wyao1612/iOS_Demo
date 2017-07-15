@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface BaseObject : NSObject
-
 @property(nonatomic,strong) NSNumber *errorCode;        //错误码
 @property(nonatomic,copy) NSString *errorMsg;           //错误信息
-
 @end

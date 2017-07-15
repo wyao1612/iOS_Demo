@@ -10,6 +10,7 @@
 #import "YWSegmentTitleView.h"
 #import "YWScrollContentView.h"
 #import "MFHousingListViewController.h"
+#import "MFRoommateViewController.h"
 
 @interface MFMyPublishViewController ()
 <YWSegmentTitleViewDelegate,
@@ -36,15 +37,11 @@ UIScrollViewDelegate>
     
     self.isAutoBack = NO;
     [self setNav];
-    [self.view addSubview:self.titleView];
-    [self.view addSubview:self.contentScrollView];
+    //第一次进来显示第一个
+    [self setCurIndex:0];
 }
 
 -(void)setNav{
-    //默认显示
-    self.rightStr_0 = @"选择";
-    self.firstSelectString = @"选择";
-    self.secondSelectString = @"选择";
     self.navigationItem.titleView = self.segmentedControl;
 }
 
@@ -152,16 +149,30 @@ UIScrollViewDelegate>
 
 
 
-#pragma mark
+#pragma mark - 点击 segmentedControl事件
 - (void)setCurIndex:(NSInteger)curIndex{
     _curIndex = curIndex;
     if (_segmentedControl.selectedSegmentIndex != curIndex) {
         [_segmentedControl setSelectedSegmentIndex:_curIndex];
     }
     if (_curIndex == 0) {
-//        [self loadEditView];
+        self.titleView.hidden = NO;
+        self.contentScrollView.hidden = NO;
+        [self.view addSubview:self.titleView];
+        [self.view addSubview:self.contentScrollView];
+        //房源默认显示
+        self.rightStr_0 = @"选择";
+        self.firstSelectString = @"选择";
+        self.secondSelectString = @"选择";
     }else{
-//        [self loadPreview];
+        //室友默认显示
+        self.rightStr_0 = @"编辑";
+        self.titleView.hidden = YES;
+        self.contentScrollView.hidden = YES;
+        MFRoommateViewController *vc = [[MFRoommateViewController alloc] init];
+        vc.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT);
+        [self.view addSubview:vc.view];
+        [self addChildViewController:vc];
     }
 }
 

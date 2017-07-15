@@ -7,7 +7,6 @@
 //
 
 #import "userViewModel.h"
-#import <YTKKeyValueStore/YTKKeyValueStore.h>
 
 
 @implementation userViewModel

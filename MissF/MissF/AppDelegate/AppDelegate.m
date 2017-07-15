@@ -7,16 +7,15 @@
 //
 
 #import "AppDelegate.h"
-#import "CYLTabBarControllerConfig.h"
 #import "CYLPlusButtonSubclass.h"
+#import "CYLTabBarControllerConfig.h"
+
 
 @interface AppDelegate ()<UITabBarControllerDelegate, CYLTabBarControllerDelegate>
 @end
 
 @implementation AppDelegate
 
-
-#define RANDOM_COLOR [UIColor colorWithHue: (arc4random() % 256 / 256.0) saturation:((arc4random()% 128 / 256.0 ) + 0.5) brightness:(( arc4random() % 128 / 256.0 ) + 0.5) alpha:1]
 
 /** 设置SVProgessHUD*/
 - (void)settingSVProgressHUD{
@@ -56,20 +55,42 @@
     // 设置主窗口,并设置根控制器
     self.window = [[UIWindow alloc]init];
     self.window.frame = [UIScreen mainScreen].bounds;
-    
     //提示窗
     [self settingSVProgressHUD];
     //设置API
     [self settingAPI];
     //设置键盘
     [self setKeyBoardAPI];
+    //设置根控制器
+    [self setupViewControllers];
+    /** 开启网络状况的监听*/
+    [[MFNetAPIClient sharedInstance] startMonitoringNetworkStatus];
     
+    
+    
+    [self.window makeKeyAndVisible];
+    [self customizeInterface];
+    
+    //下载公共资源并存储如果本地有缓存就不下载
+    if (![[commonViewModel shareInstance] getCommonModelFromCache]) {
+       [[commonViewModel shareInstance] postCommonDataSuccess:^(id responObject) {
+           NSLog(@"重新请求到的公共资源的数据%@",responObject);
+       } failure:^(NSInteger errCode, NSString *errorMsg) {
+           NSLog(@"重新请求到的公共资源错误信息%@",errorMsg);
+       }];
+    }
+    
+    
+    return YES;
+}
+
+
+-(void)setupViewControllers{
     /** 自定义tabbar*/
     [CYLPlusButtonSubclass registerPlusButton];
     
     CYLTabBarControllerConfig *tabBarControllerConfig = [[CYLTabBarControllerConfig alloc] init];
     CYLTabBarController *tabBarController = tabBarControllerConfig.tabBarController;
-    [self.window setRootViewController:tabBarController];
     
     [tabBarController setViewDidLayoutSubViewsBlock:^(CYLTabBarController *aTabBarController) {
         UIViewController *viewController = aTabBarController.viewControllers[0];
@@ -93,19 +114,9 @@
     
     tabBarController.delegate = self;
     
-    
-    /** 开启网络状况的监听*/
-    [[MFNetAPIClient sharedInstance] startMonitoringNetworkStatus];
-    
-    
-    
-    [self.window makeKeyAndVisible];
-    [self customizeInterface];
-    
-    
-    return YES;
-}
+    [self.window setRootViewController:tabBarController];
 
+}
 - (void)customizeInterface {
     [self setUpNavigationBarAppearance];
 }
@@ -141,7 +152,6 @@
                                   forBarMetrics:UIBarMetricsDefault];
     [navigationBarAppearance setTitleTextAttributes:textAttributes];
 }
-
 
 #pragma mark - delegate
 
@@ -208,6 +218,9 @@
         } completion:nil];
     });
 }
+
+
+
 
 
 
