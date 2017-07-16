@@ -53,10 +53,10 @@ PODS:
   - SSKeychain (1.4.1)
   - SVProgressHUD (2.1.2)
   - TMCache (2.1.0)
+  - TTGTagCollectionView (1.6.0)
   - TTTAttributedLabel (2.0.0)
   - YTKKeyValueStore (0.1.2):
     - FMDB (~> 2.0)
-  - YZDisplayViewController (1.0.6)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
@@ -82,9 +82,9 @@ DEPENDENCIES:
   - SSKeychain (= 1.4.1)
   - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
   - TMCache (= 2.1.0)
+  - TTGTagCollectionView
   - TTTAttributedLabel (~> 2.0.0)
   - YTKKeyValueStore (~> 0.1.2)
-  - YZDisplayViewController (~> 1.0.6)
 
 EXTERNAL SOURCES:
   SVProgressHUD:
@@ -122,10 +122,10 @@ SPEC CHECKSUMS:
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   SVProgressHUD: d65371a8e4482380deddb9fe60e14e59ddb30eb3
   TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
+  TTGTagCollectionView: ba35fb7dc284b368c86bf044bd889293a69114e8
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
-  YZDisplayViewController: 621f737a9aa3dfbc95a901e89e5e7c4b2ea6ef79
 
-PODFILE CHECKSUM: 1c487517fde95f299b66b7b1b9f50c6663e1fd54
+PODFILE CHECKSUM: 12bf3a5c913117b178431712200412e6182d22ff
 
 COCOAPODS: 1.2.1

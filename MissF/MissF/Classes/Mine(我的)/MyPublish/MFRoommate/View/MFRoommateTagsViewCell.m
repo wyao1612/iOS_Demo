@@ -55,7 +55,7 @@
 
 -(CGFloat)getCellHeightWtihBtnsWithModelArray:(NSArray*)modelArray{
     CGFloat height = [self.tagsView getCellHeightWtihBtns:modelArray];
-    NSLog(@"%f",height);
+    //NSLog(@"%f",height);
     return height;
 }
 

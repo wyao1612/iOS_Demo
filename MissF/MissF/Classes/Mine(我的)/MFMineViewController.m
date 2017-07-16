@@ -8,6 +8,7 @@
 
 #import "MFMineViewController.h"
 #import "MFMyPublishViewController.h"
+#import "MFTagsViewController.h"
 
 
 @interface MFMineViewController ()
@@ -30,6 +31,14 @@
     [btn1 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn1];
     
+    
+    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(100, 350, 200, 50)];
+    btn2.backgroundColor = OrangeCOLOR;
+    btn2.tag = 102;
+    [btn2 setTitle:@"标签列表" forState:UIControlStateNormal];
+    [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn2];
+    
 }
 
 -(void)btnClick:(UIButton*)sender{
@@ -37,7 +46,8 @@
         MFMyPublishViewController *vc = [[MFMyPublishViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }else{
-        
+        MFTagsViewController *vc = [[MFTagsViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     
 }

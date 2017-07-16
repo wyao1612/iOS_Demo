@@ -18,6 +18,7 @@
 		1202B0371F1609C00097223B /* MFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0341F1609C00097223B /* MFNetAPIClient.m */; };
 		1202B03A1F160AE30097223B /* NSObject+params.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0391F160AE30097223B /* NSObject+params.m */; };
 		1202B03D1F160B0D0097223B /* STL_CommonIdea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B03C1F160B0D0097223B /* STL_CommonIdea.m */; };
+		1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */; };
 		1217BC381F1724F500DC4B87 /* MFHouseTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */; };
 		1217BC391F1724F500DC4B87 /* MFHouseBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */; };
 		1217BC3A1F1724F500DC4B87 /* MFHouseListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC281F1724F500DC4B87 /* MFHouseListCell.m */; };
@@ -35,6 +36,7 @@
 		1222A02A1F18CFBF0075A102 /* 4311500026847.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1222A0291F18CFBF0075A102 /* 4311500026847.jpg */; };
 		122439D21F17ACBD007A1610 /* MFRoommateTagsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */; };
 		122439D51F18640C007A1610 /* MFTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D41F18640C007A1610 /* MFTagsView.m */; };
+		124671E61F1B8E5D00FC8BF5 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */; };
 		12D4AE9C1F0E80FB00898F51 /* MissFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AE9B1F0E80FB00898F51 /* MissFTests.m */; };
 		12D4AEA71F0E80FB00898F51 /* MissFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEA61F0E80FB00898F51 /* MissFUITests.m */; };
 		12D4AF5B1F0E818100898F51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEB61F0E818000898F51 /* AppDelegate.m */; };
@@ -155,6 +157,8 @@
 		1202B0391F160AE30097223B /* NSObject+params.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+params.m"; sourceTree = "<group>"; };
 		1202B03B1F160B0D0097223B /* STL_CommonIdea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STL_CommonIdea.h; sourceTree = "<group>"; };
 		1202B03C1F160B0D0097223B /* STL_CommonIdea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STL_CommonIdea.m; sourceTree = "<group>"; };
+		1216F1481F19DAEB00906EB0 /* MFTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsViewController.h; sourceTree = "<group>"; };
+		1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsViewController.m; sourceTree = "<group>"; };
 		1217BC221F1724F500DC4B87 /* MFHouseTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseTableViewProxy.h; sourceTree = "<group>"; };
 		1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFHouseTableViewProxy.m; sourceTree = "<group>"; };
 		1217BC251F1724F500DC4B87 /* MFHouseBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseBottomView.h; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 		122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTagsViewCell.m; sourceTree = "<group>"; };
 		122439D31F18640C007A1610 /* MFTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsView.h; sourceTree = "<group>"; };
 		122439D41F18640C007A1610 /* MFTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsView.m; sourceTree = "<group>"; };
+		124671E41F1B8E5D00FC8BF5 /* GBTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTagListView.h; sourceTree = "<group>"; };
+		124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		12D4AE7E1F0E80FB00898F51 /* MissF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D4AE971F0E80FB00898F51 /* MissFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MissFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D4AE9B1F0E80FB00898F51 /* MissFTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MissFTests.m; sourceTree = "<group>"; };
@@ -386,6 +392,17 @@
 				1202B0341F1609C00097223B /* MFNetAPIClient.m */,
 			);
 			path = MFNetManager;
+			sourceTree = "<group>";
+		};
+		1216F1471F19DAD400906EB0 /* MyTags */ = {
+			isa = PBXGroup;
+			children = (
+				1216F1481F19DAEB00906EB0 /* MFTagsViewController.h */,
+				1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */,
+				124671E41F1B8E5D00FC8BF5 /* GBTagListView.h */,
+				124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */,
+			);
+			path = MyTags;
 			sourceTree = "<group>";
 		};
 		1217BC201F1724F500DC4B87 /* MFHouseList */ = {
@@ -638,6 +655,7 @@
 			children = (
 				12D4AEC91F0E818100898F51 /* MFMineViewController.h */,
 				12D4AECA1F0E818100898F51 /* MFMineViewController.m */,
+				1216F1471F19DAD400906EB0 /* MyTags */,
 				12D4AECB1F0E818100898F51 /* MyPublish */,
 			);
 			path = "Mine(我的)";
@@ -1324,6 +1342,7 @@
 				12D4AF6B1F0E818100898F51 /* MFUserModel.m in Sources */,
 				12D4AF601F0E818100898F51 /* MFLoginViewController.m in Sources */,
 				12D4AF911F0E818100898F51 /* UIScrollView+UITouch.m in Sources */,
+				124671E61F1B8E5D00FC8BF5 /* GBTagListView.m in Sources */,
 				12D4AF961F0E818100898F51 /* MBProgressHUD+HUD.m in Sources */,
 				1202B0291F16091D0097223B /* YW_TextField.m in Sources */,
 				12D4AF5F1F0E818100898F51 /* MFHomeViewController.m in Sources */,
@@ -1359,6 +1378,7 @@
 				12D4AF8B1F0E818100898F51 /* UIButton+category.m in Sources */,
 				12D4AF691F0E818100898F51 /* MFLoginModel.m in Sources */,
 				12D4AF821F0E818100898F51 /* UILabel+Common.m in Sources */,
+				1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */,
 				12D4AF6A1F0E818100898F51 /* MFOAuthModel.m in Sources */,
 				12229FE11F188A960075A102 /* commonViewModel.m in Sources */,
 				12D4AF891F0E818100898F51 /* UIBarButtonItem+YB_Extension.m in Sources */,

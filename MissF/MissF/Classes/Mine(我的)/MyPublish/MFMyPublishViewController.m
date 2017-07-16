@@ -200,17 +200,7 @@ UIScrollViewDelegate>
         {
 
             MFHousingListViewController *vc  =  self.childViewControllers[1];
-            if ([self.secondSelectString isEqualToString:@"选择"]) {
-                self.rightStr_0 = @"取消";
-                self.secondSelectString = @"取消";
-                vc.isExpandItem = YES;
-                
-            }else if ([self.secondSelectString isEqualToString:@"取消"]){
-                self.rightStr_0 = @"选择";
-                self.secondSelectString = @"选择";
-                vc.isExpandItem = NO;
-                [vc updateBottomViewWithCount:0];
-            }
+            
         }
             break;
             

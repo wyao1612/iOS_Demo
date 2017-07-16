@@ -44,32 +44,58 @@
     titleLab.font = [UIFont systemFontOfSize:15];
     [self addSubview:titleLab];
     
+    CGFloat totalHeight = 0;
     
-    CGFloat BtnX = leftMargin;
-    CGFloat BtnY = SpacingY;
-    CGFloat BtnH = BtnHeight;
+    CGFloat oneLineBtnWidtnLimit = SCREEN_WIDTH - 2*leftMargin;//每行btn占的最长长度，超出则换行
+    CGFloat btnGap = SpacingX;//btn的x间距
+    CGFloat btnGapY = SpacingY;
+    NSInteger BtnlineNum = 0;
+    CGFloat minBtnLength =  50;//每个btn的最小长度
+    CGFloat maxBtnLength = oneLineBtnWidtnLimit - btnGap*2;//每个btn的最大长度
+    CGFloat Btnx = 0.0 ;//每个btn的起始位置
+    Btnx += btnGap;
+    
     for (int i = 0; i < _headerDataArr.count; i++) {
-        
-        MFbutton *titBtn = [[MFbutton alloc] init];;
-        //NOTE: 设置按钮的样式
         MFCommonBaseModel *model = _headerDataArr[i];
-        [titBtn setTitle:model.name forState:UIControlStateNormal];
-        titBtn.tag = 1000+i;
-        [titBtn addTarget:self action:@selector(titBtnClike:) forControlEvents:UIControlEventTouchUpInside];
-        //NOTE: 计算文字大小
-        CGSize titleSize = [model.name boundingRectWithSize:CGSizeMake(MAXFLOAT,BtnH) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:titBtn.titleLabel.font} context:nil].size;
-        CGFloat titBtnW = titleSize.width + 2 * titleMargin; //按钮的长度加间距
-        //NOTE: 判断按钮是否超过屏幕的宽
-        if ((BtnX + titBtnW) > SCREEN_WIDTH) {
-            BtnX = leftMargin;
-            BtnY += BtnH + SpacingY;
+        CGFloat btnWidth = [self WidthWithString:model.name fontSize:13 height:BtnHeight];
+        btnWidth += 2 * titleMargin;//让文字两端留出间距
+        
+        if(btnWidth<minBtnLength)
+            btnWidth = minBtnLength;
+        
+        if(btnWidth>maxBtnLength)
+            btnWidth = maxBtnLength;
+        
+        if(Btnx + btnWidth > oneLineBtnWidtnLimit)
+        {
+            BtnlineNum ++;//长度超出换到下一行
+            Btnx = btnGap;
         }
-        //NOTE: 设置按钮的位置
-        titBtn.frame = CGRectMake(BtnX, BtnY + originY, titBtnW, BtnH);
-        BtnX += titBtnW + SpacingX;
-        self.frame = CGRectMake(0, 0, SCREEN_WIDTH, BtnY + BtnH + 10);
-        [self addSubview:titBtn];
+        
+        
+        MFbutton *btn = [[MFbutton alloc] init];
+        
+        CGFloat height = titleLab.frame.size.height+titleLab.frame.origin.x + (BtnlineNum*(BtnHeight+btnGapY));
+        btn.frame = CGRectMake(Btnx, height,
+                               btnWidth,BtnHeight);
+        [btn setTitle:model.name forState:UIControlStateNormal];
+        btn.backgroundColor = [UIColor colorWithHex:0xe9e9e9];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 5;
+        btn.layer.borderWidth = 0.5;
+        btn.layer.borderColor = [[UIColor grayColor] CGColor];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        btn.accessibilityIdentifier = [NSString stringWithFormat:@"%d",i];
+        //[btn addTarget:self action:@selector(standardBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        Btnx =Btnx + btnWidth + btnGap;
+        
+        [self addSubview:btn];
     }
+    
+    totalHeight = 30 + (1+BtnlineNum)*(BtnHeight+btnGapY) + btnGapY;
+    self.frame = CGRectMake(0, 0, SCREEN_WIDTH, totalHeight);
+
     if (_headerDataArr.count == 0) {
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
         
