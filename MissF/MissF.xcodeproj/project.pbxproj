@@ -29,13 +29,14 @@
 		1217BC411F17273600DC4B87 /* MFRoommateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC401F17273600DC4B87 /* MFRoommateViewModel.m */; };
 		1217BC441F1728C500DC4B87 /* MFRoommateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC431F1728C500DC4B87 /* MFRoommateTableViewCell.m */; };
 		1217BC471F17549700DC4B87 /* UITapImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC461F17549700DC4B87 /* UITapImageView.m */; };
-		12229FDE1F1880100075A102 /* tagsList.json in Resources */ = {isa = PBXBuildFile; fileRef = 12229FDD1F1880100075A102 /* tagsList.json */; };
 		12229FE11F188A960075A102 /* commonViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12229FE01F188A960075A102 /* commonViewModel.m */; };
 		12229FE41F188D0D0075A102 /* MFCommonModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12229FE31F188D0D0075A102 /* MFCommonModel.m */; };
 		1222A0281F18CD2B0075A102 /* testHeder_hd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1222A0271F18CD2B0075A102 /* testHeder_hd.jpg */; };
 		1222A02A1F18CFBF0075A102 /* 4311500026847.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1222A0291F18CFBF0075A102 /* 4311500026847.jpg */; };
 		122439D21F17ACBD007A1610 /* MFRoommateTagsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */; };
 		122439D51F18640C007A1610 /* MFTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D41F18640C007A1610 /* MFTagsView.m */; };
+		122B095F1F1C95E700E285E8 /* MFMyProfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 122B095E1F1C95E700E285E8 /* MFMyProfessionViewController.m */; };
+		122B09621F1C9A7700E285E8 /* MFProfessionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 122B09611F1C9A7700E285E8 /* MFProfessionViewCell.m */; };
 		124671E61F1B8E5D00FC8BF5 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */; };
 		12D4AE9C1F0E80FB00898F51 /* MissFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AE9B1F0E80FB00898F51 /* MissFTests.m */; };
 		12D4AEA71F0E80FB00898F51 /* MissFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEA61F0E80FB00898F51 /* MissFUITests.m */; };
@@ -179,7 +180,6 @@
 		1217BC431F1728C500DC4B87 /* MFRoommateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTableViewCell.m; sourceTree = "<group>"; };
 		1217BC451F17549700DC4B87 /* UITapImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UITapImageView.h; sourceTree = "<group>"; };
 		1217BC461F17549700DC4B87 /* UITapImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITapImageView.m; sourceTree = "<group>"; };
-		12229FDD1F1880100075A102 /* tagsList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tagsList.json; sourceTree = "<group>"; };
 		12229FDF1F188A960075A102 /* commonViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = commonViewModel.h; sourceTree = "<group>"; };
 		12229FE01F188A960075A102 /* commonViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = commonViewModel.m; sourceTree = "<group>"; };
 		12229FE21F188D0D0075A102 /* MFCommonModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFCommonModel.h; sourceTree = "<group>"; };
@@ -190,6 +190,10 @@
 		122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTagsViewCell.m; sourceTree = "<group>"; };
 		122439D31F18640C007A1610 /* MFTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsView.h; sourceTree = "<group>"; };
 		122439D41F18640C007A1610 /* MFTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsView.m; sourceTree = "<group>"; };
+		122B095D1F1C95E700E285E8 /* MFMyProfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMyProfessionViewController.h; sourceTree = "<group>"; };
+		122B095E1F1C95E700E285E8 /* MFMyProfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMyProfessionViewController.m; sourceTree = "<group>"; };
+		122B09601F1C9A7700E285E8 /* MFProfessionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFProfessionViewCell.h; sourceTree = "<group>"; };
+		122B09611F1C9A7700E285E8 /* MFProfessionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFProfessionViewCell.m; sourceTree = "<group>"; };
 		124671E41F1B8E5D00FC8BF5 /* GBTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTagListView.h; sourceTree = "<group>"; };
 		124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		12D4AE7E1F0E80FB00898F51 /* MissF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissF.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -457,7 +461,6 @@
 		1217BC2F1F1724F500DC4B87 /* MFRoommate */ = {
 			isa = PBXGroup;
 			children = (
-				12229FDD1F1880100075A102 /* tagsList.json */,
 				1217BC371F1724F500DC4B87 /* ViewModel */,
 				1217BC301F1724F500DC4B87 /* TableViewProxy */,
 				1217BC331F1724F500DC4B87 /* View */,
@@ -519,6 +522,17 @@
 			children = (
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		122B095C1F1C95D000E285E8 /* MyProfession */ = {
+			isa = PBXGroup;
+			children = (
+				122B095D1F1C95E700E285E8 /* MFMyProfessionViewController.h */,
+				122B095E1F1C95E700E285E8 /* MFMyProfessionViewController.m */,
+				122B09601F1C9A7700E285E8 /* MFProfessionViewCell.h */,
+				122B09611F1C9A7700E285E8 /* MFProfessionViewCell.m */,
+			);
+			path = MyProfession;
 			sourceTree = "<group>";
 		};
 		12D4AE751F0E80FB00898F51 = {
@@ -655,6 +669,7 @@
 			children = (
 				12D4AEC91F0E818100898F51 /* MFMineViewController.h */,
 				12D4AECA1F0E818100898F51 /* MFMineViewController.m */,
+				122B095C1F1C95D000E285E8 /* MyProfession */,
 				1216F1471F19DAD400906EB0 /* MyTags */,
 				12D4AECB1F0E818100898F51 /* MyPublish */,
 			);
@@ -1115,7 +1130,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12229FDE1F1880100075A102 /* tagsList.json in Resources */,
 				12D4AF661F0E818100898F51 /* Info.plist in Resources */,
 				12D4AFBA1F0F614E00898F51 /* bg_my_released@2x.png in Resources */,
 				12D4AFD11F0F980300898F51 /* placeholder60@2x.png in Resources */,
@@ -1367,6 +1381,7 @@
 				1202B03D1F160B0D0097223B /* STL_CommonIdea.m in Sources */,
 				12D4AF671F0E818100898F51 /* main.m in Sources */,
 				12D4AFB41F0F2F8D00898F51 /* MFHouseListModel.m in Sources */,
+				122B09621F1C9A7700E285E8 /* MFProfessionViewCell.m in Sources */,
 				12D4AF981F0E818100898F51 /* UITTTAttributedLabel.m in Sources */,
 				1202B02D1F1609480097223B /* YWCountDown.m in Sources */,
 				1217BC411F17273600DC4B87 /* MFRoommateViewModel.m in Sources */,
@@ -1380,6 +1395,7 @@
 				12D4AF821F0E818100898F51 /* UILabel+Common.m in Sources */,
 				1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */,
 				12D4AF6A1F0E818100898F51 /* MFOAuthModel.m in Sources */,
+				122B095F1F1C95E700E285E8 /* MFMyProfessionViewController.m in Sources */,
 				12229FE11F188A960075A102 /* commonViewModel.m in Sources */,
 				12D4AF891F0E818100898F51 /* UIBarButtonItem+YB_Extension.m in Sources */,
 				12D4AF5B1F0E818100898F51 /* AppDelegate.m in Sources */,

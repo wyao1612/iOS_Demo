@@ -24,8 +24,11 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+
     if (indexPath.section == 0) {
+        
         MFRoommateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TitleValue];
+        
         switch (indexPath.row) {
             case 0:
             {

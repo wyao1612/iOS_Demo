@@ -9,25 +9,27 @@
 #import "MFCommonModel.h"
 
 @implementation MFCommonBaseModel
-
 @end
 
 @implementation MFSymbolicBaseModel
+@end
 
+@implementation MFPaymentTypeModel
+@end
 
-
+@implementation MFProfessionModel
 @end
 
 @implementation MFCommonModel
 + (NSDictionary *)mj_objectClassInArray
 {
     return @{
-             @"paymentType" : @"MFCommonBaseModel",
+             @"paymentType" : @"MFPaymentTypeModel",
              @"constellation":@"MFSymbolicBaseModel",
              @"chineseZodiac":@"MFSymbolicBaseModel",
              @"tag":@"MFtagsModel",
              @"roommateRequires":@"MFCommonBaseModel",
-             @"profession":@"MFCommonBaseModel"
+             @"profession":@"MFProfessionModel"
              };
 }
 @end

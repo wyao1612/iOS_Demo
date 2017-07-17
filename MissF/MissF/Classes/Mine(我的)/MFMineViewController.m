@@ -9,6 +9,7 @@
 #import "MFMineViewController.h"
 #import "MFMyPublishViewController.h"
 #import "MFTagsViewController.h"
+#import "MFMyProfessionViewController.h"
 
 
 @interface MFMineViewController ()
@@ -39,14 +40,26 @@
     [btn2 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn2];
     
+    
+    UIButton *btn3 = [[UIButton alloc] initWithFrame:CGRectMake(100, 400, 200, 30)];
+    btn3.backgroundColor = OrangeCOLOR;
+    btn3.tag = 103;
+    [btn3 setTitle:@"职业选择" forState:UIControlStateNormal];
+    [btn3 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn3];
+    
+    
 }
 
 -(void)btnClick:(UIButton*)sender{
     if (sender.tag == 101) {
         MFMyPublishViewController *vc = [[MFMyPublishViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-    }else{
+    }else  if (sender.tag == 102) {
         MFTagsViewController *vc = [[MFTagsViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else  if (sender.tag == 103) {
+        MFMyProfessionViewController *vc = [[MFMyProfessionViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
     
@@ -57,15 +70,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -26,6 +26,9 @@ UIScrollViewDelegate>
 @property (nonatomic, strong) YWSegmentTitleView *titleView;
 @property (nonatomic, strong) NSArray *titleArray;
 @property (nonatomic, strong) UIScrollView *contentScrollView;
+@property (nonatomic, strong) MFRoommateViewController *RoommateViewVc;
+/** 是否是编辑状态 */
+@property (nonatomic, copy) NSString  *RoommateViewIsEdit;
 
 @end
 
@@ -144,10 +147,10 @@ UIScrollViewDelegate>
         self.rightStr_0 = @"编辑";
         self.titleView.hidden = YES;
         self.contentScrollView.hidden = YES;
-        MFRoommateViewController *vc = [[MFRoommateViewController alloc] init];
-        vc.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT);
-        [self.view addSubview:vc.view];
-        [self addChildViewController:vc];
+        
+        self.RoommateViewVc.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT);
+        [self.view addSubview:self.RoommateViewVc.view];
+        [self addChildViewController:self.RoommateViewVc];
     }
 }
 
@@ -213,10 +216,20 @@ UIScrollViewDelegate>
                 [vc updateBottomViewWithCount:0];
             }
         }
+    }else{//我的室友页面编辑保存
+        if ([self.rightStr_0 isEqualToString:@"编辑"]) {
+            [SVProgressHUD showSuccessWithStatus:@"跳转发布界面"];
+        }
     }
-
-  
 }
+
+-(MFRoommateViewController *)RoommateViewVc{
+    if (!_RoommateViewVc) {
+        _RoommateViewVc = [[MFRoommateViewController alloc] init];
+    }
+    return _RoommateViewVc;
+}
+
 
 
 - (void)didReceiveMemoryWarning {

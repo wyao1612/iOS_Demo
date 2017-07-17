@@ -8,14 +8,27 @@
 
 #import <Foundation/Foundation.h>
 
-
 /**
  基类公共模型
  */
 @interface MFCommonBaseModel : NSObject
 @property(copy,nonatomic) NSString* ID;
-@property(copy,nonatomic) NSString* key;
 @property(copy,nonatomic) NSString* name;
+@end
+
+/**
+ 家居模型
+ */
+@interface MFPaymentTypeModel : MFCommonBaseModel
+@property(copy,nonatomic) NSString* key;
+@end
+
+/**
+ 职业模型
+ */
+@interface MFProfessionModel : MFCommonBaseModel
+@property(copy,nonatomic) NSString* parent;
+@property(copy,nonatomic) NSString* color;
 @end
 
 /**
@@ -37,7 +50,7 @@
 
 @interface MFCommonModel : NSObject
 /** 支付方式*/
-@property(nonatomic,strong) NSMutableArray<MFCommonBaseModel*>  *paymentType;
+@property(nonatomic,strong) NSMutableArray<MFPaymentTypeModel*>  *paymentType;
 /** 房间最大数*/
 @property(nonatomic,copy) NSString  *houseRoomMax;
 /** 客厅最大数*/
@@ -57,7 +70,7 @@
 /** 室友要求*/
 @property(nonatomic,strong) NSMutableArray <MFCommonBaseModel*>  *roommateRequires;
 /** 职业*/
-@property(nonatomic,strong) NSMutableArray <MFCommonBaseModel*>  *profession;
+@property(nonatomic,strong) NSMutableArray <MFProfessionModel*>  *profession;
 @end
 
 

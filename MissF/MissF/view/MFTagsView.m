@@ -79,7 +79,6 @@
         btn.frame = CGRectMake(Btnx, height,
                                btnWidth,BtnHeight);
         [btn setTitle:model.name forState:UIControlStateNormal];
-        btn.backgroundColor = [UIColor colorWithHex:0xe9e9e9];
         [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         btn.layer.cornerRadius = 5;
         btn.layer.borderWidth = 0.5;

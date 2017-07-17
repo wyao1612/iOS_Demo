@@ -33,7 +33,16 @@
     self.isAutoBack = NO;
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.roommateTableView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(editRoomateTableView:) name:@"roommateTableViewisEdit" object:nil];
 }
+
+
+#pragma mark - 接收通知判断是否编辑室友界面
+-(void) editRoomateTableView:(NSNotification *) notification{
+    NSLog(@"收到ChatList数据%@接收通知！",notification.object);//讲传递过来的数据保存起来或使用
+}
+
 
 //滚动tableview 完毕之后
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -78,9 +87,14 @@
         _roommateTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _roommateTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         _roommateTableView.separatorColor = GRAYCOLOR;
+        
+        //非编辑状态 不带箭头
         [_roommateTableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_TitleValue];
         [_roommateTableView registerClass:[MFRoommateTagsViewCell class] forCellReuseIdentifier:kCellIdentifier_TagsViewCell];
         [_roommateTableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_OnlyValue];
+        
+        //编辑状态下带箭头
+        [_roommateTableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_TitleValueMore];
         _roommateTableView.showsVerticalScrollIndicator = NO;
         _roommateTableView.backgroundColor = BACKGROUNDCOLOR;
         _roommateTableView.delegate = self.roommateTableViewProxy;
@@ -150,7 +164,9 @@
     return _commentLable;
 }
 
-
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -165,9 +165,13 @@ DZNEmptyDataSetDelegate
     if (_rightStr_0) {
         rightItem = [[UIBarButtonItem alloc] initWithTitle:_rightStr_0 style:UIBarButtonItemStylePlain target:self action:@selector(right_0_action)];
         [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateNormal];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
+          [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
         
     }else if (_rightIm_0){
         rightItem = [[UIBarButtonItem alloc] initWithImage:[_rightIm_0 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(right_0_action)];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
     }
     [ary addObject:rightItem];
     self.navigationItem.rightBarButtonItems = ary;
@@ -194,8 +198,12 @@ DZNEmptyDataSetDelegate
     if (_rightStr_1) {
         rightItem = [[UIBarButtonItem alloc] initWithTitle:_rightStr_1 style:UIBarButtonItemStylePlain target:self action:@selector(right_1_action)];
         [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateNormal];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
     }else if (_rightIm_1){
         rightItem = [[UIBarButtonItem alloc] initWithImage:[_rightIm_1 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(right_1_action)];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
+        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
     }
     NSMutableArray *ary = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
     [ary addObject:rightItem];
@@ -297,23 +305,8 @@ DZNEmptyDataSetDelegate
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        //        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.separatorColor = GRAYCOLOR;;
+        _tableView.separatorColor = GRAYCOLOR;
         _tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        weak(self);
-        //设置下拉刷新
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakSelf requestDataWithRet:YES];//刷新课程数据
-            [weakSelf.tableView.mj_header endRefreshing];
-        }];
-        _tableView.mj_header.automaticallyChangeAlpha = YES;
-        
-        //设置上拉加载更多
-        _tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            [weakSelf requestDataWithRet:NO];
-            [weakSelf.tableView.mj_footer endRefreshing];
-        }];
-        
     }
     return _tableView;
 }
