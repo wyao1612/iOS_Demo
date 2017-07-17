@@ -48,8 +48,8 @@ alpha:1.0]
     
     previousFrame = CGRectZero;
     [_tagArr addObjectsFromArray:arr];
-    [arr enumerateObjectsUsingBlock:^(NSString*str, NSUInteger idx, BOOL *stop) {
-        
+    
+    for (int idx = 0; idx < arr.count; idx++) {
         UIButton*tagBtn=[UIButton buttonWithType:UIButtonTypeCustom];
         tagBtn.frame=CGRectZero;
         
@@ -71,6 +71,7 @@ alpha:1.0]
         [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         tagBtn.titleLabel.font=[UIFont boldSystemFontOfSize:15];
         [tagBtn addTarget:self action:@selector(tagBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        NSString * str = arr[idx];
         [tagBtn setTitle:str forState:UIControlStateNormal];
         tagBtn.tag=KBtnTag+idx;
         tagBtn.layer.cornerRadius=13;
@@ -114,9 +115,7 @@ alpha:1.0]
         previousFrame=tagBtn.frame;
         [self setHight:self andHight:totalHeight+Size_str.height + BOTTOM_MARGIN+15];//添加底边多余的高度
         [self addSubview:tagBtn];
-        
-        
-    }];
+    }
     if(_GBbackgroundColor){
         self.backgroundColor=_GBbackgroundColor;
     }else{
@@ -133,16 +132,12 @@ alpha:1.0]
 -(void)tagBtnClick:(UIButton*)button{
     if(_isSingleSelect){
         if(button.selected){
-            
             button.selected=!button.selected;
-            
         }else{
-            
             _tempBtn.selected=NO;
             _tempBtn.backgroundColor=[UIColor whiteColor];
             button.selected=YES;
             _tempBtn=button;
-            
         }
         
     }else{
@@ -156,8 +151,6 @@ alpha:1.0]
     }
     
     [self didSelectItems];
-    
-    
 }
 -(void)didSelectItems{
     
@@ -190,7 +183,10 @@ alpha:1.0]
             }
         }
     }
-    self.didselectItemBlock(arr);
+    
+    if (self.didselectItemBlock) {
+        self.didselectItemBlock(arr,self.tag);
+    }
     
     
 }

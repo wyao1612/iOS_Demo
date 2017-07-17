@@ -15,71 +15,88 @@
     GBTagListView*_tempTag;
     
 }
-
+/** 习惯*/
+@property(strong,nonatomic)UIView *habitView;
+/** 爱好*/
+@property(strong,nonatomic)UIView *interest;
+/** 个性*/
+@property(strong,nonatomic)UIView *personality;
+/** 保存按钮*/
+@property(strong,nonatomic)UIButton *saveBtn;
 @end
 
 @implementation MFTagsViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.isAutoBack = NO;
+    // Do any additional setup after loading the view
     self.name = @"选择标签";
     
-//    
-//    strArray=@[@"运动",@"看书",@"电影",@"旅游",@"摄影",@"综艺",@"二次元",@"DIY",@"做饭",@"运动",@"看书",@"值得一交的朋友",@"github",@"code4app",@"值得一交的朋友",@"大好人",@"github",@"code4app"];
-//    
-//    GBTagListView *tagList=[[GBTagListView alloc]initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 0)];
-//    /**允许点击 */
-//    tagList.canTouch=YES;
-//    /**可以控制允许点击的标签数 */
-//    tagList.canTouchNum=3;
-//    /**控制是否是单选模式 */
-//    tagList.isSingleSelect=NO;
-////    [tagList setMarginBetweenTagLabel:10 AndBottomMargin:10];
-//    tagList.signalTagColor=[UIColor whiteColor];
-//    [tagList setTagWithTagArray:strArray];
-//    __weak __typeof(self)weakSelf = self;
-//    [tagList setDidselectItemBlock:^(NSArray *arr) {
-//         NSLog(@"------>视图一选中的标签%@",arr);
-//    }];
-//    
-//    [self.view addSubview:tagList];
-//    
-//    
-//    GBTagListView *tagList1=[[GBTagListView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(tagList.frame)+10, SCREEN_WIDTH, 0)];
-//    /**允许点击 */
-//    tagList1.canTouch=YES;
-//    /**可以控制允许点击的标签数 */
-//    tagList1.canTouchNum=5;
-//    /**控制是否是单选模式 */
-//    tagList1.isSingleSelect=NO;
-//    tagList1.signalTagColor=[UIColor whiteColor];
-//    [tagList1 setTagWithTagArray:strArray];
-//    [tagList1 setDidselectItemBlock:^(NSArray *arr) {
-//         NSLog(@"------>视图二选中的标签%@",arr);
-//    }];
-//    
-//    [self.view addSubview:tagList1];
+    self.contentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT-50);
     
+    [self setTagsViewWithBgView:self.interest withOrigin:CGPointMake(0, 0) withName:@"爱好" andTagIdentifier:0];
+    [self setTagsViewWithBgView:self.habitView withOrigin:CGPointMake(0,CGRectGetMaxY(self.interest.frame)+10) withName:@"习惯" andTagIdentifier:1];
+    [self setTagsViewWithBgView:self.personality withOrigin:CGPointMake(0,CGRectGetMaxY(self.habitView.frame)+10) withName:@"个性" andTagIdentifier:2];
     
-    [self setTagsView];
+    [self.view addSubview:self.saveBtn];
+    
+    self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.personality.frame));
 }
 
--(void)setTagsView{
-    UIView *bgView = [[UIView alloc] init];
-    bgView.backgroundColor = WHITECOLOR;
-    [self.view addSubview:bgView];
+-(UIView*)setTagsViewWithBgView:(UIView*)bgView withOrigin:(CGPoint)origin withName:(NSString*)nameText andTagIdentifier:(NSInteger)IdentifierTag{
+    
+    bgView.frame = CGRectMake(0, origin.y, SCREEN_WIDTH, 0);
+    bgView.userInteractionEnabled = YES;
+    bgView.tag = IdentifierTag;
+    [self.contentView addSubview:bgView];
     
     
-    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+    UIView *hView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
     hView.backgroundColor = WHITECOLOR;
     [bgView addSubview:hView];
     
     
-    strArray=@[@"运动",@"看书",@"电影",@"旅游",@"摄影",@"综艺",@"二次元",@"DIY",@"做饭",@"运动",@"看书",@"值得一交的朋友",@"github",@"code4app",@"值得一交的朋友",@"大好人",@"github",@"code4app"];
+    UIView *iconView = [[UIView alloc] initWithFrame:CGRectMake(12, 15, 2, 14)];
+    iconView.backgroundColor = GLOBALCOLOR;
+    [hView addSubview:iconView];
     
-    GBTagListView *tagList=[[GBTagListView alloc]initWithFrame:CGRectMake(0, 60, SCREEN_WIDTH, 0)];
+    UILabel *nameLabe = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 50, 15)];
+    nameLabe.text = nameText;
+    nameLabe.font = FONT(15);
+    nameLabe.textAlignment = NSTextAlignmentLeft;
+    nameLabe.textColor = BLACKTEXTCOLOR;
+    nameLabe.backgroundColor = WHITECOLOR;
+    [hView addSubview:nameLabe];
+    
+    
+    UILabel *tipsLabe = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxY(nameLabe.frame)+57, 15, 160, 15)];
+    tipsLabe.text = @"最多选择三个标签哦~";
+    tipsLabe.font = FONT(15);
+    tipsLabe.textAlignment = NSTextAlignmentLeft;
+    tipsLabe.textColor = GLOBALCOLOR;
+    tipsLabe.backgroundColor = WHITECOLOR;
+    tipsLabe.hidden = YES;
+    [hView addSubview:tipsLabe];
+    
+    
+    MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
+    
+    switch (IdentifierTag) {
+        case 0:
+            strArray = [self getTagNameArrFromModelArray:model.tag.interest];
+            break;
+        case 1:
+            strArray = [self getTagNameArrFromModelArray:model.tag.habit];
+            break;
+        case 2:
+            strArray =  [self getTagNameArrFromModelArray:model.tag.personality];            break;
+            
+        default:
+            break;
+    }
+    
+    GBTagListView *tagList=[[GBTagListView alloc]initWithFrame:CGRectMake(0, 45, SCREEN_WIDTH, 0)];
+    tagList.tag = IdentifierTag;
     /**允许点击 */
     tagList.canTouch=YES;
     /**可以控制允许点击的标签数 */
@@ -87,18 +104,73 @@
     /**控制是否是单选模式 */
     tagList.isSingleSelect=NO;
     tagList.signalTagColor=[UIColor whiteColor];
-    [tagList setTagWithTagArray:strArray];
-    // __weak __typeof(self)weakSelf = self;
-    [tagList setDidselectItemBlock:^(NSArray *arr) {
-        NSLog(@"------>视图一选中的标签%@",arr);
-    }];
-    
     [bgView addSubview:tagList];
     
-    [bgView setupAutoHeightWithBottomView:tagList bottomMargin:10];
+    [tagList setTagWithTagArray:strArray];
+ 
+    [tagList setDidselectItemBlock:^(NSArray *arr,NSInteger viewTag) {
+        NSLog(@"------>视图%zd的选中的标签%@",viewTag,arr);//存在循环引用
+        if (arr.count>=3) {
+            tipsLabe.hidden = NO;
+        }else{
+            tipsLabe.hidden = YES;
+        }
+    }];
     
+    bgView.frame = CGRectMake(0, origin.y, SCREEN_WIDTH, tagList.size.height+60);
+    
+    return bgView;
 }
-    
+
+-(void)saveBtnClick:(UIButton*)sender{
+    [SVProgressHUD showSuccessWithStatus:@"保存标签回调"];
+}
+
+#pragma mark - private
+-(NSArray*)getTagNameArrFromModelArray:(NSArray*)modelArr{
+    NSMutableArray *tempArray = [NSMutableArray array];
+    [modelArr enumerateObjectsUsingBlock:^(MFCommonBaseModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [tempArray addObject:obj.name];
+    }];
+    return tempArray.copy;
+}
+
+-(UIView *)habitView{
+    if (!_habitView) {
+        _habitView = [[UIView alloc] init];
+        _habitView.backgroundColor = WHITECOLOR;
+    }
+    return _habitView;
+}
+
+-(UIView *)interest{
+    if (!_interest) {
+        _interest = [[UIView alloc] init];
+        _interest.backgroundColor = WHITECOLOR;
+    }
+    return _interest;
+}
+
+-(UIView *)personality{
+    if (!_personality) {
+        _personality = [[UIView alloc] init];
+        _personality.backgroundColor = WHITECOLOR;
+    }
+    return _personality;
+}
+
+-(UIButton *)saveBtn{
+    if (!_saveBtn) {
+        _saveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50-NaviBar_HEIGHT, SCREEN_WIDTH, 50)];
+        [_saveBtn setTitle:@"保存标签" forState:UIControlStateNormal];
+        _saveBtn.titleLabel.textColor = WHITECOLOR;
+        _saveBtn.backgroundColor = GLOBALCOLOR;
+        [_saveBtn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _saveBtn;
+}
+
+
 
 
 - (void)didReceiveMemoryWarning {
