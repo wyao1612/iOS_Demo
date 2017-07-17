@@ -38,6 +38,7 @@
         self.separatorInset=UIEdgeInsetsZero;
         self.layoutMargins=UIEdgeInsetsZero;
         self.backgroundColor = ClearColor;
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
 
         //定义选中的背景颜色
         [self setupViewsWithStatus:NO];

@@ -24,7 +24,7 @@
     self.name = @"发现";
     self.isAutoBack = NO;
     self.showBack = NO;
-    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 50)];
+    UIButton *btn1 = [[UIButton alloc] initWithFrame:CGRectMake(100, 300, 200, 30)];
     btn1.backgroundColor = OrangeCOLOR;
     btn1.tag = 101;
     [btn1 setTitle:@"我的发布-室友" forState:UIControlStateNormal];
@@ -32,7 +32,7 @@
     [self.view addSubview:btn1];
     
     
-    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(100, 350, 200, 50)];
+    UIButton *btn2 = [[UIButton alloc] initWithFrame:CGRectMake(100, 350, 200, 30)];
     btn2.backgroundColor = OrangeCOLOR;
     btn2.tag = 102;
     [btn2 setTitle:@"标签列表" forState:UIControlStateNormal];

@@ -67,6 +67,10 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //取消选中
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
     //选中cell
     MFHouseListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
@@ -81,7 +85,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //取消选中
+    
     MFHouseListCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     
     //系统选中按钮的回调

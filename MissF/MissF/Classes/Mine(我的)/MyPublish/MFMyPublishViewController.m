@@ -94,29 +94,6 @@ UIScrollViewDelegate>
 }
 
 
-- (void)segmentTitleView:(YWSegmentTitleView *)segmentView selectedIndex:(NSInteger)selectedIndex lastSelectedIndex:(NSInteger)lastSelectedIndex{
-    
-    if (selectedIndex == 0) {
-        self.rightStr_0 = self.firstSelectString;
-    }else if(selectedIndex == 1){
-        self.rightStr_0 = self.secondSelectString;
-    }
-    _childViewIndex = selectedIndex;
-    //NSLog(@"选择的下标---->%zd",selectedIndex);
-    [self.contentScrollView setContentOffset:CGPointMake(selectedIndex*SCREEN_WIDTH, 0) animated:YES];
-    
-}
-
-
-#pragma mark - UIScrollView  delegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    if (scrollView == _contentScrollView) {
-        NSInteger currentIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
-        self.titleView.selectedIndex = currentIndex;
-    }
-}
-
 -(UISegmentedControl *)segmentedControl{
     if (!_segmentedControl) {
         _segmentedControl = ({
@@ -147,9 +124,7 @@ UIScrollViewDelegate>
     self.curIndex = segmentedControl.selectedSegmentIndex;
 }
 
-
-
-#pragma mark - 点击 segmentedControl事件
+#pragma mark - 点击titleView按钮事件
 - (void)setCurIndex:(NSInteger)curIndex{
     _curIndex = curIndex;
     if (_segmentedControl.selectedSegmentIndex != curIndex) {
@@ -176,13 +151,43 @@ UIScrollViewDelegate>
     }
 }
 
--(void)right_0_action{
 
-    switch (_childViewIndex) {
-        case 0:
-        {
-            MFHousingListViewController *vc  =  self.childViewControllers[0];
+#pragma mark - UIScrollView  delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (scrollView == _contentScrollView) {
+        NSInteger currentIndex = scrollView.contentOffset.x / SCREEN_WIDTH;
+        self.titleView.selectedIndex = currentIndex;
+        if (currentIndex == 0) {
+            self.rightStr_0 = self.firstSelectString;
+        }else if(currentIndex == 1){
+            self.rightStr_0 = self.secondSelectString;
+        }
+        _childViewIndex = currentIndex;
+    }
+}
+
+/** 待租出和已租出的按钮选择*/
+- (void)segmentTitleView:(YWSegmentTitleView *)segmentView selectedIndex:(NSInteger)selectedIndex lastSelectedIndex:(NSInteger)lastSelectedIndex{
+    
+    if (selectedIndex == 0) {
+        self.rightStr_0 = self.firstSelectString;
+    }else if(selectedIndex == 1){
+        self.rightStr_0 = self.secondSelectString;
+    }
+    _childViewIndex = selectedIndex;
+    //NSLog(@"选择的下标---->%zd",selectedIndex);
+    [self.contentScrollView setContentOffset:CGPointMake(selectedIndex*SCREEN_WIDTH, 0) animated:YES];
+    
+}
+
+-(void)right_0_action{
+    
+    if (_curIndex == 0) {
+
+        if (_childViewIndex == 0) {
             
+            MFHousingListViewController *vc = self.childViewControllers[0];
             if ([self.firstSelectString isEqualToString:@"选择"]) {
                 self.rightStr_0 = @"取消";
                 self.firstSelectString = @"取消";
@@ -194,22 +199,24 @@ UIScrollViewDelegate>
                 vc.isExpandItem = NO;
                 [vc updateBottomViewWithCount:0];
             }
+        }else  if (_childViewIndex == 1){
+             MFHousingListViewController *vc = self.childViewControllers[1];
+            if ([self.secondSelectString isEqualToString:@"选择"]) {
+                self.rightStr_0 = @"取消";
+                self.secondSelectString = @"取消";
+                vc.isExpandItem = YES;
+                
+            }else if ([self.secondSelectString isEqualToString:@"取消"]){
+                self.rightStr_0 = @"选择";
+                self.secondSelectString = @"选择";
+                vc.isExpandItem = NO;
+                [vc updateBottomViewWithCount:0];
+            }
         }
-            break;
-        case 1:
-        {
-
-            MFHousingListViewController *vc  =  self.childViewControllers[1];
-            
-        }
-            break;
-            
-        default:
-            break;
     }
 
+  
 }
-
 
 
 - (void)didReceiveMemoryWarning {
