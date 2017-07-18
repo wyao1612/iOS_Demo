@@ -32,14 +32,6 @@ PODS:
     - FBRetainCycleDetector
   - RBBAnimation (0.4.0)
   - Reachability (3.2)
-  - ReactiveCocoa (2.5):
-    - ReactiveCocoa/UI (= 2.5)
-  - ReactiveCocoa/Core (2.5):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.5)
-  - ReactiveCocoa/UI (2.5):
-    - ReactiveCocoa/Core
-  - RegexKitLite-NoWarning (1.1.0)
   - SDAutoLayout (2.1.8)
   - SDCAlertView (2.5.4):
     - RBBAnimation (~> 0.3)
@@ -52,7 +44,6 @@ PODS:
   - SDWebImage/Core (3.8.2)
   - SSKeychain (1.4.1)
   - SVProgressHUD (2.1.2)
-  - TMCache (2.1.0)
   - TTGTagCollectionView (1.6.0)
   - TTTAttributedLabel (2.0.0)
   - YTKKeyValueStore (0.1.2):
@@ -73,15 +64,12 @@ DEPENDENCIES:
   - MJRefresh (~> 3.1.12)
   - MLeaksFinder (~> 0.2.1)
   - Reachability (~> 3.2)
-  - ReactiveCocoa (= 2.5)
-  - RegexKitLite-NoWarning (= 1.1.0)
   - SDAutoLayout (~> 2.1.4)
   - SDCAlertView (~> 2.5.2)
   - SDCycleScrollView (~> 1.65)
   - SDWebImage (~> 3.8.1)
   - SSKeychain (= 1.4.1)
   - SVProgressHUD (from `https://github.com/SVProgressHUD/SVProgressHUD.git`)
-  - TMCache (= 2.1.0)
   - TTGTagCollectionView
   - TTTAttributedLabel (~> 2.0.0)
   - YTKKeyValueStore (~> 0.1.2)
@@ -112,8 +100,6 @@ SPEC CHECKSUMS:
   MLeaksFinder: 0850e2f2abc7227adc4d4e2d1992b431264eb4d5
   RBBAnimation: 4b2d66f6d993febce63cd564da934985313b9c59
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  RegexKitLite-NoWarning: 365d208f8187997e33d9de8baeddfc00728596d8
   SDAutoLayout: 5a4b48d6b8a5172ae8d088d2879e40dd795e6251
   SDCAlertView: 2e2b0ecc5f1ec367e45d83efa2e512688ca7fa55
   SDCAutoLayout: e6885bb39ab8e2ec2ff84d158f38035f025f7420
@@ -121,11 +107,10 @@ SPEC CHECKSUMS:
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SSKeychain: 55cc80f66f5c73da827e3077f02e43528897db41
   SVProgressHUD: d65371a8e4482380deddb9fe60e14e59ddb30eb3
-  TMCache: 95ebcc9b3c7e90fb5fd8fc3036cba3aa781c9bed
   TTGTagCollectionView: ba35fb7dc284b368c86bf044bd889293a69114e8
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: 12bf3a5c913117b178431712200412e6182d22ff
+PODFILE CHECKSUM: d343181f95038563d164ce8f425f48742d6ccf1c
 
 COCOAPODS: 1.2.1

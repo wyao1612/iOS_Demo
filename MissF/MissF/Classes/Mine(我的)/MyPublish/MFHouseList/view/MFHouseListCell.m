@@ -260,8 +260,8 @@
     if(_houseSelectButton == nil)
     {
         _houseSelectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_houseSelectButton setImage:[UIImage imageNamed:@"Unselected"] forState:UIControlStateNormal];
-        [_houseSelectButton setImage:[UIImage imageNamed:@"Selected"] forState:UIControlStateSelected];
+        [_houseSelectButton setImage:[UIImage imageNamed:@"btn_normal"] forState:UIControlStateNormal];
+        [_houseSelectButton setImage:[UIImage imageNamed:@"btn_selected"] forState:UIControlStateSelected];
         [_houseSelectButton addTarget:self action:@selector(houseSelectButtonAction) forControlEvents:UIControlEventTouchUpInside];
     }
     return _houseSelectButton;

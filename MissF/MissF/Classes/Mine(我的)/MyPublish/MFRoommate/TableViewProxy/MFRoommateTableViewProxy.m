@@ -51,6 +51,8 @@
         return cell;
     }else  if (indexPath.section == 1 || indexPath.section == 2){
        MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
+        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
+        [cell setUIwithModelArray:model.tag.interest andTagsName:@"我的标签"];
         return cell;
     }else if (indexPath.section == 3){
       MFRoommateTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_OnlyValue];

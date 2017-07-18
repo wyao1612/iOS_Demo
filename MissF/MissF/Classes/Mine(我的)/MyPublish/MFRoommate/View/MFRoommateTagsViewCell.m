@@ -43,14 +43,16 @@
 }
 
 -(void)setupUI{
+
+}
+
+-(void)setUIwithModelArray:(NSArray<MFCommonBaseModel *>*)modelArray andTagsName:(NSString*)tagsName{
     
-    MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-    CGFloat height =  [self getCellHeightWtihBtnsWithModelArray:model.tag.interest];
+    CGFloat height =  [self getCellHeightWtihBtnsWithModelArray:modelArray];
     self.tagsView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
     [self.contentView addSubview:self.tagsView];
-    self.tagsView.tagsName = @"我的标签";
-    [self.tagsView setHeaderDataArr:model.tag.interest];
-
+    self.tagsView.tagsName = tagsName;
+    [self.tagsView setHeaderDataArr:[NSMutableArray arrayWithArray:modelArray]];
 }
 
 -(CGFloat)getCellHeightWtihBtnsWithModelArray:(NSArray*)modelArray{

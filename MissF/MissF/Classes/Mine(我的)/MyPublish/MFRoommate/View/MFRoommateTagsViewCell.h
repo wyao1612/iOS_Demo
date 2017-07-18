@@ -11,5 +11,5 @@
 
 @interface MFRoommateTagsViewCell : UITableViewCell
 -(CGFloat)getCellHeightWtihBtnsWithModelArray:(NSArray*)modelArray;
-
+-(void)setUIwithModelArray:(NSArray<MFCommonBaseModel *>*)modelArray andTagsName:(NSString*)tagsName;
 @end

@@ -40,7 +40,8 @@
 
 #pragma mark - 接收通知判断是否编辑室友界面
 -(void) editRoomateTableView:(NSNotification *) notification{
-    NSLog(@"收到ChatList数据%@接收通知！",notification.object);//讲传递过来的数据保存起来或使用
+    //讲传递过来的数据保存起来或使用
+    NSLog(@"收到ChatList数据%@接收通知！",notification.object);
 }
 
 

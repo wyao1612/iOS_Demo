@@ -10,6 +10,7 @@
 #import "MFMyPublishViewController.h"
 #import "MFTagsViewController.h"
 #import "MFMyProfessionViewController.h"
+#import "MFPublishRoomateViewController.h"
 
 
 @interface MFMineViewController ()
@@ -48,6 +49,13 @@
     [btn3 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
     
+    UIButton *btn4 = [[UIButton alloc] initWithFrame:CGRectMake(100, 450, 200, 30)];
+    btn4.backgroundColor = OrangeCOLOR;
+    btn4.tag = 104;
+    [btn4 setTitle:@"发布室友" forState:UIControlStateNormal];
+    [btn4 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn4];
+    
     
 }
 
@@ -60,6 +68,9 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else  if (sender.tag == 103) {
         MFMyProfessionViewController *vc = [[MFMyProfessionViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else  if (sender.tag == 104) {
+        MFPublishRoomateViewController *vc = [[MFPublishRoomateViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }
     

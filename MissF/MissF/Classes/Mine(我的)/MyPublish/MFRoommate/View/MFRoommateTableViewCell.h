@@ -14,10 +14,12 @@
 #define kCellIdentifier_OnlyValue        @"kCellIdentifier_Onlytext"
 
 @interface MFRoommateTableViewCell : UITableViewCell
-@property (strong, nonatomic, readonly) UITextField *textField;
+@property (strong, nonatomic) UITextField *textField;
 @property (nonatomic,copy) void(^textValueChangedBlock)(NSString *);
 @property (nonatomic,copy) void(^editDidBeginBlock)(NSString *);
 @property (nonatomic,copy) void(^editDidEndBlock)(NSString *);
+@property (strong, nonatomic) UILabel *titleLabel, *valueLabel;
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value;
+- (void)setTitleStr:(NSString *)title valueStr:(NSString *)value withValueColor:(UIColor*)color;
 - (void)configWithPlaceholder:(NSString *)phStr valueStr:(NSString *)valueStr;
 @end

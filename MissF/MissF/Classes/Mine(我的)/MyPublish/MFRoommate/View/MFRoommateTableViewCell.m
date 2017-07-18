@@ -12,10 +12,10 @@
 @interface MFRoommateTableViewCell ()
 @property (strong, nonatomic) UIButton *clearBtn, *passwordBtn;
 @property (strong, nonatomic) UIActivityIndicatorView *activityIndicator;
-@property (strong, nonatomic) UILabel *titleLabel, *valueLabel;
 @property (strong, nonatomic) NSString *title, *value;
 @property (strong, nonatomic) NSString *phStr, *valueStr;
 @property (strong, nonatomic) NSString *currentReuseIdentifier;
+@property (strong, nonatomic) NSString *placeholder;
 @end
 
 @implementation MFRoommateTableViewCell
@@ -45,6 +45,7 @@
             }
             if (!_textField) {
                 _textField = [UITextField new];
+                _textField.textColor = LIGHTTEXTCOLOR;
                 [_textField setFont:[UIFont systemFontOfSize:15]];
                 [_textField addTarget:self action:@selector(editDidBegin:) forControlEvents:UIControlEventEditingDidBegin];
                 [_textField addTarget:self action:@selector(textValueChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -52,7 +53,7 @@
                 [self.contentView addSubview:_textField];
                 _textField.sd_layout
                 .centerYEqualToView(self.contentView)
-                .leftSpaceToView(_textField, 0)
+                .leftSpaceToView(_titleLabel, 0)
                 .rightSpaceToView(self.contentView, 30)
                 .heightIs(16);
             }
@@ -61,6 +62,9 @@
         else if ([reuseIdentifier isEqualToString:kCellIdentifier_TitleValueMore]){
             
             self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UIImageView *accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_enter"]];
+            self.accessoryView = accessoryView;
             
             if (!_titleLabel) {
                 _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(kMFRoommateCellPaddingLeftWidth, 22, 90, 16)];
@@ -161,17 +165,12 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    
-    if ([_currentReuseIdentifier isEqualToString:kCellIdentifier_Input_OnlyText_TextField]) {
-        _textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:_phStr? _phStr: @"" attributes:@{NSForegroundColorAttributeName: BLACKTEXTCOLOR}];
-        _textField.text = _valueStr;
-    }
-
 }
 
 - (void)configWithPlaceholder:(NSString *)phStr valueStr:(NSString *)valueStr{
-    self.phStr = phStr;
-    self.valueStr = valueStr;
+    _titleLabel.text = phStr;
+    _textField.placeholder = valueStr;
+    self.placeholder = valueStr;
 }
 
 #pragma mark - 只有标题和内容
@@ -180,10 +179,18 @@
     _valueLabel.text = value;
 }
 
+- (void)setTitleStr:(NSString *)title valueStr:(NSString *)value withValueColor:(UIColor*)color{
+    _titleLabel.text = title;
+    _valueLabel.text = value;
+    _valueLabel.textColor = color;
+}
+
 
 #pragma mark TextField
 - (void)editDidBegin:(id)sender {
 
+    _textField.placeholder = @"";
+    
     if (self.editDidBeginBlock) {
         self.editDidBeginBlock(self.textField.text);
     }
@@ -191,7 +198,9 @@
 
 - (void)editDidEnd:(id)sender {
     self.clearBtn.hidden = YES;
-    
+    if (_textField.text.length == 0) {
+        _textField.placeholder = self.placeholder;
+    }
     if (self.editDidEndBlock) {
         self.editDidEndBlock(self.textField.text);
     }

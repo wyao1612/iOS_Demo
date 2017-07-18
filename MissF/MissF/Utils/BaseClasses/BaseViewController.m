@@ -165,13 +165,8 @@ DZNEmptyDataSetDelegate
     if (_rightStr_0) {
         rightItem = [[UIBarButtonItem alloc] initWithTitle:_rightStr_0 style:UIBarButtonItemStylePlain target:self action:@selector(right_0_action)];
         [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateNormal];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
-          [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
-        
     }else if (_rightIm_0){
         rightItem = [[UIBarButtonItem alloc] initWithImage:[_rightIm_0 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(right_0_action)];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
     }
     [ary addObject:rightItem];
     self.navigationItem.rightBarButtonItems = ary;
@@ -198,12 +193,8 @@ DZNEmptyDataSetDelegate
     if (_rightStr_1) {
         rightItem = [[UIBarButtonItem alloc] initWithTitle:_rightStr_1 style:UIBarButtonItemStylePlain target:self action:@selector(right_1_action)];
         [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateNormal];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
     }else if (_rightIm_1){
         rightItem = [[UIBarButtonItem alloc] initWithImage:[_rightIm_1 imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(right_1_action)];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateHighlighted];
-        [rightItem setTitleTextAttributes:@{NSFontAttributeName:FONT(15), NSForegroundColorAttributeName:WHITECOLOR} forState:UIControlStateSelected];
     }
     NSMutableArray *ary = [NSMutableArray arrayWithArray:self.navigationItem.rightBarButtonItems];
     [ary addObject:rightItem];

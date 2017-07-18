@@ -14,15 +14,15 @@ target 'MissF' do
     pod 'MJRefresh', '~> 3.1.12'
     pod 'SDAutoLayout', '~> 2.1.4'
     pod 'SDCycleScrollView', '~> 1.65'
-    pod 'ReactiveCocoa', ‘2.5’
+    #pod 'ReactiveCocoa', ‘2.5’
     pod 'Masonry', '~> 1.0.2'
     pod 'IQKeyboardManager', '~> 4.0.10'
     pod 'MBProgressHUD', '1.0.0'
     pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git'#先集成在删除切换
     pod 'TTTAttributedLabel', '~> 2.0.0' #富文本编辑
-    pod 'RegexKitLite-NoWarning', '1.1.0'#正则表达式
+    #pod 'RegexKitLite-NoWarning', '1.1.0'#正则表达式
     pod 'SDCAlertView','~>2.5.2' #提示窗
-    pod 'TMCache', '2.1.0'#缓存
+    #pod 'TMCache', '2.1.0'#缓存
     pod 'iVersion', '1.11.5'#版本检查更新
     pod 'SSKeychain', '1.4.1'
     pod 'iCarousel', '~> 1.8.3'
