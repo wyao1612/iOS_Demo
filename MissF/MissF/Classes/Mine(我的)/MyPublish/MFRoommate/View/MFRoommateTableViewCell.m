@@ -200,6 +200,8 @@
     self.clearBtn.hidden = YES;
     if (_textField.text.length == 0) {
         _textField.placeholder = self.placeholder;
+    }else{
+        _textField.text = [NSString stringWithFormat:@"¥%@/月",_textField.text];
     }
     if (self.editDidEndBlock) {
         self.editDidEndBlock(self.textField.text);
@@ -207,6 +209,9 @@
 }
 
 - (void)textValueChanged:(id)sender {
+    if (_textField.text.length>0) {
+          _textField.textColor = BLACKTEXTCOLOR;
+    }
     if (self.textValueChangedBlock) {
         self.textValueChangedBlock(self.textField.text);
     }

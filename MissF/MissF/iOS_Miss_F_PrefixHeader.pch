@@ -89,6 +89,9 @@
 #import <IQKeyboardManager.h>
 #import <IQKeyboardReturnKeyHandler.h>
 #import <YTKKeyValueStore/YTKKeyValueStore.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>//高德地图
+#import <MAMapKit/MAMapKit.h>
+#import <AMapSearchKit/AMapSearchKit.h>
 
 #endif
 

@@ -15,9 +15,9 @@
 
 @interface MFRoommateTableViewCell : UITableViewCell
 @property (strong, nonatomic) UITextField *textField;
-@property (nonatomic,copy) void(^textValueChangedBlock)(NSString *);
-@property (nonatomic,copy) void(^editDidBeginBlock)(NSString *);
-@property (nonatomic,copy) void(^editDidEndBlock)(NSString *);
+@property (nonatomic,copy) void(^textValueChangedBlock)(NSString *text);
+@property (nonatomic,copy) void(^editDidBeginBlock)(NSString *text);
+@property (nonatomic,copy) void(^editDidEndBlock)(NSString *text);
 @property (strong, nonatomic) UILabel *titleLabel, *valueLabel;
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value;
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value withValueColor:(UIColor*)color;

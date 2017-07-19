@@ -22,6 +22,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>Location When In Use Usage Description</key>
+	<string>使用应用期间允许访问位置信息</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>始终允许访问位置信息</string>
+	<key>NSLocationUsageDescription</key>
+	<string>永不允许访问位置信息</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>

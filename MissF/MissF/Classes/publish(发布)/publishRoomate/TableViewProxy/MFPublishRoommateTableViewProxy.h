@@ -8,14 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void(^RoommateProxySelectBlock)(BOOL isSelected,NSIndexPath *indexPath);
-typedef void(^RoommateProxyPublishBlock)(UIButton*sender,NSIndexPath *indexPath);
-typedef void(^RoommateProxyDeleteBlock)(NSIndexPath *indexPath);
-
+typedef void(^PublishRoommateProxySelectBlock)(UIButton *sender,NSIndexPath *indexPath);
 
 @interface MFPublishRoommateTableViewProxy : NSObject<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *dataArray;
-@property (nonatomic, copy) RoommateProxySelectBlock RoommateProxySelectBlock;
-@property (nonatomic, copy) RoommateProxyPublishBlock RoommateProxyPublishBlock;
-@property (nonatomic, copy) RoommateProxyDeleteBlock RoommateProxyDeleteBlock;
+@property (nonatomic, copy) PublishRoommateProxySelectBlock PublishRoommateProxySelectBlock;
+@property (nonatomic, strong) NSArray *personalityArray;
 @end

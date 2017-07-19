@@ -30,7 +30,7 @@
 #define GLOBALCOLOR             [UIColor colorWithHex:0xffb2bd]
 #define OrangeCOLOR             RGBColor(252,84,0)//橘色、价格数据颜色
 #define kColorD8DDE4            [UIColor colorWithHex:0xD8DDE4]
-
+#define COVERBACKGROUND         RGBAColor(51,51,51,0.3)
 /** 字体*/
 #define FONT(F)         [UIFont systemFontOfSize:F]
 #define BigFont         FONT(18.0f)

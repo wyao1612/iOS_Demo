@@ -21,8 +21,14 @@
 @property(strong,nonatomic)UIView *interest;
 /** 个性*/
 @property(strong,nonatomic)UIView *personality;
+/** 室友要求*/
+@property(strong,nonatomic)UIView *roommateRequires;
+/** 家具设置*/
+@property(strong,nonatomic)UIView *paymentType;
 /** 保存按钮*/
 @property(strong,nonatomic)UIButton *saveBtn;
+/** 保存个性标签的二维数组*/
+@property(strong,nonatomic)NSMutableArray *allTagsArray;
 @end
 
 @implementation MFTagsViewController
@@ -32,14 +38,54 @@
     // Do any additional setup after loading the view
     self.name = @"选择标签";
     
-    self.contentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT-50);
+    switch (self.MFTagsViewType) {
+        case 0:
+            [self setMyAllTags];
+            break;
+        case 1:
+            [self setOnlyTagsWithName:@"室友要求"];
+            break;
+        case 2:
+            [self setOnlyTagsWithName:@"公共设施"];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - 我的所有个性标签
+-(void)setOnlyTagsWithName:(NSString*)nameText{
     
+    self.contentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT-50);
+    self.contentView.backgroundColor = WHITECOLOR;
+    [self.view addSubview:self.saveBtn];
+    
+    
+    if (_MFTagsViewType == 1) {
+        [self setTagsViewWithBgView:self.roommateRequires withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:3];
+        if (self.interest.frame.size.height > self.contentView.frame.size.height) {
+            self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.roommateRequires.frame));
+        }
+    }else   if (_MFTagsViewType == 2) {
+        [self setTagsViewWithBgView:self.paymentType withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:4];
+        if (self.interest.frame.size.height > self.contentView.frame.size.height) {
+            self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.paymentType.frame));
+        }
+    }
+}
+
+#pragma mark - 我的所有个性标签
+-(void)setMyAllTags{
+    
+    self.allTagsArray = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+    
+    
+    self.contentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT-50);
     [self setTagsViewWithBgView:self.interest withOrigin:CGPointMake(0, 0) withName:@"爱好" andTagIdentifier:0];
     [self setTagsViewWithBgView:self.habitView withOrigin:CGPointMake(0,CGRectGetMaxY(self.interest.frame)+10) withName:@"习惯" andTagIdentifier:1];
     [self setTagsViewWithBgView:self.personality withOrigin:CGPointMake(0,CGRectGetMaxY(self.habitView.frame)+10) withName:@"个性" andTagIdentifier:2];
-    
     [self.view addSubview:self.saveBtn];
-    
     self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.personality.frame));
 }
 
@@ -60,7 +106,7 @@
     iconView.backgroundColor = GLOBALCOLOR;
     [hView addSubview:iconView];
     
-    UILabel *nameLabe = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 50, 15)];
+    UILabel *nameLabe = [[UILabel alloc] initWithFrame:CGRectMake(20, 15, 100, 15)];
     nameLabe.text = nameText;
     nameLabe.font = FONT(15);
     nameLabe.textAlignment = NSTextAlignmentLeft;
@@ -90,6 +136,10 @@
             break;
         case 2:
             strArray =  [self getTagNameArrFromModelArray:model.tag.personality];            break;
+        case 3://室友要求
+            strArray =  [self getTagNameArrFromModelArray:model.roommateRequires];            break;
+        case 4://家居设施
+            strArray =  [self getTagNameArrFromModelArray:model.paymentType];            break;
             
         default:
             break;
@@ -108,12 +158,19 @@
     
     [tagList setTagWithTagArray:strArray];
  
+    weak(self);
     [tagList setDidselectItemBlock:^(NSArray *arr,NSInteger viewTag) {
-        NSLog(@"------>视图%zd的选中的标签%@",viewTag,arr);//存在循环引用
+        //NSLog(@"------>视图%zd的选中的标签%@",viewTag,arr);//存在循环引用
         if (arr.count>=3) {
             tipsLabe.hidden = NO;
         }else{
             tipsLabe.hidden = YES;
+        }
+        //判断是否是我的标签
+        if (weakSelf.MFTagsViewType == 0 ) {
+            [weakSelf.allTagsArray replaceObjectAtIndex:viewTag withObject:arr];
+        }else{
+            weakSelf.allTagsArray = arr.copy;
         }
     }];
     
@@ -122,8 +179,15 @@
     return bgView;
 }
 
+#pragma mark - 回调
 -(void)saveBtnClick:(UIButton*)sender{
-    [SVProgressHUD showSuccessWithStatus:@"保存标签回调"];
+    if (self.selectBlock) {
+        self.selectBlock(self.allTagsArray);
+    }
+    weak(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    });
 }
 
 #pragma mark - private
@@ -157,6 +221,21 @@
         _personality.backgroundColor = WHITECOLOR;
     }
     return _personality;
+}
+
+-(UIView *)roommateRequires{
+    if (!_roommateRequires) {
+        _roommateRequires = [[UIView alloc] init];
+        _roommateRequires.backgroundColor = WHITECOLOR;
+    }
+    return _roommateRequires;
+}
+-(UIView *)paymentType{
+    if (!_paymentType) {
+        _paymentType = [[UIView alloc] init];
+        _paymentType.backgroundColor = WHITECOLOR;
+    }
+    return _paymentType;
 }
 
 -(UIButton *)saveBtn{

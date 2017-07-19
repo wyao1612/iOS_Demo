@@ -33,7 +33,9 @@ target 'MissF' do
     pod 'MLeaksFinder', '~> 0.2.1'
     pod 'YTKKeyValueStore', '~> 0.1.2'#本地网络数据缓存
     pod 'TTGTagCollectionView' #标签按钮
-
+    pod 'AMap2DMap-NO-IDFA' #2D地图SDK-无广告
+    pod 'AMapSearch-NO-IDFA' #搜索功能-无广告
+    pod 'AMapLocation-NO-IDFA' #搜索功能-无广告
 
   target 'MissFTests' do
     inherit! :search_paths

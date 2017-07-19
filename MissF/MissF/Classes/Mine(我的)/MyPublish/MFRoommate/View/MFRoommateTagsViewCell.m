@@ -46,13 +46,22 @@
 
 }
 
--(void)setUIwithModelArray:(NSArray<MFCommonBaseModel *>*)modelArray andTagsName:(NSString*)tagsName{
+-(void)setUIwithModelArray:(NSArray*)modelArray andTagsName:(NSString*)tagsName withTagStyle:(MFCellTagsViewType)tagViewStyle{
     
     CGFloat height =  [self getCellHeightWtihBtnsWithModelArray:modelArray];
-    self.tagsView.frame = CGRectMake(0, 0, SCREEN_WIDTH, height);
+    self.tagsView.frame = CGRectMake(0, 0, SCREEN_WIDTH-50, height);
     [self.contentView addSubview:self.tagsView];
+    
+    
     self.tagsView.tagsName = tagsName;
+    self.tagsView.tagViewStyle = [NSString stringWithFormat:@"%zd",tagViewStyle];
     [self.tagsView setHeaderDataArr:[NSMutableArray arrayWithArray:modelArray]];
+    weak(self);
+    self.tagsView.MFTagsViewMoreBlock = ^(UIButton *sender) {
+        if (weakSelf.CellMoreBlock) {
+            weakSelf.CellMoreBlock(sender);
+        }
+    } ;
 }
 
 -(CGFloat)getCellHeightWtihBtnsWithModelArray:(NSArray*)modelArray{

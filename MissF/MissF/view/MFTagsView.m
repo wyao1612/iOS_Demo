@@ -28,7 +28,7 @@
 }
     
 #pragma mark - 设置标签数据源
--(void)setHeaderDataArr:(NSMutableArray<MFCommonBaseModel *> *)headerDataArr{
+-(void)setHeaderDataArr:(NSMutableArray*)headerDataArr{
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     _headerDataArr = headerDataArr;
     [self layoutBtnArrayWithtagsName:_tagsName];
@@ -36,11 +36,17 @@
 
 -(void)layoutBtnArrayWithtagsName:(NSString*)tagsName{
     
-    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 45)];
+    UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-15, 45)];
     tagsName = [NSString iSBlankString:tagsName] ? @"标签名称" :tagsName;
     titleLab.text = tagsName;
-    titleLab.textColor = [UIColor blackColor];
-    titleLab.textAlignment = NSTextAlignmentCenter;
+    if ([self.tagViewStyle isEqualToString:@"1"]) {
+        titleLab.textColor = LIGHTTEXTCOLOR;
+        titleLab.textAlignment = NSTextAlignmentLeft;
+    }else{
+        titleLab.textColor = BLACKTEXTCOLOR;
+        titleLab.textAlignment = NSTextAlignmentCenter;
+    }
+
     titleLab.font = [UIFont systemFontOfSize:15];
     [self addSubview:titleLab];
     
@@ -56,15 +62,17 @@
     Btnx += btnGap;
     
     for (int i = 0; i < _headerDataArr.count; i++) {
-        MFCommonBaseModel *model = _headerDataArr[i];
-        CGFloat btnWidth = [self WidthWithString:model.name fontSize:13 height:BtnHeight];
+        NSString *tagStr = _headerDataArr[i];
+        CGFloat btnWidth = [self WidthWithString:tagStr fontSize:13 height:BtnHeight];
         btnWidth += 2 * titleMargin;//让文字两端留出间距
         
-        if(btnWidth<minBtnLength)
+        if(btnWidth<minBtnLength){
             btnWidth = minBtnLength;
+        }
         
-        if(btnWidth>maxBtnLength)
-            btnWidth = maxBtnLength;
+        if(btnWidth>maxBtnLength){
+            btnWidth = maxBtnLength; 
+        }
         
         if(Btnx + btnWidth > oneLineBtnWidtnLimit)
         {
@@ -78,15 +86,23 @@
         CGFloat height = titleLab.frame.size.height+titleLab.frame.origin.x + (BtnlineNum*(BtnHeight+btnGapY));
         btn.frame = CGRectMake(Btnx, height,
                                btnWidth,BtnHeight);
-        [btn setTitle:model.name forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        btn.layer.cornerRadius = 5;
-        btn.layer.borderWidth = 0.5;
-        btn.layer.borderColor = [[UIColor grayColor] CGColor];
+        [btn setTitle:tagStr forState:UIControlStateNormal];
+        if ([self.tagViewStyle isEqualToString:@"1"]) {
+            
+            [btn setTitleColor:LIGHTTEXTCOLOR forState:UIControlStateNormal];
+            btn.layer.cornerRadius = 5;
+            btn.layer.borderWidth = 0.5;
+            btn.layer.borderColor = [LIGHTTEXTCOLOR CGColor];
+        }else{
+            [btn setTitleColor:BLACKTEXTCOLOR forState:UIControlStateNormal];
+            btn.layer.cornerRadius = 5;
+            btn.layer.borderWidth = 0.5;
+            btn.layer.borderColor = [[UIColor grayColor] CGColor];
+        }
+   
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.accessibilityIdentifier = [NSString stringWithFormat:@"%d",i];
         //[btn addTarget:self action:@selector(standardBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        
         Btnx =Btnx + btnWidth + btnGap;
         
         [self addSubview:btn];
@@ -94,12 +110,21 @@
     
     totalHeight = 30 + (1+BtnlineNum)*(BtnHeight+btnGapY) + btnGapY;
     self.frame = CGRectMake(0, 0, SCREEN_WIDTH, totalHeight);
+    
+    //更多按钮
+    if ([self.tagViewStyle isEqualToString:@"1"]) {
+        self.moreBtn.frame = CGRectMake(SCREEN_WIDTH -80, (totalHeight-16)*0.5, 60, 16);
+        [self addSubview:self.moreBtn];
+        [self.moreBtn setTitleRespectToImageWithStyle:WYCustomerButtonStyleLeft Margin:8 addTarget:nil];
+    }
 
     if (_headerDataArr.count == 0) {
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);
         
     }
 }
+
+
 
 -(CGFloat)getCellHeightWtihBtns:(NSArray*)arrry{
     
@@ -115,15 +140,17 @@
     Btnx += btnGap;
     
     for (int i = 0; i < arrry.count; i++) {
-        MFCommonBaseModel *model = arrry[i];
-        CGFloat btnWidth = [self WidthWithString:model.name fontSize:13 height:BtnHeight];
+         NSString *tagStr = arrry[i];
+        CGFloat btnWidth = [self WidthWithString:tagStr fontSize:13 height:BtnHeight];
         btnWidth += 2 * titleMargin;//让文字两端留出间距
         
-        if(btnWidth<minBtnLength)
-            btnWidth = minBtnLength;
+        if(btnWidth<minBtnLength){
+           btnWidth = minBtnLength;
+        }
         
-        if(btnWidth>maxBtnLength)
-            btnWidth = maxBtnLength;
+        if(btnWidth>maxBtnLength){
+           btnWidth = maxBtnLength;
+        }
         
         if(Btnx + btnWidth > oneLineBtnWidtnLimit)
         {
@@ -138,6 +165,29 @@
     return totalHeight;
     
 }
+
+- (UIButton *)moreBtn{
+    if (!_moreBtn) {
+        _moreBtn = [[UIButton alloc] init];
+        [_moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+        [_moreBtn setImage:IMAGE(@"icon_enter") forState:UIControlStateNormal];
+        _moreBtn.backgroundColor = WHITECOLOR;
+        _moreBtn.tag = 10001;
+        _moreBtn.titleLabel.font = FONT(15);
+        [_moreBtn setTitleColor:LIGHTTEXTCOLOR forState:UIControlStateNormal];
+        [_moreBtn addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _moreBtn;
+}
+
+#pragma mark - 查看更多
+- (void)moreBtnClick:(UIButton *)sender{
+    if (self.MFTagsViewMoreBlock) {
+        self.MFTagsViewMoreBlock(sender);
+    }
+}
+
+
 
 #pragma mark - 根据字符串计算宽度
 -(CGFloat)WidthWithString:(NSString*)string fontSize:(CGFloat)fontSize height:(CGFloat)height

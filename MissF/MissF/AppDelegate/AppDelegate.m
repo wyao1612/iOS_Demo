@@ -66,6 +66,10 @@
     /** 开启网络状况的监听*/
     [[MFNetAPIClient sharedInstance] startMonitoringNetworkStatus];
     
+    //高德注册
+    [[AMapServices sharedServices] setEnableHTTPS:YES];
+    [AMapServices sharedServices].apiKey = @"6d5ef7f23c187e822ff53bce0fd7669a";
+    
     
     
     [self.window makeKeyAndVisible];

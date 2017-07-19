@@ -14,6 +14,13 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AMap2DMap-NO-IDFA (4.6.0):
+    - AMapFoundation-NO-IDFA (~> 1.3)
+  - AMapFoundation-NO-IDFA (1.4.0)
+  - AMapLocation-NO-IDFA (2.4.0):
+    - AMapFoundation-NO-IDFA (~> 1.4)
+  - AMapSearch-NO-IDFA (5.2.1):
+    - AMapFoundation-NO-IDFA (~> 1.2)
   - CYLTabBarController (1.13.1)
   - DZNEmptyDataSet (1.8.1)
   - FBRetainCycleDetector (0.1.3)
@@ -51,6 +58,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - AMap2DMap-NO-IDFA
+  - AMapLocation-NO-IDFA
+  - AMapSearch-NO-IDFA
   - CYLTabBarController (~> 1.13.1)
   - DZNEmptyDataSet (~> 1.8.1)
   - FDFullscreenPopGesture (= 1.1)
@@ -85,6 +95,10 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap2DMap-NO-IDFA: 01c80e7e93568617b1b1b452cfec71f974f5bc8a
+  AMapFoundation-NO-IDFA: d1ba541a56737c2048115a745b1dfcbe9901c248
+  AMapLocation-NO-IDFA: 9493012d3241a7d551942c7c1e1069b51f295083
+  AMapSearch-NO-IDFA: ec04c2c15ef278803234d959328acda14c2c3c5d
   CYLTabBarController: 97f6b486f9e6c613d69e9c111cc9c2c5db7000ce
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FBRetainCycleDetector: f0c7b290bf48ae77f6ae060843ce34ae341781eb
@@ -111,6 +125,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: d343181f95038563d164ce8f425f48742d6ccf1c
+PODFILE CHECKSUM: 61ec955441480cec42dfa37b912a3b602325612e
 
 COCOAPODS: 1.2.1

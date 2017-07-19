@@ -24,6 +24,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+## AMap2DMap-NO-IDFA
+
+Copyright © 2014 AutoNavi. All Rights Reserved.
+
+
+## AMapFoundation-NO-IDFA
+
+Copyright © 2014 AutoNavi. All Rights Reserved.
+
+
+## AMapLocation-NO-IDFA
+
+Copyright © 2014 AutoNavi. All Rights Reserved.
+
+
+## AMapSearch-NO-IDFA
+
+Copyright © 2014 AutoNavi. All Rights Reserved.
+
+
 ## CYLTabBarController
 
 Copyright (c) 2015 CYLTabBarController(https://github.com/ChenYilong/CYLTabBarController), L.L.C. All rights reserved.

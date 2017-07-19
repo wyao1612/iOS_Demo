@@ -10,6 +10,8 @@
 #import "MFRoommateTableViewCell.h"
 #import "MFRoommateTagsViewCell.h"
 #import "MFPublishRoommateTableViewProxy.h"
+#import "MFTagsViewController.h"
+#import "MFLocationViewController.h"
 
 @interface MFPublishRoomateViewController ()
 @property(strong,nonatomic) UIImageView* headerImageView;
@@ -17,6 +19,7 @@
 @property(strong,nonatomic) UIView     * headerBackView;
 @property(strong,nonatomic) UILabel    * nameLabel;
 @property (nonatomic, strong) MFPublishRoommateTableViewProxy *publishRoommateTableViewProxy;
+@property (nonatomic, strong) UITableView *PublishRoomateTableView;
 @end
 
 @implementation MFPublishRoomateViewController
@@ -27,37 +30,61 @@
     self.name = @"室友";
     self.isAutoBack = NO;
     self.rightStr_1 = @"发送";
-     [self setTableViewUI];
+    [self.view addSubview:self.PublishRoomateTableView];
 }
 -(void)right_1_action{
     [SVProgressHUD showSuccessWithStatus:@"发送"];
 }
 
--(void)setTableViewUI{
-    
-    self.tableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT);
-    [self.view addSubview:self.tableView];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.tableView.separatorColor = GRAYCOLOR;
-    self.tableView.backgroundColor = BACKGROUNDCOLOR;
-            
-    //非编辑状态 不带箭头
-    [self.tableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_TitleValueMore];
-    [self.tableView registerClass:[MFRoommateTagsViewCell class] forCellReuseIdentifier:kCellIdentifier_TagsViewCell];
-    [self.tableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_OnlyValue];
-     [self.tableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_TextField];
-    
-    self.tableView.delegate = self.publishRoommateTableViewProxy;
-    self.tableView.dataSource = self.publishRoommateTableViewProxy;
-    self.tableView.tableHeaderView = self.headerBackView;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 10)];
+- (UITableView *)PublishRoomateTableView {
+    if (_PublishRoomateTableView == nil){
+        _PublishRoomateTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        _PublishRoomateTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT);
+       _PublishRoomateTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+       _PublishRoomateTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+       _PublishRoomateTableView.separatorColor = GRAYCOLOR;
+       _PublishRoomateTableView.backgroundColor = BACKGROUNDCOLOR;
+        _PublishRoomateTableView.showsVerticalScrollIndicator = NO;
+        
+        //非编辑状态 不带箭头
+        [_PublishRoomateTableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_TitleValueMore];
+        [_PublishRoomateTableView registerClass:[MFRoommateTagsViewCell class] forCellReuseIdentifier:kCellIdentifier_TagsViewCell];
+        [_PublishRoomateTableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_OnlyValue];
+        [_PublishRoomateTableView registerClass:[MFRoommateTableViewCell class] forCellReuseIdentifier:kCellIdentifier_Input_OnlyText_TextField];
+        
+        _PublishRoomateTableView.delegate = self.publishRoommateTableViewProxy;
+        _PublishRoomateTableView.dataSource = self.publishRoommateTableViewProxy;
+        _PublishRoomateTableView.tableHeaderView = self.headerBackView;
+        _PublishRoomateTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 10)];
+    }
+    return _PublishRoomateTableView;
 }
+
 
 #pragma mark - lazy method
 - (MFPublishRoommateTableViewProxy *)publishRoommateTableViewProxy {
     if (_publishRoommateTableViewProxy== nil){
+        weak(self);
         _publishRoommateTableViewProxy = [[MFPublishRoommateTableViewProxy alloc] init];
+        _publishRoommateTableViewProxy.PublishRoommateProxySelectBlock = ^(UIButton *sender, NSIndexPath *indexPath) {
+            
+            if (indexPath.section == 0 && indexPath.row == 0) {//选择地图
+                MFLocationViewController *vc= [[MFLocationViewController alloc] init];
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }else{
+                MFTagsViewController *vc = [[MFTagsViewController alloc] init];
+                vc.selectBlock = ^(NSArray *selectArray) {
+                    NSLog(@"%@",selectArray);
+                };
+                if (indexPath.section == 1) {//所有个性标签
+                    vc.MFTagsViewType = MF_TagsViewType_AllTags;
+                }
+                else if (indexPath.section == 2){//对应属性标签
+                    vc.MFTagsViewType = MF_TagsViewType_roommateRequires;
+                }
+                [weakSelf.navigationController pushViewController:vc animated:YES];
+            }
+        };
     }
     return _publishRoommateTableViewProxy;
 }
@@ -93,7 +120,6 @@
     }
     return _nameLabel;
 }
-
 
 
 - (void)didReceiveMemoryWarning {

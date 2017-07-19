@@ -9,15 +9,24 @@
 #import "MFPublishRoommateTableViewProxy.h"
 #import "MFRoommateTableViewCell.h"
 #import "MFRoommateTagsViewCell.h"
-#import "DLPickerView.h"
+#import "MFPublishViewModel.h"
 
 @interface MFPublishRoommateTableViewProxy ()
 @property (nonatomic, strong) YWPickerView* constellationPickerView;
 @property (nonatomic, strong) YWPickerView* professionPickerView;
+@property (nonatomic, strong) MFPublishViewModel* publishViewModel;
 @end
 
 
 @implementation MFPublishRoommateTableViewProxy
+
+-(MFPublishViewModel *)publishViewModel{
+    if (!_publishViewModel) {
+        _publishViewModel = [[MFPublishViewModel alloc] init];
+    }
+    return _publishViewModel;
+}
+
 #pragma mark - tableview deleagte & datasource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
@@ -30,36 +39,36 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     MFRoommateTableViewCell *cell;
+    weak(self);
     if (indexPath.section == 0) {
         
         cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TitleValueMore];
-        
         switch (indexPath.row) {
             case 0:
             {
-                [cell setTitleStr:@"欲搬区域" valueStr:@"请输入小区地址或名称" withValueColor:LIGHTTEXTCOLOR];
+                [self setCellwith:cell title:@"欲搬区域" withValue:self.publishViewModel.address andPlaceholderText:@"请输入小区地址或名称"];
             }
                 break;
             case 1:
             {
                 cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Input_OnlyText_TextField];
-                [cell configWithPlaceholder:@"租金预算" valueStr:@"请输入预算金额"];
+                [cell configWithPlaceholder:@"租金预算" valueStr:@"请输入小区地址或名称"];
                 return cell;
             }
                 break;
             case 2:
             {
-                [cell setTitleStr:@"欲搬时间" valueStr:@"请选择欲搬时间" withValueColor:LIGHTTEXTCOLOR];
+                [self setCellwith:cell title:@"欲搬时间" withValue:self.publishViewModel.datetime andPlaceholderText:@"请选择欲搬时间"];
             }
                 break;
             case 3:
             {
-                [cell setTitleStr:@"星座" valueStr:@"请选择星座" withValueColor:LIGHTTEXTCOLOR];
+                [self setCellwith:cell title:@"星座" withValue:self.publishViewModel.constellation andPlaceholderText:@"请选择星座"];
             }
                 break;
             case 4:
             {
-                [cell setTitleStr:@"职业" valueStr:@"请选择职业" withValueColor:LIGHTTEXTCOLOR];
+               [self setCellwith:cell title:@"职业" withValue:self.publishViewModel.profession andPlaceholderText:@"请选择职业"];
             }
                 break;
             default:
@@ -68,13 +77,23 @@
         return cell;
     }else  if (indexPath.section == 1){
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
-        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-        [cell setUIwithModelArray:model.tag.interest andTagsName:@"我的标签"];
+        [cell setUIwithModelArray:@[@"运动",@"看书",@"电影",@"运动",@"看书",@"电影"] andTagsName:@"添加自己的个性标签更容易找到对的人哦~" withTagStyle:MF_TagsViewTypeEdit];
+        //更多按钮回调跳转
+        cell.CellMoreBlock = ^(UIButton *sender) {
+            if (weakSelf.PublishRoommateProxySelectBlock) {
+                weakSelf.PublishRoommateProxySelectBlock(sender, indexPath);
+            }
+        };
         return cell;
     }else  if (indexPath.section == 2){
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
-        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-        [cell setUIwithModelArray:model.tag.interest andTagsName:@"室友要求"];
+        [cell setUIwithModelArray:@[@"运动",@"看书",@"电影",@"运动",@"看书",@"电影"] andTagsName:@"为了找到对的人，添加上对合租说室友的小要求吧~" withTagStyle:MF_TagsViewTypeEdit];
+        //更多按钮回调跳转
+        cell.CellMoreBlock = ^(UIButton *sender) {
+            if (weakSelf.PublishRoommateProxySelectBlock) {
+                weakSelf.PublishRoommateProxySelectBlock(sender, indexPath);
+            }
+        };
         return cell;
     }else if (indexPath.section == 3){
         MFRoommateTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_OnlyValue];
@@ -90,8 +109,7 @@
         case 1:
         case 2: {
             MFRoommateTagsViewCell *cell = [[MFRoommateTagsViewCell alloc] init];
-            MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:model.tag.interest];
+            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:@[@"运动",@"看书",@"电影",@"运动",@"看书",@"电影"]];
             return height;
         }
             break;
@@ -122,16 +140,18 @@
         MFRoommateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         
         switch (indexPath.row) {
-            case 0:
+            case 0://选择位置跳转到地图
             {
-                [SVProgressHUD showSuccessWithStatus:@(indexPath.row).description];
+                if (self.PublishRoommateProxySelectBlock) {
+                    self.PublishRoommateProxySelectBlock(nil, indexPath);
+                }
             }
                 break;
             case 2:
             {
                 WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *startDate) {
-                    NSString *date = [startDate stringWithFormat:@"yyyy/MM/dd"];
-                    //NSLog(@"时间： %@",date);
+                    NSString *date = [startDate stringWithFormat:@"yyyy-MM-dd"];
+                    self.publishViewModel.publishModel.datetime = date;
                     [cell setTitleStr:@"欲搬时间" valueStr:date withValueColor:BLACKTEXTCOLOR];
                 }];
                 datepicker.doneButtonColor = GLOBALCOLOR;
@@ -143,6 +163,7 @@
                 [self.constellationPickerView showCityView:^(NSString *distr) {
                     NSString *str = [NSString string];
                     str = [NSString stringWithFormat:@"%@",[NSString iSBlankString:distr]?@"请选择星座":distr];
+                    self.publishViewModel.publishModel.constellation = str;
                      [cell setTitleStr:@"星座" valueStr:distr withValueColor:BLACKTEXTCOLOR];
                 }];
             }
@@ -152,13 +173,9 @@
                 [self.professionPickerView showCityView:^(NSString *distr) {
                     NSString *str = [NSString string];
                     str = [NSString stringWithFormat:@"%@",[NSString iSBlankString:distr]?@"请选择职业":distr];
-                    [cell setTitleStr:@"职业" valueStr:distr withValueColor:BLACKTEXTCOLOR];
+                    self.publishViewModel.publishModel.profession = str;
+                    [cell setTitleStr:@"职业" valueStr:str withValueColor:BLACKTEXTCOLOR];
                 }];
-//                DLPickerView *pickerView = [[DLPickerView alloc] initWithDataSource:@[@"Man",@"Woman"] withSelectedItem:cell.valueLabel.text withSelectedBlock:^(id selectedItem) {
-//                     [cell setTitleStr:@"职业" valueStr:selectedItem withValueColor:BLACKTEXTCOLOR];
-//                }];
-                
-//                [pickerView show];
             }
                 break;
                 
@@ -191,6 +208,15 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"firstNumSelect" object:nil];
     }
     return _professionPickerView;
+}
+
+-(void)setCellwith:(MFRoommateTableViewCell *)cell title:(NSString*)title withValue:(NSString*)value andPlaceholderText:(NSString*)placeholderText{
+    
+    if ([NSString iSBlankString:value]) {
+        [cell setTitleStr:title valueStr:placeholderText withValueColor:LIGHTTEXTCOLOR];
+    }else{
+        [cell setTitleStr:title valueStr:value withValueColor:BLACKTEXTCOLOR];
+    }
 }
 
 

@@ -7,15 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MFCommonBaseModel;
+typedef void(^MFTagsViewMoreBlock)(UIButton *sender);
+
 @protocol headerDelegate <NSObject>
 -(void)BtnActionDelegate:(NSMutableArray *)arr;
 @end
 
 
 @interface MFTagsView : UIView
-@property (nonatomic ,strong) NSMutableArray<MFCommonBaseModel*> *headerDataArr;
+@property (nonatomic ,strong) NSMutableArray *headerDataArr;
 @property (nonatomic ,assign) id<headerDelegate> delegate;
 -(CGFloat)getCellHeightWtihBtns:(NSArray*)arrry;
 @property (nonatomic ,copy) NSString* tagsName;
+@property (nonatomic ,copy) NSString* tagViewStyle;
+@property(nonatomic,strong)UIButton *moreBtn;
+@property (nonatomic, copy) MFTagsViewMoreBlock MFTagsViewMoreBlock;
 @end
