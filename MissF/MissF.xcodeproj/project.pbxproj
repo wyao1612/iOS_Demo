@@ -57,7 +57,6 @@
 		122B098E1F1CB60D00E285E8 /* btn_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 122B098A1F1CB60D00E285E8 /* btn_selected@2x.png */; };
 		122B098F1F1CB60D00E285E8 /* btn_selected@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 122B098B1F1CB60D00E285E8 /* btn_selected@3x.png */; };
 		122B099A1F1CBE6F00E285E8 /* MFPublishRoomateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 122B09981F1CBE6F00E285E8 /* MFPublishRoomateViewController.m */; };
-		122B099D1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 122B099C1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.m */; };
 		124671E61F1B8E5D00FC8BF5 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */; };
 		12A174B91F1DA93E00C7B320 /* WSDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174B51F1DA93E00C7B320 /* WSDatePickerView.m */; };
 		12A174BA1F1DA93E00C7B320 /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A174B61F1DA93E00C7B320 /* WSDatePickerView.xib */; };
@@ -243,8 +242,6 @@
 		122B098B1F1CB60D00E285E8 /* btn_selected@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_selected@3x.png"; sourceTree = "<group>"; };
 		122B09971F1CBE6F00E285E8 /* MFPublishRoomateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishRoomateViewController.h; sourceTree = "<group>"; };
 		122B09981F1CBE6F00E285E8 /* MFPublishRoomateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishRoomateViewController.m; sourceTree = "<group>"; };
-		122B099B1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishRoommateTableViewProxy.h; sourceTree = "<group>"; };
-		122B099C1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishRoommateTableViewProxy.m; sourceTree = "<group>"; };
 		124671E41F1B8E5D00FC8BF5 /* GBTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTagListView.h; sourceTree = "<group>"; };
 		124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		12A174B41F1DA93E00C7B320 /* WSDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSDatePickerView.h; sourceTree = "<group>"; };
@@ -664,20 +661,10 @@
 			children = (
 				12A174C21F1E0E7F00C7B320 /* Model */,
 				122B09991F1CBE6F00E285E8 /* ViewModel */,
-				122B09941F1CBE6F00E285E8 /* TableViewProxy */,
 				122B09951F1CBE6F00E285E8 /* View */,
 				122B09961F1CBE6F00E285E8 /* ViewController */,
 			);
 			path = publishRoomate;
-			sourceTree = "<group>";
-		};
-		122B09941F1CBE6F00E285E8 /* TableViewProxy */ = {
-			isa = PBXGroup;
-			children = (
-				122B099B1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.h */,
-				122B099C1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.m */,
-			);
-			path = TableViewProxy;
 			sourceTree = "<group>";
 		};
 		122B09951F1CBE6F00E285E8 /* View */ = {
@@ -1577,7 +1564,6 @@
 				1202B03A1F160AE30097223B /* NSObject+params.m in Sources */,
 				122B099A1F1CBE6F00E285E8 /* MFPublishRoomateViewController.m in Sources */,
 				12D4AF881F0E818100898F51 /* NSString+extension.m in Sources */,
-				122B099D1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.m in Sources */,
 				12229FE41F188D0D0075A102 /* MFCommonModel.m in Sources */,
 				1217BC3C1F1724F500DC4B87 /* MFHouseViewModel.m in Sources */,
 				12D4AF5E1F0E818100898F51 /* MFDiscoverViewController.m in Sources */,

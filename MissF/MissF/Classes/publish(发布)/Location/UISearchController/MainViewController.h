@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+typedef void(^locationSelectBlock)(CGFloat latitude,CGFloat longitude,NSArray *addresArr);
 @interface MainViewController : BaseViewController
-
+@property (nonatomic, copy) locationSelectBlock locationSelectBlock;
 @end

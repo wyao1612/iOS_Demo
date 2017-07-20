@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 
+typedef void(^cellSelectBlock)(NSString* text);
 @interface MFMyProfessionViewController : BaseViewController
-
+@property (nonatomic, copy) cellSelectBlock cellSelectBlock;
 @end

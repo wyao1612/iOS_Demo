@@ -124,11 +124,25 @@
         [_tableView setContentOffset:CGPointMake(0, 0) animated:NO];
         
         NSString *city = response.regeocode.addressComponent.city;
-        [self.delegate setCurrentCity:city];
+        if (self.delegate ) {
+            [self.delegate setCurrentCity:city];
+            [self.delegate setSendButtonEnabledAfterLoadFinished];
+        }
         
-        [_delegate setSendButtonEnabledAfterLoadFinished];
+        [self setAddresWithProvince:component.province WithCity:component.city WithDistrict:component.district];
+        
     }
 }
+
+- (void)setAddresWithProvince:(NSString *)Province  WithCity:(NSString *)city WithDistrict:(NSString *)district
+{
+    NSLog(@"%@ %@ %@ ",Province,city,district);
+    _currentProvince = Province;
+    _currentCity = city;
+    _currentDistrict = district;
+    
+}
+
 
 - (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
 {
@@ -148,6 +162,7 @@
     // 刷新完成,没有数据时不显示footer
     if (response.pois.count == 0) {
         _tableView.mj_footer.state = MJRefreshStateNoMoreData;
+         return;
     }
     else {
         _tableView.mj_footer.state = MJRefreshStateIdle;

@@ -33,26 +33,24 @@
 @property (nonatomic, strong) MAMapView *mapView;
 /** 搜索视图*/
 @property (nonatomic, strong) UISearchController *searchController;
+// 搜索API
+@property (nonatomic, strong) AMapSearchAPI *searchAPI;
+// 地图中心点POI列表
+@property (nonatomic, strong) MapPoiTableView *PoiTableView;
 @end
 
 @implementation MainViewController
 {
     // 地图中心点的标记
     UIImageView *_centerMaker;
-    // 地图中心点POI列表
-    MapPoiTableView *_tableView;
     // 高德API不支持定位开关，需要自己设置
     UIButton *_locationBtn;
     UIImage *_imageLocated;
     UIImage *_imageNotLocate;
-    // 搜索API
-    AMapSearchAPI *_searchAPI;
-    
     // 第一次定位标记
     BOOL isFirstLocated;
     // 搜索页数
     NSInteger searchPage;
-
     // 禁止连续点击两次
     BOOL _isMapViewRegionChangedFromTableView;}
 
@@ -147,6 +145,7 @@
 {
     searchPage++;
     AMapGeoPoint *point = [AMapGeoPoint locationWithLatitude:_mapView.centerCoordinate.latitude longitude:_mapView.centerCoordinate.longitude];
+    
     [self searchPoiByAMapGeoPoint:point];
 }
 
@@ -169,7 +168,7 @@
 
 - (void)setCurrentCity:(NSString *)city
 {
-    [_searchResultTableVC setSearchCity:city];
+    [self.searchResultTableVC setSearchCity:city];
 }
 
 
@@ -177,7 +176,7 @@
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     searchPage = 1;
-    [_searchResultTableVC searchPoiBySearchString:searchController.searchBar.text];
+    [self.searchResultTableVC searchPoiBySearchString:searchController.searchBar.text];
 }
 
 
@@ -222,12 +221,19 @@
 - (void)setSelectedLocationWithLocation:(AMapPOI *)poi
 {
     [_mapView setCenterCoordinate:CLLocationCoordinate2DMake(poi.location.latitude,poi.location.longitude) animated:NO];
-    _searchController.searchBar.text = @"";
+    self.searchController.searchBar.text = @"";
 }
 
 
 #pragma mark - 初始化
 
+-(AMapSearchAPI *)searchAPI{
+    if (!_searchAPI) {
+        _searchAPI = [[AMapSearchAPI alloc] init];
+        _searchAPI.delegate = self.PoiTableView;
+    }
+    return _searchAPI;
+}
 
 #pragma mark - 界面
 -(void)setNotifier{
@@ -301,17 +307,15 @@
 {
     UIImage *image = [UIImage imageNamed:@"centerMarker"];
     _centerMaker = [[UIImageView alloc] initWithImage:image];
-//    _centerMaker.frame = CGRectMake(self.view.frame.size.width/2-image.size.width/2, _mapView.bounds.size.height/2-image.size.height, image.size.width, image.size.height);
-//    _centerMaker.center = CGPointMake(self.view.frame.size.width / 2, (CGRectGetHeight(_mapView.bounds) -  _centerMaker.frame.size.height - TITLE_HEIGHT) * 0.5);
     _centerMaker.center = CGPointMake(self.view.frame.size.width / 2, (CGRectGetHeight(_mapView.bounds) + 45 -  _centerMaker.frame.size.height) * 0.5);
     [self.view addSubview:_centerMaker];
 }
 
 - (void)initTableView
 {
-    _tableView = [[MapPoiTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame)-TITLE_HEIGHT, SCREEN_WIDTH, CELL_HEIGHT*CELL_COUNT + TITLE_HEIGHT)];
-    _tableView.delegate = self;
-    [self.view addSubview:_tableView];
+    self.PoiTableView = [[MapPoiTableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mapView.frame)-TITLE_HEIGHT, SCREEN_WIDTH, CELL_HEIGHT*CELL_COUNT + TITLE_HEIGHT)];
+    self.PoiTableView.delegate = self;
+    [self.view addSubview:self.PoiTableView];
 }
 
 - (void)initLocationButton
@@ -330,11 +334,6 @@
 - (void)initSearch
 {
     searchPage = 1;
-    _searchAPI = [[AMapSearchAPI alloc] init];
-    _searchAPI.delegate = _tableView;
-    
-    _searchResultTableVC = [[SearchResultTableVC alloc] init];
-    _searchResultTableVC.delegate = self;
     
     int SearchBarStyle = 0;
     switch (SearchBarStyle) {
@@ -359,10 +358,21 @@
     
 }
 
+
+
+#pragma mark - 搜索的列表
+-(SearchResultTableVC *)searchResultTableVC{
+    if (!_searchResultTableVC) {
+        _searchResultTableVC = [[SearchResultTableVC alloc] init];
+        _searchResultTableVC.delegate = self;
+    }
+    return _searchResultTableVC;
+}
+
 /** 搜索框*/
 - (UISearchController *)searchController {
     if (!_searchController) {
-        _searchController = [[UISearchController alloc]initWithSearchResultsController:_searchResultTableVC];
+        _searchController = [[UISearchController alloc]initWithSearchResultsController:self.searchResultTableVC];
         _searchController.searchBar.delegate = self;
         _searchController.searchResultsUpdater= self;
         _searchController.dimsBackgroundDuringPresentation = NO;
@@ -419,7 +429,15 @@
 }
 #pragma mark - 右侧按钮
 -(void)sendLocation{
-    NSLog(@"选择的经度--->%f\n,选择的纬度--->%f,选择的名称--->%@,选择的地址名称--->%@",_tableView.selectedPoi.location.latitude,_tableView.selectedPoi.location.longitude,_tableView.selectedPoi.name,_tableView.selectedPoi.address);
+    if (self.locationSelectBlock) {
+        NSArray *array = [NSArray arrayWithObjects:self.PoiTableView.currentProvince,self.PoiTableView.currentCity,self.PoiTableView.currentDistrict,self.PoiTableView.selectedPoi.name, nil];
+        self.locationSelectBlock(self.PoiTableView.selectedPoi.location.latitude, self.PoiTableView.selectedPoi.location.longitude, array);
+    }
+    weak(self);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    });
+    
 }
 
 
@@ -428,7 +446,7 @@
     [_mapView setCenterCoordinate:_mapView.userLocation.coordinate animated:YES];
 }
 
-// 搜索中心点坐标周围的POI-AMapGeoPoint
+#pragma mark - 搜索中心点坐标周围的POI-AMapGeoPoint
 - (void)searchPoiByAMapGeoPoint:(AMapGeoPoint *)location
 {
     AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
@@ -437,19 +455,21 @@
     request.radius = 2000;
     // 搜索结果排序
     request.sortrule = 1;
+    //搜索关键字
+    request.keywords = @"商务住宅";
     // 当前页数
     request.page = searchPage;
-    [_searchAPI AMapPOIAroundSearch:request];
+    [self.searchAPI AMapPOIAroundSearch:request];
 }
 
-// 搜索逆向地理编码-AMapGeoPoint
+#pragma mark - 搜索逆向地理编码-AMapGeoPoint
 - (void)searchReGeocodeWithAMapGeoPoint:(AMapGeoPoint *)location
 {
     AMapReGeocodeSearchRequest *regeo = [[AMapReGeocodeSearchRequest alloc] init];
     regeo.location = location;
     // 返回扩展信息
     regeo.requireExtension = YES;
-    [_searchAPI AMapReGoecodeSearch:regeo];
+    [self.searchAPI AMapReGoecodeSearch:regeo];
 }
 
 #pragma mark - 网络环境监听

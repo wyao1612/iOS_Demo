@@ -19,7 +19,6 @@
 - (void)setSendButtonEnabledAfterLoadFinished;
 // 设置当前位置所在城市
 - (void)setCurrentCity:(NSString *)city;
-
 @end
 
 @interface MapPoiTableView : UIView <UITableViewDelegate,UITableViewDataSource,AMapSearchDelegate>
@@ -27,5 +26,12 @@
 @property (nonatomic, weak) id<MapPoiTableViewDelegate> delegate;
 // 选中的POI点
 @property (nonatomic, strong) AMapPOI *selectedPoi;
+
+// 当前省份
+@property (nonatomic, copy) NSString *currentProvince;
+// 当前城市
+@property (nonatomic, copy) NSString *currentCity;
+// 当前区域
+@property (nonatomic, copy) NSString *currentDistrict;
 
 @end
