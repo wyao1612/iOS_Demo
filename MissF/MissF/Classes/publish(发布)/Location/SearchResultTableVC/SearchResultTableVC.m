@@ -29,7 +29,7 @@
     BOOL isFromMoreLoadRequest;
 }
 
-#pragma mark - UISearchResultsUpdating
+#pragma mark - UISearchResultsUpdating (当前控制器做搜索的时候使用 外部使用自己为代理)
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
     _searchString = searchController.searchBar.text;
@@ -83,7 +83,7 @@
     [text addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:NSMakeRange(0, text.length)];
     //高亮
     NSRange textHighlightRange = [poi.name rangeOfString:_searchString];
-    [text addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:textHighlightRange];
+    [text addAttribute:NSForegroundColorAttributeName value:GLOBALCOLOR range:textHighlightRange];
     cell.textLabel.attributedText = text;
     
     NSMutableAttributedString *detailText = [[NSMutableAttributedString alloc] initWithString:poi.address];
@@ -110,6 +110,7 @@
 - (void)searchPoiBySearchString:(NSString *)searchString
 {
     //POI关键字搜索
+    _searchString = searchString;
     AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc] init];
     request.keywords = searchString;
     request.city = _city;

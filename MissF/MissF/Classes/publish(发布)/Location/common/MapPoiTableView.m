@@ -54,11 +54,11 @@
     cell.textLabel.textColor = [UIColor blackColor];
     if (indexPath.row == 0) {
         cell.textLabel.frame = cell.frame;
-        cell.textLabel.font = [UIFont systemFontOfSize:20];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.detailTextLabel.text = @"";
     }
     else {
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
         cell.detailTextLabel.text = point.address;
         cell.detailTextLabel.textColor = [UIColor grayColor];
     }

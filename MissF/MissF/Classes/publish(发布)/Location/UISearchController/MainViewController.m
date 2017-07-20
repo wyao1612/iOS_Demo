@@ -21,14 +21,22 @@
 // 是否为iOS8.4
 #define isNotVersion84                  ([[[UIDevice currentDevice] systemVersion] floatValue] > 8.4)
 
-@interface MainViewController () <MAMapViewDelegate,MapPoiTableViewDelegate,AMapSearchDelegate,UISearchBarDelegate,SearchResultTableVCDelegate>
+@interface MainViewController () <MAMapViewDelegate,MapPoiTableViewDelegate,AMapSearchDelegate,UISearchBarDelegate,SearchResultTableVCDelegate,UISearchResultsUpdating>
 /** 右侧按钮 */
 @property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) SearchResultTableVC *searchResultTableVC;
+/** 搜索框背景颜色 */
+@property (nonatomic, strong) UIImage *searchGrayImage;
+/** 搜索框背景颜色 */
+@property (nonatomic, strong) UIImage *searchWhiteImage;
+/** 地图*/
+@property (nonatomic, strong) MAMapView *mapView;
+/** 搜索视图*/
+@property (nonatomic, strong) UISearchController *searchController;
 @end
 
 @implementation MainViewController
 {
-    MAMapView *_mapView;
     // 地图中心点的标记
     UIImageView *_centerMaker;
     // 地图中心点POI列表
@@ -46,14 +54,7 @@
     NSInteger searchPage;
 
     // 禁止连续点击两次
-    BOOL _isMapViewRegionChangedFromTableView;
-    
-    MBProgressHUD *_HUD;
-    
-    UISearchController *_searchController;
-    UITableView *_searchTableView;
-    SearchResultTableVC *_searchResultTableVC;
-}
+    BOOL _isMapViewRegionChangedFromTableView;}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -78,6 +79,7 @@
     }
 }
 
+#pragma mark - 重新定位
 - (void)mapView:(MAMapView *)mapView regionDidChangeAnimated:(BOOL)animated
 {
     if (!_isMapViewRegionChangedFromTableView && isFirstLocated) {
@@ -100,6 +102,7 @@
     _isMapViewRegionChangedFromTableView = NO;
 }
 
+#pragma mark - 当大头针被加入到地图中的时候就会调用这个方法
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
@@ -115,6 +118,7 @@
     return nil;
 }
 
+#pragma mark - annotationView已经添加到地图上
 - (void)mapView:(MAMapView *)mapView didAddAnnotationViews:(NSArray *)views
 {
     MAAnnotationView *view = views[0];
@@ -123,14 +127,17 @@
     if ([view.annotation isKindOfClass:[MAUserLocation class]])
     {
         MAUserLocationRepresentation *pre = [[MAUserLocationRepresentation alloc] init];
-        pre.showsAccuracyRing = NO;
-        //        pre.fillColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:0.3];
-        //        pre.strokeColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.9 alpha:1.0];
-        //        pre.image = [UIImage imageNamed:@"location.png"];
-        //        pre.lineWidth = 3;
-        //        pre.lineDashPattern = @[@6, @3];
-        [_mapView updateUserLocationRepresentation:pre];
         
+        /*
+        pre.showsAccuracyRing = NO;
+        pre.fillColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:0.3];
+        pre.strokeColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.9 alpha:1.0];
+        pre.image = [UIImage imageNamed:@"location.png"];
+        pre.lineWidth = 3;
+        pre.lineDashPattern = @[@6, @3];
+         */
+        
+        [_mapView updateUserLocationRepresentation:pre];
         view.calloutOffset = CGPointMake(0, 0);
     }
 }
@@ -143,11 +150,9 @@
     [self searchPoiByAMapGeoPoint:point];
 }
 
+#pragma mark - 选择提示信息后重新定位将新位置切换到屏幕中心
 - (void)setMapCenterWithPOI:(AMapPOI *)point isLocateImageShouldChange:(BOOL)isLocateImageShouldChange
 {
-//    if (_isMapViewRegionChangedFromTableView) {
-//        return;
-//    }
     // 切换定位图标
     if (isLocateImageShouldChange) {
         [_locationBtn setImage:_imageNotLocate forState:UIControlStateNormal];
@@ -167,20 +172,49 @@
     [_searchResultTableVC setSearchCity:city];
 }
 
-#pragma mark - UISearchBarDelegate
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+
+#pragma mark - UISearchResultsUpdating
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
 {
-    if (_searchController.searchBar) {
-        [_searchController.searchBar removeFromSuperview];
-    }
+    searchPage = 1;
+    [_searchResultTableVC searchPoiBySearchString:searchController.searchBar.text];
 }
 
 
+
+#pragma mark - UISearchBarDelegate
+
+#pragma mark - 开始编辑
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    //黑色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    searchBar.showsCancelButton = YES; //显示“取消”按钮
+    for(id cc in [searchBar subviews])
+    {
+        for (UIView *view in [cc subviews]) {
+            if ([NSStringFromClass(view.class)   isEqualToString:@"UINavigationButton"])
+            {
+                UIButton *btn = (UIButton *)view;
+                [btn setTitle:@"取消" forState:UIControlStateNormal];
+            }
+        }
+    }
+    
+}
+
+#pragma mark - 取消
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = NO;
+    //黑色
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    searchBar.text = nil;
+    [searchBar resignFirstResponder];
+}
+
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
-    if (_searchController.searchBar) {
-        [_searchController.searchBar removeFromSuperview];
-    }
     return YES;
 }
 
@@ -224,12 +258,13 @@
 }
 
 -(void)setNavRightItem{
-    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(rightBarItemClick)];
+    UIBarButtonItem *rightBarItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(sendLocation)];
     [rightBarItem setTintColor:[UIColor whiteColor]];
     [rightBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIFont boldSystemFontOfSize:15],NSFontAttributeName, nil] forState:UIControlStateNormal];
     UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace   target:nil action:nil];
     negativeSpacer.width = -5;
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:negativeSpacer, rightBarItem, nil];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 -(UIButton *)leftBtn{
@@ -245,18 +280,9 @@
 }
 
 
-#pragma mark - 放回按钮
--(void)backItemClick{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-#pragma mark - 右侧按钮
--(void)rightBarItemClick{
-    
-}
-
 - (void)initMapView
 {
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT - CELL_HEIGHT*CELL_COUNT)];
+    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0,45, SCREEN_WIDTH, SCREEN_HEIGHT - CELL_HEIGHT*CELL_COUNT-45)];
     _mapView.delegate = self;
     // 不显示罗盘
     _mapView.showsCompass = NO;
@@ -268,6 +294,8 @@
     _mapView.showsUserLocation = YES;
     [self.view addSubview:_mapView];
 }
+
+
 
 - (void)initCenterMarker
 {
@@ -306,24 +334,22 @@
     
     _searchResultTableVC = [[SearchResultTableVC alloc] init];
     _searchResultTableVC.delegate = self;
-    _searchController = [[UISearchController alloc] initWithSearchResultsController:_searchResultTableVC];
-    _searchController.searchResultsUpdater = _searchResultTableVC;
     
     int SearchBarStyle = 0;
     switch (SearchBarStyle) {
         case 0:  // 放在NavigationBar底部
-            [self.view addSubview:_searchController.searchBar];
+            [self.view addSubview:self.searchController.searchBar];
             self.edgesForExtendedLayout = UIRectEdgeNone;
             break;
         case 1:  // 点击搜索按钮显示SearchBar
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"搜索" style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
             self.navigationItem.rightBarButtonItem = nil;
-            _searchController.searchBar.delegate = self;
+            self.searchController.searchBar.delegate = self;
             break;
         case 2:  // 放在NavigationBar内部
-            _searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
-            _searchController.hidesNavigationBarDuringPresentation = NO;
-            self.navigationItem.titleView = _searchController.searchBar;
+            self.searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+            self.searchController.hidesNavigationBarDuringPresentation = NO;
+            self.navigationItem.titleView = self.searchController.searchBar;
             self.definesPresentationContext = YES;
         default:
             break;
@@ -332,21 +358,73 @@
     
 }
 
+/** 搜索框*/
+- (UISearchController *)searchController {
+    if (!_searchController) {
+        _searchController = [[UISearchController alloc]initWithSearchResultsController:_searchResultTableVC];
+        _searchController.searchBar.delegate = self;
+        _searchController.searchResultsUpdater= self;
+        _searchController.dimsBackgroundDuringPresentation = NO;
+        _searchController.hidesNavigationBarDuringPresentation = YES;
+        [_searchController.searchBar sizeToFit];
+        _searchController.searchBar.placeholder = @"请输入搜索区域";
+        _searchController.searchBar.tintColor =  GLOBALCOLOR;//修改取消字体颜色
+        _searchController.searchBar.layer.cornerRadius = 3;
+        _searchController.searchBar.layer.masksToBounds = YES;
+        [_searchController.searchBar sizeToFit];
+        UIOffset offset = {10.0,0};
+        _searchController.searchBar.searchTextPositionAdjustment = offset;
+        _searchController.searchBar.backgroundImage = self.searchGrayImage;
+        _searchController.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+        _searchController.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;//关闭提示
+        _searchController.searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;//关闭自动首字母大写
+        [_searchController.searchBar setSearchFieldBackgroundImage:self.searchWhiteImage forState:UIControlStateNormal];
+        UITextField *searchField = [_searchController.searchBar valueForKey:@"searchField"];
+        
+        if (searchField) {
+            [searchField setBackgroundColor:[UIColor whiteColor]];
+            searchField.layer.cornerRadius = 5.0f;
+            searchField.layer.borderColor = GRAYCOLOR.CGColor;
+            searchField.layer.borderWidth = 1;
+            searchField.layer.masksToBounds = YES;
+        }
+        
+    }
+    return _searchController;
+}
+
+
+- (UIImage *)searchGrayImage{
+    if (!_searchGrayImage) {
+        _searchGrayImage = [UIImage imageWithColor:[UIColor colorWithHexString:@"f4f4f4"] size:CGSizeMake(SCREEN_WIDTH - 14, 26)];
+    }
+    return _searchGrayImage;
+}
+
+- (UIImage *)searchWhiteImage{
+    if (!_searchWhiteImage) {
+        _searchWhiteImage = [UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(SCREEN_WIDTH - 14, 26)];
+    }
+    return _searchWhiteImage;
+}
+
+
+
 #pragma mark - Action
+
+#pragma mark - 放回按钮
+-(void)backItemClick{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark - 右侧按钮
+-(void)sendLocation{
+    NSLog(@"选择的经度--->%f\n,选择的纬度--->%f,选择的名称--->%@,选择的地址名称--->%@",_tableView.selectedPoi.location.latitude,_tableView.selectedPoi.location.longitude,_tableView.selectedPoi.name,_tableView.selectedPoi.address);
+}
+
+
 - (void)actionLocation
 {
     [_mapView setCenterCoordinate:_mapView.userLocation.coordinate animated:YES];
-}
-
-- (void)sendLocation
-{
-    //添加Marker标记
-//    MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc] init];
-//    pointAnnotation.coordinate = _mapView.centerCoordinate;
-//    [_mapView addAnnotation:pointAnnotation];
-//    UIImage *image = [_mapView takeSnapshotInRect:_mapView.bounds];
-    LocationDetailVC *locationDetailVC = [[LocationDetailVC alloc] initWithLatitude:_tableView.selectedPoi.location.latitude longitude:_tableView.selectedPoi.location.longitude title:_tableView.selectedPoi.name position:_tableView.selectedPoi.address];
-    [self.navigationController pushViewController:locationDetailVC animated:YES];
 }
 
 // 搜索中心点坐标周围的POI-AMapGeoPoint
@@ -355,7 +433,7 @@
     AMapPOIAroundSearchRequest *request = [[AMapPOIAroundSearchRequest alloc] init];
     request.location = location;
     // 搜索半径
-    request.radius = 1000;
+    request.radius = 2000;
     // 搜索结果排序
     request.sortrule = 1;
     // 当前页数
@@ -390,30 +468,9 @@
     }
     else if (status == NotReachable){
         NSLog(@"notReachable");
-        [self showAllTextDialog:@"网络错误，请检查网络设置"];
+        [SVProgressHUD showErrorWithStatus:@"网络错误，请检查网络设置"];
         self.navigationItem.rightBarButtonItem.enabled = NO;
     }
-}
-
-// 显示文本对话框
--(void)showAllTextDialog:(NSString *)str
-{
-    _HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    [self.view addSubview:_HUD];
-    _HUD.label.text = str;
-    _HUD.mode = MBProgressHUDModeText;
-    
-    //指定距离中心点的X轴和Y轴的位置，不指定则在屏幕中间显示
-    _HUD.yOffset = 100.0f;
-    //    _HUD.xOffset = 100.0f;
-    
-    [_HUD showAnimated:YES whileExecutingBlock:^{
-        sleep(1);
-    } completionBlock:^{
-        [_HUD removeFromSuperview];
-        _HUD = nil;
-    }];
-    
 }
 
 

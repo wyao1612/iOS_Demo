@@ -68,7 +68,9 @@
     
     //高德注册
     [[AMapServices sharedServices] setEnableHTTPS:YES];
-    [AMapServices sharedServices].apiKey = @"6d5ef7f23c187e822ff53bce0fd7669a";
+    [AMapServices sharedServices].apiKey = @"89a9ba3e17dffffab64b58f381077fd9";
+    //com.MissF.life 89a9ba3e17dffffab64b58f381077fd9
+    //com.missf.life 6d5ef7f23c187e822ff53bce0fd7669a
     
     
     

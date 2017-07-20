@@ -20,5 +20,6 @@
 - (void)setSearchCity:(NSString *)city;
 
 @property (nonatomic, weak) id<SearchResultTableVCDelegate> delegate;
+- (void)searchPoiBySearchString:(NSString *)searchString;
 
 @end
