@@ -11,7 +11,7 @@
 #import "MFRoommateTagsViewCell.h"
 #import "MFPublishRoommateTableViewProxy.h"
 #import "MFTagsViewController.h"
-#import "MFLocationViewController.h"
+#import "MainViewController.h"
 
 @interface MFPublishRoomateViewController ()
 @property(strong,nonatomic) UIImageView* headerImageView;
@@ -69,7 +69,7 @@
         _publishRoommateTableViewProxy.PublishRoommateProxySelectBlock = ^(UIButton *sender, NSIndexPath *indexPath) {
             
             if (indexPath.section == 0 && indexPath.row == 0) {//选择地图
-                MFLocationViewController *vc= [[MFLocationViewController alloc] init];
+                MainViewController *vc= [[MainViewController alloc] init];
                 [weakSelf.navigationController pushViewController:vc animated:YES];
             }else{
                 MFTagsViewController *vc = [[MFTagsViewController alloc] init];

@@ -18,6 +18,12 @@
 		1202B0371F1609C00097223B /* MFNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0341F1609C00097223B /* MFNetAPIClient.m */; };
 		1202B03A1F160AE30097223B /* NSObject+params.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B0391F160AE30097223B /* NSObject+params.m */; };
 		1202B03D1F160B0D0097223B /* STL_CommonIdea.m in Sources */ = {isa = PBXBuildFile; fileRef = 1202B03C1F160B0D0097223B /* STL_CommonIdea.m */; };
+		120CA4A01F1F944100CEE313 /* LocationDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA48F1F1F944100CEE313 /* LocationDetailVC.m */; };
+		120CA4A11F1F944100CEE313 /* MapPoiTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA4911F1F944100CEE313 /* MapPoiTableView.m */; };
+		120CA4A21F1F944100CEE313 /* SearchResultTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA4941F1F944100CEE313 /* SearchResultTableVC.m */; };
+		120CA4A31F1F944100CEE313 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA4971F1F944100CEE313 /* MainViewController.m */; };
+		120CA4A51F1F944100CEE313 /* OldMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA49C1F1F944100CEE313 /* OldMainViewController.m */; };
+		120CA4A61F1F944100CEE313 /* MFLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA49F1F1F944100CEE313 /* MFLocationTableViewCell.m */; };
 		1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */; };
 		1217BC381F1724F500DC4B87 /* MFHouseTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */; };
 		1217BC391F1724F500DC4B87 /* MFHouseBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */; };
@@ -59,8 +65,7 @@
 		12A174C11F1DCE0200C7B320 /* DLPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174C01F1DCE0200C7B320 /* DLPickerView.m */; };
 		12A174C51F1E0EA200C7B320 /* MFPublishModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174C41F1E0EA200C7B320 /* MFPublishModel.m */; };
 		12A174CB1F1E1E3B00C7B320 /* MFPublishViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174CA1F1E1E3B00C7B320 /* MFPublishViewModel.m */; };
-		12CE91AB1F1EF7AD003F2942 /* MFLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CE91AA1F1EF7AD003F2942 /* MFLocationViewController.m */; };
-		12CE91AE1F1F0F5D003F2942 /* AMapTipAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CE91AD1F1F0F5D003F2942 /* AMapTipAnnotation.m */; };
+		12CE91B41F1F6BE9003F2942 /* MFAdressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CE91B31F1F6BE9003F2942 /* MFAdressModel.m */; };
 		12D4AE9C1F0E80FB00898F51 /* MissFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AE9B1F0E80FB00898F51 /* MissFTests.m */; };
 		12D4AEA71F0E80FB00898F51 /* MissFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEA61F0E80FB00898F51 /* MissFUITests.m */; };
 		12D4AF5B1F0E818100898F51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AEB61F0E818000898F51 /* AppDelegate.m */; };
@@ -175,6 +180,18 @@
 		1202B0391F160AE30097223B /* NSObject+params.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+params.m"; sourceTree = "<group>"; };
 		1202B03B1F160B0D0097223B /* STL_CommonIdea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STL_CommonIdea.h; sourceTree = "<group>"; };
 		1202B03C1F160B0D0097223B /* STL_CommonIdea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STL_CommonIdea.m; sourceTree = "<group>"; };
+		120CA48E1F1F944100CEE313 /* LocationDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationDetailVC.h; sourceTree = "<group>"; };
+		120CA48F1F1F944100CEE313 /* LocationDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDetailVC.m; sourceTree = "<group>"; };
+		120CA4901F1F944100CEE313 /* MapPoiTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoiTableView.h; sourceTree = "<group>"; };
+		120CA4911F1F944100CEE313 /* MapPoiTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoiTableView.m; sourceTree = "<group>"; };
+		120CA4931F1F944100CEE313 /* SearchResultTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableVC.h; sourceTree = "<group>"; };
+		120CA4941F1F944100CEE313 /* SearchResultTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTableVC.m; sourceTree = "<group>"; };
+		120CA4961F1F944100CEE313 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		120CA4971F1F944100CEE313 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		120CA49B1F1F944100CEE313 /* OldMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldMainViewController.h; sourceTree = "<group>"; };
+		120CA49C1F1F944100CEE313 /* OldMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMainViewController.m; sourceTree = "<group>"; };
+		120CA49E1F1F944100CEE313 /* MFLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLocationTableViewCell.h; sourceTree = "<group>"; };
+		120CA49F1F1F944100CEE313 /* MFLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLocationTableViewCell.m; sourceTree = "<group>"; };
 		1216F1481F19DAEB00906EB0 /* MFTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsViewController.h; sourceTree = "<group>"; };
 		1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsViewController.m; sourceTree = "<group>"; };
 		1217BC221F1724F500DC4B87 /* MFHouseTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseTableViewProxy.h; sourceTree = "<group>"; };
@@ -241,10 +258,8 @@
 		12A174C41F1E0EA200C7B320 /* MFPublishModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishModel.m; sourceTree = "<group>"; };
 		12A174C91F1E1E3B00C7B320 /* MFPublishViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishViewModel.h; sourceTree = "<group>"; };
 		12A174CA1F1E1E3B00C7B320 /* MFPublishViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishViewModel.m; sourceTree = "<group>"; };
-		12CE91A91F1EF7AD003F2942 /* MFLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLocationViewController.h; sourceTree = "<group>"; };
-		12CE91AA1F1EF7AD003F2942 /* MFLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLocationViewController.m; sourceTree = "<group>"; };
-		12CE91AC1F1F0F5D003F2942 /* AMapTipAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMapTipAnnotation.h; sourceTree = "<group>"; };
-		12CE91AD1F1F0F5D003F2942 /* AMapTipAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMapTipAnnotation.m; sourceTree = "<group>"; };
+		12CE91B21F1F6BE9003F2942 /* MFAdressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFAdressModel.h; sourceTree = "<group>"; };
+		12CE91B31F1F6BE9003F2942 /* MFAdressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFAdressModel.m; sourceTree = "<group>"; };
 		12D4AE7E1F0E80FB00898F51 /* MissF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MissF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D4AE971F0E80FB00898F51 /* MissFTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MissFTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D4AE9B1F0E80FB00898F51 /* MissFTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MissFTests.m; sourceTree = "<group>"; };
@@ -441,6 +456,53 @@
 			path = MFNetManager;
 			sourceTree = "<group>";
 		};
+		120CA48D1F1F944100CEE313 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				120CA48E1F1F944100CEE313 /* LocationDetailVC.h */,
+				120CA48F1F1F944100CEE313 /* LocationDetailVC.m */,
+				120CA4901F1F944100CEE313 /* MapPoiTableView.h */,
+				120CA4911F1F944100CEE313 /* MapPoiTableView.m */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		120CA4921F1F944100CEE313 /* SearchResultTableVC */ = {
+			isa = PBXGroup;
+			children = (
+				120CA4931F1F944100CEE313 /* SearchResultTableVC.h */,
+				120CA4941F1F944100CEE313 /* SearchResultTableVC.m */,
+			);
+			path = SearchResultTableVC;
+			sourceTree = "<group>";
+		};
+		120CA4951F1F944100CEE313 /* UISearchController */ = {
+			isa = PBXGroup;
+			children = (
+				120CA4961F1F944100CEE313 /* MainViewController.h */,
+				120CA4971F1F944100CEE313 /* MainViewController.m */,
+			);
+			path = UISearchController;
+			sourceTree = "<group>";
+		};
+		120CA49A1F1F944100CEE313 /* UISearchDisplayController */ = {
+			isa = PBXGroup;
+			children = (
+				120CA49B1F1F944100CEE313 /* OldMainViewController.h */,
+				120CA49C1F1F944100CEE313 /* OldMainViewController.m */,
+			);
+			path = UISearchDisplayController;
+			sourceTree = "<group>";
+		};
+		120CA49D1F1F944100CEE313 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				120CA49E1F1F944100CEE313 /* MFLocationTableViewCell.h */,
+				120CA49F1F1F944100CEE313 /* MFLocationTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		1216F1471F19DAD400906EB0 /* MyTags */ = {
 			isa = PBXGroup;
 			children = (
@@ -479,6 +541,8 @@
 				1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */,
 				1217BC271F1724F500DC4B87 /* MFHouseListCell.h */,
 				1217BC281F1724F500DC4B87 /* MFHouseListCell.m */,
+				12CE91B21F1F6BE9003F2942 /* MFAdressModel.h */,
+				12CE91B31F1F6BE9003F2942 /* MFAdressModel.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -674,10 +738,11 @@
 		12CE91A81F1EF78B003F2942 /* Location */ = {
 			isa = PBXGroup;
 			children = (
-				12CE91A91F1EF7AD003F2942 /* MFLocationViewController.h */,
-				12CE91AA1F1EF7AD003F2942 /* MFLocationViewController.m */,
-				12CE91AC1F1F0F5D003F2942 /* AMapTipAnnotation.h */,
-				12CE91AD1F1F0F5D003F2942 /* AMapTipAnnotation.m */,
+				120CA48D1F1F944100CEE313 /* common */,
+				120CA4921F1F944100CEE313 /* SearchResultTableVC */,
+				120CA4951F1F944100CEE313 /* UISearchController */,
+				120CA49A1F1F944100CEE313 /* UISearchDisplayController */,
+				120CA49D1F1F944100CEE313 /* View */,
 			);
 			path = Location;
 			sourceTree = "<group>";
@@ -1489,10 +1554,12 @@
 				12D4AF831F0E818100898F51 /* GolfMJExtensionConfig.m in Sources */,
 				12D4AF8C1F0E818100898F51 /* UIColor+Addition.m in Sources */,
 				12D4AF8D1F0E818100898F51 /* UIColor+expanded.m in Sources */,
+				120CA4A61F1F944100CEE313 /* MFLocationTableViewCell.m in Sources */,
 				1217BC391F1724F500DC4B87 /* MFHouseBottomView.m in Sources */,
 				1217BC381F1724F500DC4B87 /* MFHouseTableViewProxy.m in Sources */,
 				1202B0231F1600A90097223B /* NSString+KeychainTool.m in Sources */,
 				12D4AF941F0E818100898F51 /* AppDelegate+Check.m in Sources */,
+				120CA4A31F1F944100CEE313 /* MainViewController.m in Sources */,
 				12D4AF7B1F0E818100898F51 /* BaseTableViewCell.m in Sources */,
 				1217BC3E1F1724F500DC4B87 /* MFRoommateViewController.m in Sources */,
 				12D4AF7F1F0E818100898F51 /* NSString+Common.m in Sources */,
@@ -1502,12 +1569,12 @@
 				12D4AF921F0E818100898F51 /* UIView+Extension.m in Sources */,
 				12D4AF801F0E818100898F51 /* UIDevice+Info.m in Sources */,
 				12D4AF811F0E818100898F51 /* UIImage+Common.m in Sources */,
+				120CA4A51F1F944100CEE313 /* OldMainViewController.m in Sources */,
 				12D4AF9E1F0E818100898F51 /* JKCountDownButton.m in Sources */,
 				12A174C51F1E0EA200C7B320 /* MFPublishModel.m in Sources */,
 				12D4AF681F0E818100898F51 /* BaseObject.m in Sources */,
 				12D4AF9D1F0E818100898F51 /* ObjcRuntime.m in Sources */,
 				1202B03A1F160AE30097223B /* NSObject+params.m in Sources */,
-				12CE91AB1F1EF7AD003F2942 /* MFLocationViewController.m in Sources */,
 				122B099A1F1CBE6F00E285E8 /* MFPublishRoomateViewController.m in Sources */,
 				12D4AF881F0E818100898F51 /* NSString+extension.m in Sources */,
 				122B099D1F1CC88C00E285E8 /* MFPublishRoommateTableViewProxy.m in Sources */,
@@ -1524,10 +1591,11 @@
 				1202B0291F16091D0097223B /* YW_TextField.m in Sources */,
 				12D4AF5F1F0E818100898F51 /* MFHomeViewController.m in Sources */,
 				1217BC3A1F1724F500DC4B87 /* MFHouseListCell.m in Sources */,
+				120CA4A21F1F944100CEE313 /* SearchResultTableVC.m in Sources */,
 				1217BC471F17549700DC4B87 /* UITapImageView.m in Sources */,
 				12D4AF901F0E818100898F51 /* UILabel+Category.m in Sources */,
 				12D4AF621F0E818100898F51 /* MFMineViewController.m in Sources */,
-				12CE91AE1F1F0F5D003F2942 /* AMapTipAnnotation.m in Sources */,
+				120CA4A11F1F944100CEE313 /* MapPoiTableView.m in Sources */,
 				12D4AF8A1F0E818100898F51 /* UIButton+Addtion.m in Sources */,
 				12D4AF7E1F0E818100898F51 /* NSObject+Common.m in Sources */,
 				1217BC3D1F1724F500DC4B87 /* MFRoommateTableViewProxy.m in Sources */,
@@ -1537,6 +1605,7 @@
 				12A174BE1F1DB50900C7B320 /* YWPickerView.m in Sources */,
 				12D4AF851F0E818100898F51 /* NSDate+Extension.m in Sources */,
 				12D4AF7C1F0E818100898F51 /* BaseViewController.m in Sources */,
+				120CA4A01F1F944100CEE313 /* LocationDetailVC.m in Sources */,
 				12D4AF7A1F0E818100898F51 /* BaseNavigationController.m in Sources */,
 				1217BC441F1728C500DC4B87 /* MFRoommateTableViewCell.m in Sources */,
 				12D4AF631F0E818100898F51 /* MFMyPublishViewController.m in Sources */,
@@ -1559,6 +1628,7 @@
 				12D4AF8B1F0E818100898F51 /* UIButton+category.m in Sources */,
 				12D4AF691F0E818100898F51 /* MFLoginModel.m in Sources */,
 				12D4AF821F0E818100898F51 /* UILabel+Common.m in Sources */,
+				12CE91B41F1F6BE9003F2942 /* MFAdressModel.m in Sources */,
 				1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */,
 				12D4AF6A1F0E818100898F51 /* MFOAuthModel.m in Sources */,
 				122B095F1F1C95E700E285E8 /* MFMyProfessionViewController.m in Sources */,

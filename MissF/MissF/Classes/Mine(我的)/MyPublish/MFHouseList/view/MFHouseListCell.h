@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MFHouseListModel.h"
 
+
 typedef void(^ListCellBlock)(UIButton* sender);
 typedef void(^ListCellSelectBlock)(BOOL isSelected);
 
