@@ -236,8 +236,8 @@
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
     
-    NSLog(@"onePhotoView - %@",allList);
-    if (allList.count>0) {
+    NSLog(@"onePhotoView - %@",photos);
+    if (photos.count>0) {
         self.headerImageView.hidden = YES;
         self.nameLabel.hidden = YES;
         self.onePhotoView.hidden = NO;
@@ -246,7 +246,52 @@
         self.nameLabel.hidden = NO;
         self.onePhotoView.hidden = YES;
     }
+    
+    [SVProgressHUD showWithStatus:@"正在上传图片"];
+    NSDictionary *parameter = @{@"file":@".png",
+                                @"type":@"roommate"};
+    
+    [self getExifInfowithImage:photos[0].thumbPhoto];
+    if (photos.count>0) {
+        //上传图片
+        [[MFNetAPIClient sharedInstance] uploadImageWithUrlString:kupload parameters:parameter ImageArray:photos  SuccessBlock:^(id responObject) {
+            [SVProgressHUD showInfoWithStatus:responObject[@"message"]];
+        } FailurBlock:^(NSInteger errCode, NSString *errorMsg) {
+            [SVProgressHUD showInfoWithStatus:errorMsg];
+        } UpLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
+            
+        }];
+    }
+    
 }
+
+
+- (void)getExifInfowithImage:(UIImage*)image{
+    
+    
+//    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"6011500630885_.pic_hd" withExtension:@"jpg"];
+//    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);
+    
+//    CFDictionaryRef imageInfo = CGImageSourceCopyPropertiesAtIndex(imageSource, 0,NULL);
+//    NSDictionary *exifDic = (__bridge NSDictionary *)CFDictionaryGetValue(imageInfo, kCGImagePropertyExifDictionary) ;
+    
+    
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    
+    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    
+    NSDictionary *imageInfo = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
+    
+    NSMutableDictionary *metaDataDic = [imageInfo mutableCopy];
+    NSMutableDictionary *exifDic =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyExifDictionary]mutableCopy];
+    NSMutableDictionary *GPSDic =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyGPSDictionary]mutableCopy];
+    
+    NSLog(@"exif信息--->%@\n,定位信息信息--->%@\n",exifDic,GPSDic);
+}
+
+
+
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
     NSLog(@"%@",NSStringFromCGRect(frame));
     self.headerBackView.frame = CGRectMake(0, 0, SCREEN_WIDTH, frame.size.height+60);

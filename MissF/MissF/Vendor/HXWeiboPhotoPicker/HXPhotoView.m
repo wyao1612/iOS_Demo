@@ -52,8 +52,8 @@
     if (!_addModel) {
         _addModel = [[HXPhotoModel alloc] init];
         _addModel.type = HXPhotoModelMediaTypeCamera;
-        //_addModel.thumbPhoto = [HXPhotoTools hx_imageNamed:@"compose_pic_add@2x.png"];
-        _addModel.thumbPhoto = [HXPhotoTools hx_imageNamed:@"release_roommate_camera_icon"];
+        _addModel.thumbPhoto = [HXPhotoTools hx_imageNamed:@"release_roommate_camera_icon@2x.png"];
+        
     }
     return _addModel;
 }

@@ -50,4 +50,7 @@ static NSString *const  httpCache = @"MFNetworkCache";
 /** 公共字典*/
 #define kcommonUrl  @"/common/configure.json"
 
+/** 上传图片数组*/
+#define kupload  @"/upload/file.json"
+
 #endif /* URLMacros_h */

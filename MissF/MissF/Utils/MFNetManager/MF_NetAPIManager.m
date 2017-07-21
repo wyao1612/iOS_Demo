@@ -74,4 +74,7 @@ static MF_NetAPIManager *shareBaseManager = nil;
     }];
 }
 
+#pragma mark - 照片上传
+
+
 @end

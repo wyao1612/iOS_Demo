@@ -10,6 +10,8 @@
 #import "YTKKeyValueStore.h"
 #import "AFNetworkActivityIndicatorManager.h"
 #import "MFAppHelper.h"
+#import "UIImage+CompressImage.h"
+#import "HXPhotoModel.h"
 
 #define PATH_OF_NetWork   [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
 #define NoNetworkCode -1001
@@ -371,8 +373,138 @@ static BOOL    _isHasNetWork;
         }];
     }
     
-      [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
+    if (dataTask) {
+       [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = dataTask;
+    }
+    
 }
+
+
+
+- (NSURLSessionDataTask *)uploadImageWithUrlString:(NSString *)urlString
+                                       parameters:(NSDictionary *)parameters
+                                       ImageArray:(NSArray *)imageArray
+                                     SuccessBlock:(OBJBlock)successBlock
+                                      FailurBlock:(ERRORCODEBlock)failureBlock
+                                   UpLoadProgress:(UploadProgress)progress
+{
+    if (urlString == nil)
+    {
+        return nil;
+    }
+    weak(self);
+
+    //参数签名
+    parameters =  [NSObject KeyWithParams:parameters];
+    
+    /*! 检查地址中是否有中文 */
+//    NSString *URLString = [NSURL URLWithString:urlString] ? urlString : [self strUTF8Encoding:urlString];
+    //拼接地址
+    urlString = [NSString stringWithFormat:@"%@%@",[MFUserDefault objectForKey:@"currentAPI"],urlString];
+    
+    NSLog(@"******************** 请求参数 ***************************");
+    NSLog(@"请求头: %@\n请求方式: %@\n请求URL: %@\n请求param: %@\n\n",[MFNetAPIClient sharedInstance].manager.requestSerializer.HTTPRequestHeaders, @"POST",urlString, parameters);
+    NSLog(@"******************************************************");
+    
+    
+    NSURLSessionDataTask *sessionTask = nil;
+    NSNumber *requestId = [[MFNetAPIClient sharedInstance] generateRequestId];
+    sessionTask = [[MFNetAPIClient sharedInstance].manager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        
+        /*! 出于性能考虑,将上传图片进行压缩 */
+        [imageArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            
+            /*! image的压缩方法 */
+            UIImage *resizedImage;
+            /*! 此处是使用原生系统相册 */
+            if([obj isKindOfClass:[ALAsset class]])
+            {
+                // 用ALAsset获取Asset URL  转化为image
+                ALAssetRepresentation *assetRep = [obj defaultRepresentation];
+                
+                CGImageRef imgRef = [assetRep fullResolutionImage];
+                resizedImage = [UIImage imageWithCGImage:imgRef
+                                                   scale:1.0
+                                             orientation:(UIImageOrientation)assetRep.orientation];
+                // imageWithImage
+                NSLog(@"1111-----size : %@",NSStringFromCGSize(resizedImage.size));
+                
+                resizedImage = [weakSelf imageWithImage:resizedImage scaledToSize:resizedImage.size];
+                NSLog(@"2222-----size : %@",NSStringFromCGSize(resizedImage.size));
+            }
+            else if([obj isKindOfClass:[HXPhotoModel class]])
+            {
+                /*! 此处是使用其他第三方相册，可以自由定制压缩方法 */
+                HXPhotoModel *model = (HXPhotoModel*)obj;
+                resizedImage = model.thumbPhoto;
+            }
+            
+            /*! 此处压缩方法是jpeg格式是原图大小的0.8倍，要调整大小的话，就在这里调整就行了还是原图等比压缩 */
+            NSData *imgData = UIImageJPEGRepresentation(resizedImage, 1);
+            
+            /*! 图片添加标识名称*/
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyyMMddHHmmssSSS";
+            NSString *str = [formatter stringFromDate:[NSDate date]];
+            NSString* filename = [NSString stringWithFormat:@"%@.png",str];
+            
+            NSDictionary *dic =   [self getExifInfoWithImageData:imgData];
+            NSLog(@"图片exif信息-----》%@",dic);
+            /*! 拼接data */
+            if (imgData != nil)
+            {   // 图片数据不为空才传递 fileName
+                [formData appendPartWithFileData:imgData name:@"file[]" fileName:filename mimeType:@"image/png"];
+            }
+            
+        }];
+        
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        //NSLog(@"上传进度--%lld,总进度---%lld",uploadProgress.completedUnitCount,uploadProgress.totalUnitCount);
+        if (progress)
+        {
+            progress(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
+        }
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        NSLog(@"上传图片成功 = %@",responseObject);
+        
+        NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
+        if (storedTask == nil) {
+            successBlock?successBlock(nil):nil;
+            return;// 如果这个operation是被cancel的，那就不用处理回调了。
+        }
+        [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
+        
+        if (successBlock){
+            successBlock(responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+
+        NSURLSessionDataTask *storedTask = [MFNetAPIClient sharedInstance].dataTaskdict[requestId];
+        if (storedTask == nil) return;
+        [[MFNetAPIClient sharedInstance].dataTaskdict removeObjectForKey:requestId];
+        if (failureBlock){
+            failureBlock(error.code,[NSString analyticalHttpErrorDescription:error]);
+        }
+    }];
+    
+    if (sessionTask)
+    {
+        [MFNetAPIClient sharedInstance].dataTaskdict[requestId] = sessionTask;
+    }
+    return sessionTask;
+}
+
+- (NSMutableDictionary *)getExifInfoWithImageData:(NSData *)imageData{
+    CGImageSourceRef cImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+    NSDictionary *dict =  (NSDictionary *)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(cImageSource, 0, NULL));
+    NSMutableDictionary *dictInfo = [NSMutableDictionary dictionaryWithDictionary:dict];
+    return dictInfo;
+}
+
+
 
 #pragma mark - 取消对应Id的网络方法
 - (void)cancelRequestWithRequestID:(NSNumber *)requestID{
@@ -433,6 +565,31 @@ static BOOL    _isHasNetWork;
         }
         
     }
+}
+
+- (NSString *)strUTF8Encoding:(NSString *)str
+{
+    /*! ios9适配的话 打开第一个 */
+    //return [str stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+    return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+}
+
+/*! 对图片尺寸进行压缩 */
+- (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+{
+    if (newSize.height > 375/newSize.width*newSize.height)
+    {
+        newSize.height = 375/newSize.width*newSize.height;
+    }
+    
+    if (newSize.width > 375)
+    {
+        newSize.width = 375;
+    }
+    
+    UIImage *newImage = [UIImage needCenterImage:image size:newSize scale:1.0];
+    
+    return newImage;
 }
 
 

@@ -107,6 +107,8 @@
 		122F8CBE1F21DC2100241F19 /* origin_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 122F8CBA1F21DC2100241F19 /* origin_select@3x.png */; };
 		122F8CBF1F21DC2100241F19 /* picker_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 122F8CBB1F21DC2100241F19 /* picker_select@2x.png */; };
 		122F8CC01F21DC2100241F19 /* picker_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 122F8CBC1F21DC2100241F19 /* picker_select@3x.png */; };
+		122F8CC31F21F47D00241F19 /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 122F8CC21F21F47D00241F19 /* UIImage+CompressImage.m */; };
+		122F8CC51F22072300241F19 /* 6011500630885_.pic_hd.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 122F8CC41F22072300241F19 /* 6011500630885_.pic_hd.jpg */; };
 		124671E61F1B8E5D00FC8BF5 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */; };
 		128BA5911F20D17800914E57 /* HXAlbumListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 128BA5591F20D17800914E57 /* HXAlbumListView.m */; };
 		128BA5921F20D17800914E57 /* HXAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 128BA55B1F20D17800914E57 /* HXAlbumModel.m */; };
@@ -371,6 +373,9 @@
 		122F8CBA1F21DC2100241F19 /* origin_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "origin_select@3x.png"; sourceTree = "<group>"; };
 		122F8CBB1F21DC2100241F19 /* picker_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picker_select@2x.png"; sourceTree = "<group>"; };
 		122F8CBC1F21DC2100241F19 /* picker_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "picker_select@3x.png"; sourceTree = "<group>"; };
+		122F8CC11F21F47D00241F19 /* UIImage+CompressImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CompressImage.h"; sourceTree = "<group>"; };
+		122F8CC21F21F47D00241F19 /* UIImage+CompressImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CompressImage.m"; sourceTree = "<group>"; };
+		122F8CC41F22072300241F19 /* 6011500630885_.pic_hd.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6011500630885_.pic_hd.jpg; sourceTree = "<group>"; };
 		124671E41F1B8E5D00FC8BF5 /* GBTagListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBTagListView.h; sourceTree = "<group>"; };
 		124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		128BA5581F20D17800914E57 /* HXAlbumListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumListView.h; sourceTree = "<group>"; };
@@ -867,6 +872,7 @@
 			children = (
 				122B09971F1CBE6F00E285E8 /* MFPublishRoomateViewController.h */,
 				122B09981F1CBE6F00E285E8 /* MFPublishRoomateViewController.m */,
+				122F8CC41F22072300241F19 /* 6011500630885_.pic_hd.jpg */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1401,6 +1407,8 @@
 		12D4AF321F0E818100898F51 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				122F8CC11F21F47D00241F19 /* UIImage+CompressImage.h */,
+				122F8CC21F21F47D00241F19 /* UIImage+CompressImage.m */,
 				1217BC451F17549700DC4B87 /* UITapImageView.h */,
 				1217BC461F17549700DC4B87 /* UITapImageView.m */,
 				1202B0241F16091D0097223B /* MFbutton.h */,
@@ -1717,6 +1725,7 @@
 				122F8CA11F21A85D00241F19 /* room _details_test_three@3x.png in Resources */,
 				122F8CC01F21DC2100241F19 /* picker_select@3x.png in Resources */,
 				122F8C911F21A85D00241F19 /* room _details_test_btn_complete@3x.png in Resources */,
+				122F8CC51F22072300241F19 /* 6011500630885_.pic_hd.jpg in Resources */,
 				12D4AF731F0E818100898F51 /* login_btn@3x.png in Resources */,
 				12A174BA1F1DA93E00C7B320 /* WSDatePickerView.xib in Resources */,
 				12D4AF5C1F0E818100898F51 /* Assets.xcassets in Resources */,
@@ -2000,6 +2009,7 @@
 				12D4AFA01F0E818100898F51 /* UIPopoverListView.m in Sources */,
 				12A174C11F1DCE0200C7B320 /* DLPickerView.m in Sources */,
 				1217BC3B1F1724F500DC4B87 /* MFHousingListViewController.m in Sources */,
+				122F8CC31F21F47D00241F19 /* UIImage+CompressImage.m in Sources */,
 				12D4AF8F1F0E818100898F51 /* UIImageView+size.m in Sources */,
 				12D4AF9F1F0E818100898F51 /* NSString+Emojize.m in Sources */,
 				128BA59A1F20D17800914E57 /* HXPhotoConst.m in Sources */,

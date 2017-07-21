@@ -192,6 +192,23 @@ typedef NS_ENUM(NSUInteger, YWRequestType) {
                               success:(void(^)(id responseObject))success
                                  fail:(void(^)(NSError *error))fail;
 
+/*!
+ *  上传图片(多图)
+ *
+ *  @param parameters   上传图片预留参数---视具体情况而定 可移除
+ *  @param imageArray   上传的图片数组
+ *  @param urlString    上传的url
+ *  @param successBlock 上传成功的回调
+ *  @param failureBlock 上传失败的回调
+ *  @param progress     上传进度
+ */
+- (NSURLSessionDataTask *)uploadImageWithUrlString:(NSString *)urlString
+                                        parameters:(NSDictionary *)parameters
+                                        ImageArray:(NSArray *)imageArray
+                                      SuccessBlock:(OBJBlock)successBlock
+                                       FailurBlock:(ERRORCODEBlock)failureBlock
+                                    UpLoadProgress:(UploadProgress)progress;
+
 /**
  *  取消指定标记的网络请求
  *
