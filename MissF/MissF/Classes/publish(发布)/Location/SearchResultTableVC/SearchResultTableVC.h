@@ -15,7 +15,7 @@
 
 @end
 
-@interface SearchResultTableVC : UITableViewController 
+@interface SearchResultTableVC : UITableViewController <UISearchResultsUpdating,AMapSearchDelegate>
 
 - (void)setSearchCity:(NSString *)city;
 

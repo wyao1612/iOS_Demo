@@ -15,9 +15,10 @@
 #import "MFRoommateTagsViewCell.h"
 #import "MFPublishViewModel.h"
 #import "MFMyProfessionViewController.h"
+#import "HXPhotoView.h"
 
 
-@interface MFPublishRoomateViewController ()
+@interface MFPublishRoomateViewController ()<HXPhotoViewDelegate>
 @property(strong,nonatomic) UIImageView* headerImageView;
 @property(strong,nonatomic) UIImageView* avatarView;
 @property(strong,nonatomic) UIView     * headerBackView;
@@ -26,9 +27,13 @@
 
 @property (nonatomic, strong) YWPickerView* constellationPickerView;
 @property (nonatomic, strong) MFPublishViewModel* publishViewModel;
+
+@property (strong, nonatomic) HXPhotoView *onePhotoView;
+@property (strong, nonatomic) HXPhotoManager *manager;
 @end
 
 @implementation MFPublishRoomateViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -217,6 +222,37 @@
     }
 }
 
+#pragma mark - 照片默认图片点击事件
+-(void)headerBackViewTapClick:(UITapGestureRecognizer*)tap{
+    [self.onePhotoView goPhotoViewController];
+}
+
+#pragma mark - 相册选择代理方法
+-(void)photoViewAllNetworkingPhotoDownloadComplete:(HXPhotoView *)photoView{
+}
+- (void)photoView:(HXPhotoView *)photoView deleteNetworkPhoto:(NSString *)networkPhotoUrl {
+    NSLog(@"%@",networkPhotoUrl);
+}
+
+- (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
+    
+    NSLog(@"onePhotoView - %@",allList);
+    if (allList.count>0) {
+        self.headerImageView.hidden = YES;
+        self.nameLabel.hidden = YES;
+        self.onePhotoView.hidden = NO;
+    }else{
+        self.headerImageView.hidden = NO;
+        self.nameLabel.hidden = NO;
+        self.onePhotoView.hidden = YES;
+    }
+}
+- (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
+    NSLog(@"%@",NSStringFromCGRect(frame));
+    self.headerBackView.frame = CGRectMake(0, 0, SCREEN_WIDTH, frame.size.height+60);
+    [self.PublishRoomateTableView reloadData];
+}
+
 -(YWPickerView *)constellationPickerView{
     if (!_constellationPickerView) {
         MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
@@ -229,6 +265,7 @@
     return _constellationPickerView;
 }
 
+#pragma mark - 设置cell的显示
 -(void)setCellwith:(MFRoommateTableViewCell *)cell title:(NSString*)title withValue:(NSString*)value andPlaceholderText:(NSString*)placeholderText{
     
     if ([NSString iSBlankString:value]) {
@@ -238,14 +275,18 @@
     }
 }
 
+
+#pragma mark  - 懒加载
+#pragma mark - lazy method
+
 - (UITableView *)PublishRoomateTableView {
     if (_PublishRoomateTableView == nil){
         _PublishRoomateTableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _PublishRoomateTableView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT);
-       _PublishRoomateTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-       _PublishRoomateTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
-       _PublishRoomateTableView.separatorColor = GRAYCOLOR;
-       _PublishRoomateTableView.backgroundColor = BACKGROUNDCOLOR;
+        _PublishRoomateTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _PublishRoomateTableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        _PublishRoomateTableView.separatorColor = GRAYCOLOR;
+        _PublishRoomateTableView.backgroundColor = BACKGROUNDCOLOR;
         _PublishRoomateTableView.showsVerticalScrollIndicator = NO;
         
         //非编辑状态 不带箭头
@@ -263,7 +304,27 @@
 }
 
 
-#pragma mark - lazy method
+-(HXPhotoView *)onePhotoView{
+    if (!_onePhotoView) {
+        _onePhotoView = [[HXPhotoView alloc] initWithFrame:CGRectMake(13, 14, SCREEN_WIDTH-26, 116) WithManager:self.manager];
+        _onePhotoView.hidden= YES;//默认不显示
+        _onePhotoView.delegate = self;
+    }
+    return _onePhotoView;
+}
+
+- (HXPhotoManager *)manager {
+    if (!_manager) {
+        _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhoto];
+        _manager.openCamera = YES;
+        _manager.showFullScreenCamera = YES;
+        _manager.photoMaxNum = 9;
+        _manager.maxNum = 9;
+    }
+    return _manager;
+}
+
+
 
 -(UIView *)headerBackView{
     if (!_headerBackView) {
@@ -271,6 +332,7 @@
         _headerBackView.backgroundColor = WHITECOLOR;
         [_headerBackView addSubview:self.headerImageView];
         [_headerBackView addSubview:self.nameLabel];
+        [_headerBackView addSubview:self.onePhotoView];
     }
     return _headerBackView;
 }
@@ -278,7 +340,10 @@
 -(UIImageView *)headerImageView{
     if (!_headerImageView) {
         _headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-147)*0.5, (175-76)*0.5, 147, 76)];
+        _headerImageView.userInteractionEnabled = YES;
         _headerImageView.image = IMAGE(@"icon_Release_house_nor");
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerBackViewTapClick:)];
+        [_headerImageView addGestureRecognizer:tap];
         [_headerImageView setBackgroundColor:[UIColor whiteColor]];
         [_headerImageView setContentMode:UIViewContentModeRedraw];
         [_headerImageView setClipsToBounds:YES];
