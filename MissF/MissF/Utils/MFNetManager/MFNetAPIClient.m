@@ -447,9 +447,6 @@ static BOOL    _isHasNetWork;
             formatter.dateFormat = @"yyyyMMddHHmmssSSS";
             NSString *str = [formatter stringFromDate:[NSDate date]];
             NSString* filename = [NSString stringWithFormat:@"%@.png",str];
-            
-            NSDictionary *dic =   [self getExifInfoWithImageData:imgData];
-            NSLog(@"图片exif信息-----》%@",dic);
             /*! 拼接data */
             if (imgData != nil)
             {   // 图片数据不为空才传递 fileName
@@ -496,14 +493,6 @@ static BOOL    _isHasNetWork;
     }
     return sessionTask;
 }
-
-- (NSMutableDictionary *)getExifInfoWithImageData:(NSData *)imageData{
-    CGImageSourceRef cImageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-    NSDictionary *dict =  (NSDictionary *)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(cImageSource, 0, NULL));
-    NSMutableDictionary *dictInfo = [NSMutableDictionary dictionaryWithDictionary:dict];
-    return dictInfo;
-}
-
 
 
 #pragma mark - 取消对应Id的网络方法

@@ -17,8 +17,12 @@
 #import "HXFullScreenCameraPlayView.h"
 #import "HXPhotoManager.h"
 #import "HXPhotoEditViewController.h"
+#import "MFLocationManager.h"
+
 #define WIDTH [UIScreen mainScreen].bounds.size.width
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
+#define iOS9Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
+
 
 @interface HXFullScreenCameraViewController ()<UIGestureRecognizerDelegate,AVCaptureFileOutputRecordingDelegate,UIViewControllerTransitioningDelegate,HXPhotoEditViewControllerDelegate>
 //捕获设备，通常是前置摄像头，后置摄像头，麦克风（音频输入）
@@ -62,6 +66,11 @@
 @property (strong, nonatomic) UIImageView *focusIcon;
 @property (strong, nonatomic) UITapGestureRecognizer *bgViewTap;
 @property (strong, nonatomic) UIButton *flashBtn;
+
+/** 定位信息 拍照之前提前定位加载到asset信息*/
+@property (strong, nonatomic) CLLocation *location;
+/** asset信息 保存图片*/
+@property (nonatomic, strong) ALAssetsLibrary *assetLibrary;
 @end
 
 @implementation HXFullScreenCameraViewController
@@ -100,6 +109,16 @@
 }
 
 - (void)setupUI {
+    
+    // 提前定位
+    __weak typeof(self) weakSelf = self;
+    [[MFLocationManager manager] startLocationWithSuccessBlock:^(CLLocation *location, CLLocation *oldLocation) {
+        weakSelf.location = location;
+    } failureBlock:^(NSError *error) {
+        weakSelf.location = nil;
+    }];
+    
+    
     self.flashlight = 0;
     //    AVCaptureDevicePositionBack  后置摄像头
     //    AVCaptureDevicePositionFront 前置摄像头
@@ -258,14 +277,14 @@
     self.timeLb.text = self.titleStr;
     self.timeLb.textColor = [[UIColor whiteColor] colorWithAlphaComponent:0.9];
     self.timeLb.textAlignment = NSTextAlignmentCenter;
-    self.timeLb.font = [UIFont systemFontOfSize:14];
+    self.timeLb.font = [UIFont systemFontOfSize:15];
     [self.view addSubview:self.timeLb];
     
     self.nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.nextBtn setTitle:@"下一步" forState:UIControlStateNormal];
     [self.nextBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     //[self.nextBtn setBackgroundColor:[UIColor colorWithRed:253/255.0 green:142/255.0 blue:36/255.0 alpha:1]];
-    [self.nextBtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:164/255.0 blue:178/255.0 alpha:1]];
+    //[self.nextBtn setBackgroundColor:[UIColor colorWithRed:255/255.0 green:164/255.0 blue:178/255.0 alpha:1]];
     self.nextBtn.layer.masksToBounds = YES;
     self.nextBtn.layer.cornerRadius = 2;
     self.nextBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -515,6 +534,8 @@
         self.imageView.hidden = NO;
         [self hideClick];
     }];
+    
+    
 }
 // 调整设备取向
 - (AVCaptureVideoOrientation)currentVideoOrientation {
@@ -694,9 +715,18 @@
         model.previewPhoto = image;
         model.cameraIdentifier = [self videoOutFutFileName]; 
     }
-    if ([self.delegate respondsToSelector:@selector(cameraDidNextClick:)]) {
-        [self.delegate fullScreenCameraDidNextClick:model];
-    }
+    //保存图片到相册里面
+    [self savePhotoWithImage:self.imageView.image location:self.location completion:^(NSError *error) {
+        if (error) {
+            NSLog(@"图片保存失败 %@",error);
+            [self.view showImageHUDText:@"图片保存失败"];
+        } else{
+            //在这里进行拍照图片的回调
+            if ([self.delegate respondsToSelector:@selector(cameraDidNextClick:)]) {
+                [self.delegate fullScreenCameraDidNextClick:model];
+            }
+        }
+    }];
     [self.timer invalidate];
     self.timer = nil;
     [self.session stopRunning];
@@ -709,4 +739,67 @@
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed{
     return [HXVideoPresentTransition transitionWithTransitionType:HXVideoPresentTransitionDismiss];
 }
+
+
+#pragma mark - Save photo
+- (ALAssetsLibrary *)assetLibrary {
+    if (_assetLibrary == nil) _assetLibrary = [[ALAssetsLibrary alloc] init];
+    return _assetLibrary;
+}
+
+
+- (void)savePhotoWithImage:(UIImage *)image completion:(void (^)(NSError *error))completion {
+    [self savePhotoWithImage:image location:nil completion:completion];
+}
+
+- (void)savePhotoWithImage:(UIImage *)image location:(CLLocation *)location completion:(void (^)(NSError *error))completion {
+    NSData *data = UIImageJPEGRepresentation(image, 0.9);
+    if (iOS9Later) { // 这里有坑... iOS8系统下这个方法保存图片会失败 原来是因为PHAssetResourceType是iOS9之后的...
+        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+            PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+            options.shouldMoveFile = YES;
+            PHAssetCreationRequest *request = [PHAssetCreationRequest creationRequestForAsset];
+            [request addResourceWithType:PHAssetResourceTypePhoto data:data options:options];
+            if (location) {
+                request.location = location;
+            }
+            request.creationDate = [NSDate date];
+        } completionHandler:^(BOOL success, NSError *error) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                if (success && completion) {
+                    completion(nil);
+                } else if (error) {
+                    NSLog(@"保存照片出错:%@",error.localizedDescription);
+                    if (completion) {
+                        completion(error);
+                    }
+                }
+            });
+        }];
+    } else {
+        [self.assetLibrary writeImageToSavedPhotosAlbum:image.CGImage orientation:[self orientationFromImage:image] completionBlock:^(NSURL *assetURL, NSError *error) {
+            if (error) {
+                NSLog(@"保存图片失败:%@",error.localizedDescription);
+                if (completion) {
+                    completion(error);
+                }
+            } else {
+                // 多给系统0.5秒的时间，让系统去更新相册数据
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    if (completion) {
+                        completion(nil);
+                    }
+                });
+            }
+        }];
+    }
+}
+
+- (ALAssetOrientation)orientationFromImage:(UIImage *)image {
+    NSInteger orientation = image.imageOrientation;
+    return orientation;
+}
+
+
+
 @end

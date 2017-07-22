@@ -18,6 +18,7 @@
 #import "HXPhotoView.h"
 
 
+
 @interface MFPublishRoomateViewController ()<HXPhotoViewDelegate>
 @property(strong,nonatomic) UIImageView* headerImageView;
 @property(strong,nonatomic) UIImageView* avatarView;
@@ -42,6 +43,7 @@
     self.isAutoBack = NO;
     self.rightStr_1 = @"发送";
     [self.view addSubview:self.PublishRoomateTableView];
+    [self getExifInfowithImage:nil];
 }
 -(void)right_1_action{
     [SVProgressHUD showSuccessWithStatus:@"发送"];
@@ -246,13 +248,23 @@
         self.nameLabel.hidden = NO;
         self.onePhotoView.hidden = YES;
     }
+    // 1.打印图片名字
+    [self printAssetsName:photos];
+    // 2.图片位置信息
+    if (iOS8Later) {
+        for (HXPhotoModel *model in photos) {
+            
+            NSLog(@"---->坐标位置%@",model.asset.location);
+        }
+    }
     
-    [SVProgressHUD showWithStatus:@"正在上传图片"];
-    NSDictionary *parameter = @{@"file":@".png",
-                                @"type":@"roommate"};
-    
-    [self getExifInfowithImage:photos[0].thumbPhoto];
+    /*
     if (photos.count>0) {
+        
+        [SVProgressHUD showWithStatus:@"正在上传图片"];
+        NSDictionary *parameter = @{@"file":@".png",
+                                    @"type":@"roommate"};
+        
         //上传图片
         [[MFNetAPIClient sharedInstance] uploadImageWithUrlString:kupload parameters:parameter ImageArray:photos  SuccessBlock:^(id responObject) {
             [SVProgressHUD showInfoWithStatus:responObject[@"message"]];
@@ -262,32 +274,62 @@
             
         }];
     }
+     */
+
     
 }
+
+#pragma mark - 打印图片名字
+- (void)printAssetsName:(NSArray *)assets {
+    NSString *fileName;
+    for (id asset in assets) {
+        if ([asset isKindOfClass:[PHAsset class]]) {
+            PHAsset *phAsset = (PHAsset *)asset;
+            fileName = [phAsset valueForKey:@"filename"];
+        } else if ([asset isKindOfClass:[ALAsset class]]) {
+            ALAsset *alAsset = (ALAsset *)asset;
+            fileName = alAsset.defaultRepresentation.filename;;
+        }
+        //NSLog(@"图片名字:%@",fileName);
+    }
+}
+
 
 
 - (void)getExifInfowithImage:(UIImage*)image{
     
     
-//    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"6011500630885_.pic_hd" withExtension:@"jpg"];
-//    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);
+    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"6011500630885_pic_hd" withExtension:@"jpg"];
+    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);
     
-//    CFDictionaryRef imageInfo = CGImageSourceCopyPropertiesAtIndex(imageSource, 0,NULL);
-//    NSDictionary *exifDic = (__bridge NSDictionary *)CFDictionaryGetValue(imageInfo, kCGImagePropertyExifDictionary) ;
+    CFDictionaryRef imageInfo = CGImageSourceCopyPropertiesAtIndex(imageSource, 0,NULL);
+    NSDictionary *exifDic = (__bridge NSDictionary *)CFDictionaryGetValue(imageInfo, kCGImagePropertyExifDictionary) ;
+     NSLog(@"照片信息--->%@\n",imageInfo);
     
     
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    image = [UIImage imageNamed:@"6011500630885_pic_hd.jpg"];
     
-    CGImageSourceRef imageSource = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+//    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+//    
+//    CGImageSourceRef imageSource1 = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
+//    
+//    NSDictionary *imageInfo1 = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(imageSource1, 0, NULL);
+//    
+//    NSMutableDictionary *metaDataDic = [imageInfo1 mutableCopy];
+//    NSMutableDictionary *exifDic1 =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyExifDictionary]mutableCopy];
+//    NSMutableDictionary *GPSDic1 =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyGPSDictionary]mutableCopy];
+//    NSLog(@"exif信息--->%@\n,定位信息信息--->%@\n",exifDic1,GPSDic1);
     
-    NSDictionary *imageInfo = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(imageSource, 0, NULL);
     
-    NSMutableDictionary *metaDataDic = [imageInfo mutableCopy];
-    NSMutableDictionary *exifDic =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyExifDictionary]mutableCopy];
-    NSMutableDictionary *GPSDic =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyGPSDictionary]mutableCopy];
+    //将UIimage转换为NSData
+    NSData *imageData1=UIImageJPEGRepresentation(image, 1.0);
+    //将NSData转换为CFDataRef并新建CGImageSourceRef对象
+    CGImageSourceRef imageRef=CGImageSourceCreateWithData((CFDataRef)imageData1, NULL);
+    NSDictionary*imageProperty=(NSDictionary*)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(imageRef,0, NULL));
+    NSDictionary*ExifDictionary=[imageProperty valueForKey:(NSString*)kCGImagePropertyExifDictionary];
+      NSLog(@"exif信息--->%@\n\n",ExifDictionary);
     
-    NSLog(@"exif信息--->%@\n,定位信息信息--->%@\n",exifDic,GPSDic);
 }
 
 
@@ -362,6 +404,7 @@
     if (!_manager) {
         _manager = [[HXPhotoManager alloc] initWithType:HXPhotoManagerSelectedTypePhoto];
         _manager.openCamera = YES;
+        _manager.outerCamera = YES;
         _manager.showFullScreenCamera = YES;
         _manager.photoMaxNum = 9;
         _manager.maxNum = 9;
