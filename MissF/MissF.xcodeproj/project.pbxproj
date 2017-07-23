@@ -111,6 +111,8 @@
 		122F8CC31F21F47D00241F19 /* UIImage+CompressImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 122F8CC21F21F47D00241F19 /* UIImage+CompressImage.m */; };
 		124671E61F1B8E5D00FC8BF5 /* GBTagListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */; };
 		12683A8E1F244FFC00838F7A /* MFplaceholderTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12683A8D1F244FFC00838F7A /* MFplaceholderTextView.m */; };
+		12683A961F24B3DB00838F7A /* MFPublishHouseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12683A951F24B3DB00838F7A /* MFPublishHouseViewController.m */; };
+		12683A991F24C83100838F7A /* MFpublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 12683A981F24C83100838F7A /* MFpublishViewController.m */; };
 		128BA5911F20D17800914E57 /* HXAlbumListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 128BA5591F20D17800914E57 /* HXAlbumListView.m */; };
 		128BA5921F20D17800914E57 /* HXAlbumModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 128BA55B1F20D17800914E57 /* HXAlbumModel.m */; };
 		128BA5931F20D17800914E57 /* HXAlbumTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 128BA55D1F20D17800914E57 /* HXAlbumTitleButton.m */; };
@@ -382,6 +384,10 @@
 		124671E51F1B8E5D00FC8BF5 /* GBTagListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBTagListView.m; sourceTree = "<group>"; };
 		12683A8C1F244FFC00838F7A /* MFplaceholderTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFplaceholderTextView.h; sourceTree = "<group>"; };
 		12683A8D1F244FFC00838F7A /* MFplaceholderTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFplaceholderTextView.m; sourceTree = "<group>"; };
+		12683A941F24B3DB00838F7A /* MFPublishHouseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishHouseViewController.h; sourceTree = "<group>"; };
+		12683A951F24B3DB00838F7A /* MFPublishHouseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishHouseViewController.m; sourceTree = "<group>"; };
+		12683A971F24C83100838F7A /* MFpublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFpublishViewController.h; sourceTree = "<group>"; };
+		12683A981F24C83100838F7A /* MFpublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFpublishViewController.m; sourceTree = "<group>"; };
 		128BA5581F20D17800914E57 /* HXAlbumListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumListView.h; sourceTree = "<group>"; };
 		128BA5591F20D17800914E57 /* HXAlbumListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXAlbumListView.m; sourceTree = "<group>"; };
 		128BA55A1F20D17800914E57 /* HXAlbumModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXAlbumModel.h; sourceTree = "<group>"; };
@@ -951,6 +957,47 @@
 			path = picker;
 			sourceTree = "<group>";
 		};
+		12683A8F1F24B37E00838F7A /* publishHouse */ = {
+			isa = PBXGroup;
+			children = (
+				12683A901F24B3AF00838F7A /* Model */,
+				12683A911F24B3AF00838F7A /* View */,
+				12683A921F24B3AF00838F7A /* ViewController */,
+				12683A931F24B3AF00838F7A /* ViewModel */,
+			);
+			path = publishHouse;
+			sourceTree = "<group>";
+		};
+		12683A901F24B3AF00838F7A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		12683A911F24B3AF00838F7A /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		12683A921F24B3AF00838F7A /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				12683A941F24B3DB00838F7A /* MFPublishHouseViewController.h */,
+				12683A951F24B3DB00838F7A /* MFPublishHouseViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		12683A931F24B3AF00838F7A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		128BA5571F20D17800914E57 /* HXWeiboPhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -1213,7 +1260,10 @@
 		12D4AECE1F0E818100898F51 /* publish(发布) */ = {
 			isa = PBXGroup;
 			children = (
+				12683A971F24C83100838F7A /* MFpublishViewController.h */,
+				12683A981F24C83100838F7A /* MFpublishViewController.m */,
 				12CE91A81F1EF78B003F2942 /* Location */,
+				12683A8F1F24B37E00838F7A /* publishHouse */,
 				122B09901F1CB70300E285E8 /* publishRoomate */,
 				12D4AECF1F0E818100898F51 /* CYLPlusButtonSubclass.h */,
 				12D4AED01F0E818100898F51 /* CYLPlusButtonSubclass.m */,
@@ -1963,6 +2013,7 @@
 				128BA5A81F20D17800914E57 /* HXVideoPresentTransition.m in Sources */,
 				12229FE41F188D0D0075A102 /* MFCommonModel.m in Sources */,
 				1217BC3C1F1724F500DC4B87 /* MFHouseViewModel.m in Sources */,
+				12683A961F24B3DB00838F7A /* MFPublishHouseViewController.m in Sources */,
 				12D4AF5E1F0E818100898F51 /* MFDiscoverViewController.m in Sources */,
 				12D4AF7D1F0E818100898F51 /* CYLTabBarControllerConfig.m in Sources */,
 				12D4AF641F0E818100898F51 /* CYLPlusButtonSubclass.m in Sources */,
@@ -2029,6 +2080,7 @@
 				128BA59E1F20D17800914E57 /* HXPhotoModel.m in Sources */,
 				1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */,
 				12D4AF6A1F0E818100898F51 /* MFOAuthModel.m in Sources */,
+				12683A991F24C83100838F7A /* MFpublishViewController.m in Sources */,
 				122B095F1F1C95E700E285E8 /* MFMyProfessionViewController.m in Sources */,
 				128BA5A61F20D17800914E57 /* HXPresentTransition.m in Sources */,
 				12229FE11F188A960075A102 /* commonViewModel.m in Sources */,

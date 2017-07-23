@@ -11,6 +11,7 @@
 #import "MFTagsViewController.h"
 #import "MFMyProfessionViewController.h"
 #import "MFPublishRoomateViewController.h"
+#import "MFPublishHouseViewController.h"
 
 
 @interface MFMineViewController ()
@@ -45,7 +46,7 @@
     UIButton *btn3 = [[UIButton alloc] initWithFrame:CGRectMake(100, 400, 200, 30)];
     btn3.backgroundColor = OrangeCOLOR;
     btn3.tag = 103;
-    [btn3 setTitle:@"职业选择" forState:UIControlStateNormal];
+    [btn3 setTitle:@"发布房源" forState:UIControlStateNormal];
     [btn3 addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn3];
     
@@ -67,7 +68,7 @@
         MFTagsViewController *vc = [[MFTagsViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }else  if (sender.tag == 103) {
-        MFMyProfessionViewController *vc = [[MFMyProfessionViewController alloc] init];
+        MFPublishHouseViewController *vc = [[MFPublishHouseViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
     }else  if (sender.tag == 104) {
         MFPublishRoomateViewController *vc = [[MFPublishRoomateViewController alloc] init];
