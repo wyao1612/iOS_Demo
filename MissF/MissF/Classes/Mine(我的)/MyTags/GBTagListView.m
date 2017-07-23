@@ -135,9 +135,9 @@ alpha:1.0]
     for (int i = 0; i < arr.count; i++) {
         NSString *str = arr[i];
         //判断是否是已经选中的按钮
-        NSLog(@"当前字符串----%@",str);
+        //NSLog(@"当前字符串----%@",str);
         [self.selectArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"遍历的字符串----%@",obj);
+            //NSLog(@"遍历的字符串----%@",obj);
             if ([obj isEqualToString:str]) {
                 [self tagBtnClick:_btns[i]];
             }

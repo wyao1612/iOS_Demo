@@ -50,7 +50,7 @@
     
     switch (self.MFTagsViewType) {
         case 0:
-            [self setMyAllTagsWithArray:self.selectArray];
+            [self setMyAllTags];
             break;
         case 1:
             [self setOnlyTagsWithName:@"室友要求"];
@@ -73,12 +73,12 @@
     
     
     if (_MFTagsViewType == 1) {
-        [self setTagsViewWithBgView:self.roommateRequires withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:3 defaultSelectedArray:@[]];
+        [self setTagsViewWithBgView:self.roommateRequires withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:3 defaultSelectedArray:self.selectArray];
         if (self.interest.frame.size.height > self.contentView.frame.size.height) {
             self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.roommateRequires.frame));
         }
     }else   if (_MFTagsViewType == 2) {
-        [self setTagsViewWithBgView:self.paymentType withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:4 defaultSelectedArray:@[]];
+        [self setTagsViewWithBgView:self.paymentType withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:4 defaultSelectedArray:self.selectArray];
         if (self.interest.frame.size.height > self.contentView.frame.size.height) {
             self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.paymentType.frame));
         }
@@ -86,21 +86,21 @@
 }
 
 #pragma mark - 我的所有个性标签
--(void)setMyAllTagsWithArray:(NSArray *)selectArray{
+-(void)setMyAllTags{
     
     self.allTagsArray = [NSMutableArray arrayWithObjects:self.interestArray,self.habitArray,self.personalArray, nil];
     
     weak(self);
-    [selectArray enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.selectArray enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
         switch (idx) {
             case 0:
-                weakSelf.interestArray = [NSMutableArray arrayWithArray:selectArray[0]];
+                weakSelf.interestArray = [NSMutableArray arrayWithArray:weakSelf.selectArray[0]];
                 break;
             case 1:
-                weakSelf.habitArray = [NSMutableArray arrayWithArray:selectArray[1]];
+                weakSelf.habitArray = [NSMutableArray arrayWithArray:weakSelf.selectArray[1]];
                 break;
             case 2:
-                weakSelf.personalArray = [NSMutableArray arrayWithArray:selectArray[2]];
+                weakSelf.personalArray = [NSMutableArray arrayWithArray:weakSelf.selectArray[2]];
                 break;
             default:
                 break;
@@ -197,9 +197,7 @@
         }
         //判断是否是我的标签
         if (weakSelf.MFTagsViewType == 0 ) {
-            if (arr.count>0 &&arr !=nil) {
-               [weakSelf.allTagsArray replaceObjectAtIndex:ViewTag withObject:arr];
-            }
+            [weakSelf.allTagsArray replaceObjectAtIndex:ViewTag withObject:arr];
         }else{
             weakSelf.allTagsArray = arr.copy;
         }

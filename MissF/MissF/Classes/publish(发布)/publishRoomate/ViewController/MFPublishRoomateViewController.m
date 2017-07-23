@@ -40,6 +40,8 @@
 @property (assign, nonatomic) MFCellTagsViewType allTagsType;
 /** 室友要求数组*/
 @property (strong, nonatomic) NSMutableArray *roommateRequiresSelectedArray;
+/** 室友要求默认选中的数组*/
+@property (strong, nonatomic) NSArray *roommateRequiresArray;
 @property (assign, nonatomic) MFCellTagsViewType roommateRequiresType;
 @end
 
@@ -82,6 +84,7 @@
     self.allTagsType = MF_TagsViewTypeEdit;
     self.roommateRequiresType = MF_TagsViewTypeEdit;
     self.allTagsSelected2Array = [NSArray array];
+    self.roommateRequiresArray = [NSArray array];
 }
 -(void)right_1_action{
     [SVProgressHUD showSuccessWithStatus:@"发送"];
@@ -177,9 +180,15 @@
                         weakSelf.allTagsType = MF_TagsViewTypeNormal;
                         [weakSelf.allTagsSelectedArray removeAllObjects];
                         [weakSelf.allTagsSelectedArray addObjectsFromArray:tempArray];
-                        [weakSelf.PublishRoomateTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                     }
+                }else{
+                    //保存选择的标签二维数组
+                    weakSelf.allTagsSelected2Array = selectArray;
+                    weakSelf.allTagsType = MF_TagsViewTypeEdit;
+                    self.allTagsSelectedArray = nil;
                 }
+                
+              [weakSelf.PublishRoomateTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
             [weakSelf.navigationController pushViewController:vc animated:YES];
         };
@@ -191,9 +200,12 @@
         cell.CellMoreBlock = ^(UIButton *sender) {
             MFTagsViewController *vc = [[MFTagsViewController alloc] init];
             vc.MFTagsViewType = MF_TagsViewType_roommateRequires;
+            //默认选中的标签 第一次为nil
+            vc.selectArray = self.roommateRequiresArray;
             vc.selectBlock = ^(NSArray *selectArray) {
                 NSLog(@"------>室友要求的标签%@",selectArray);
                 if (selectArray.count >0) {
+                    weakSelf.roommateRequiresArray = selectArray;
                     [weakSelf.roommateRequiresSelectedArray removeAllObjects];
                     weakSelf.roommateRequiresType = MF_TagsViewTypeNormal;
                     [weakSelf.roommateRequiresSelectedArray addObjectsFromArray:selectArray];
