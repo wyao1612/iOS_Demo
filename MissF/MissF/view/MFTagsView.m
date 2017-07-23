@@ -39,14 +39,15 @@
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH-15, 45)];
     tagsName = [NSString iSBlankString:tagsName] ? @"标签名称" :tagsName;
     titleLab.text = tagsName;
+
     if ([self.tagViewStyle isEqualToString:@"1"]) {
         titleLab.textColor = LIGHTTEXTCOLOR;
         titleLab.textAlignment = NSTextAlignmentLeft;
     }else{
-        titleLab.textColor = BLACKTEXTCOLOR;
-        titleLab.textAlignment = NSTextAlignmentCenter;
+        titleLab.textColor = BLACKCOLOR;
+        titleLab.textAlignment = NSTextAlignmentLeft;
     }
-
+    
     titleLab.font = [UIFont systemFontOfSize:15];
     [self addSubview:titleLab];
     
@@ -114,9 +115,13 @@
     //更多按钮
     if ([self.tagViewStyle isEqualToString:@"1"]) {
         self.moreBtn.frame = CGRectMake(SCREEN_WIDTH -80, (totalHeight-16)*0.5, 60, 16);
-        [self addSubview:self.moreBtn];
+        [self.moreBtn setTitleRespectToImageWithStyle:WYCustomerButtonStyleLeft Margin:8 addTarget:nil];
+    }else{
+        self.moreBtn.frame = CGRectMake(SCREEN_WIDTH -80, (totalHeight-16)*0.5, 60, 16);
         [self.moreBtn setTitleRespectToImageWithStyle:WYCustomerButtonStyleLeft Margin:8 addTarget:nil];
     }
+    
+        [self addSubview:self.moreBtn];
 
     if (_headerDataArr.count == 0) {
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, 0);

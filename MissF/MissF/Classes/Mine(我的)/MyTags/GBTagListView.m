@@ -26,9 +26,12 @@ alpha:1.0]
     UIButton*_tempBtn;//临时保存对象
     
 }
+
+@property(nonatomic,strong)NSMutableArray<UIButton*> *btns;
 @end
 
 @implementation GBTagListView
+
 -(id)initWithFrame:(CGRect)frame{
     
     self = [super initWithFrame:frame];
@@ -39,6 +42,7 @@ alpha:1.0]
         _tagArr=[[NSMutableArray alloc]init];
         /**默认是多选模式 */
         self.isSingleSelect=NO;
+        _btns = [NSMutableArray array];
         
     }
     return self;
@@ -67,17 +71,24 @@ alpha:1.0]
             
             tagBtn.userInteractionEnabled=NO;
         }
+        
+        
+        
         [tagBtn setTitleColor:R_G_B_16(0x818181) forState:UIControlStateNormal];
         [tagBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         tagBtn.titleLabel.font=[UIFont boldSystemFontOfSize:15];
         [tagBtn addTarget:self action:@selector(tagBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        
         NSString * str = arr[idx];
         [tagBtn setTitle:str forState:UIControlStateNormal];
         tagBtn.tag=KBtnTag+idx;
+        
         tagBtn.layer.cornerRadius=13;
         tagBtn.layer.borderColor=R_G_B_16(0x818181).CGColor;
         tagBtn.layer.borderWidth=0.3;
         tagBtn.clipsToBounds=YES;
+        
         NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:15]};
         CGSize Size_str=[str sizeWithAttributes:attrs];
         Size_str.width += HORIZONTAL_PADDING*3;
@@ -115,12 +126,41 @@ alpha:1.0]
         previousFrame=tagBtn.frame;
         [self setHight:self andHight:totalHeight+Size_str.height + BOTTOM_MARGIN+15];//添加底边多余的高度
         [self addSubview:tagBtn];
+        
+        [_btns addObject:tagBtn];
+    
     }
+    
+    
+    for (int i = 0; i < arr.count; i++) {
+        NSString *str = arr[i];
+        //判断是否是已经选中的按钮
+        NSLog(@"当前字符串----%@",str);
+        [self.selectArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSLog(@"遍历的字符串----%@",obj);
+            if ([obj isEqualToString:str]) {
+                [self tagBtnClick:_btns[i]];
+            }
+        }];
+    }
+    
+    
+    
+    
     if(_GBbackgroundColor){
         self.backgroundColor=_GBbackgroundColor;
     }else{
         self.backgroundColor=[UIColor whiteColor];
     }
+}
+
+-(void)setSelectArray:(NSArray *)selectArray{
+    _selectArray = selectArray;
+    
+    for (int i = 0; i< _tagArr.count; i++) {
+        
+    }
+    
 }
 #pragma mark-改变控件高度
 - (void)setHight:(UIView *)view andHight:(CGFloat)hight
@@ -145,8 +185,8 @@ alpha:1.0]
     }
     
     if(button.selected==YES){
-        button.backgroundColor=GLOBALCOLOR;
-    }else if (button.selected==NO){
+        button.backgroundColor = GLOBALCOLOR;
+    }else if (button.selected == NO){
         button.backgroundColor=[UIColor whiteColor];
     }
     

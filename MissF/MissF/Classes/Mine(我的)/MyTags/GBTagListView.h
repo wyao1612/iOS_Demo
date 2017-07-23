@@ -25,7 +25,7 @@
 /**
  * 整个view的背景色
  */
-@property(nonatomic,retain)UIColor*GBbackgroundColor;
+@property(nonatomic,strong)UIColor*GBbackgroundColor;
 /**
  *  设置单一颜色
  */
@@ -61,5 +61,10 @@
  @param BottomMargin BottomMargin
  */
 -(void)setMarginBetweenTagLabel:(CGFloat)Margin AndBottomMargin:(CGFloat)BottomMargin;
+
+/**
+ * 选择的按钮
+ */
+@property(nonatomic,strong)NSArray *selectArray;
 
 @end

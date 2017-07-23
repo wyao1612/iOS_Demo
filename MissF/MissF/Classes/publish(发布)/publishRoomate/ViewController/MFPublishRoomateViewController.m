@@ -32,9 +32,44 @@
 
 @property (strong, nonatomic) HXPhotoView *onePhotoView;
 @property (strong, nonatomic) HXPhotoManager *manager;
+
+/** 个性标签数组*/
+@property (strong, nonatomic) NSMutableArray<NSString*> *allTagsSelectedArray;
+/** 个性标签数组( 保存选择的二维数组用于下次跳转的赋值)*/
+@property (strong, nonatomic) NSArray     *allTagsSelected2Array;
+@property (assign, nonatomic) MFCellTagsViewType allTagsType;
+/** 室友要求数组*/
+@property (strong, nonatomic) NSMutableArray *roommateRequiresSelectedArray;
+@property (assign, nonatomic) MFCellTagsViewType roommateRequiresType;
 @end
 
 @implementation MFPublishRoomateViewController
+
+-(NSMutableArray *)allTagsSelectedArray{
+    if (!_allTagsSelectedArray) {
+        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
+        _allTagsSelectedArray = [NSMutableArray arrayWithCapacity:3];
+        if (model.tag.interest.count>0) {
+            for (int  i = 0; i<3; i++) {
+                [_allTagsSelectedArray addObject:model.tag.interest[i].name];
+            }
+        }
+    }
+    return _allTagsSelectedArray;
+}
+
+-(NSMutableArray *)roommateRequiresSelectedArray{
+    if (!_roommateRequiresSelectedArray) {
+        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
+        _roommateRequiresSelectedArray = [NSMutableArray arrayWithCapacity:3];
+        if (model.roommateRequires.count>0) {
+            for (int  i = 0; i<3; i++) {
+                [_roommateRequiresSelectedArray addObject:model.roommateRequires[i].name];
+            }
+        }
+    }
+    return _roommateRequiresSelectedArray;
+}
 
 
 - (void)viewDidLoad {
@@ -44,6 +79,9 @@
     self.isAutoBack = NO;
     self.rightStr_1 = @"发送";
     [self.view addSubview:self.PublishRoomateTableView];
+    self.allTagsType = MF_TagsViewTypeEdit;
+    self.roommateRequiresType = MF_TagsViewTypeEdit;
+    self.allTagsSelected2Array = [NSArray array];
 }
 -(void)right_1_action{
     [SVProgressHUD showSuccessWithStatus:@"发送"];
@@ -104,23 +142,64 @@
                 break;
         }
         return cell;
-    }else  if (indexPath.section == 1){
+    }else  if (indexPath.section == 1){//个性标签的处理逻辑
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
-        [cell setUIwithModelArray:@[@"运动",@"看书",@"电影",@"运动",@"看书",@"电影"] andTagsName:@"添加自己的个性标签更容易找到对的人哦~" withTagStyle:MF_TagsViewTypeEdit];
+        [cell setUIwithModelArray:self.allTagsSelectedArray andTagsName:@"添加自己的个性标签更容易找到对的人哦~" withTagStyle:self.allTagsType];
         //个性标签更多按钮回调跳转
+        weak(self);
         cell.CellMoreBlock = ^(UIButton *sender) {
             MFTagsViewController *vc = [[MFTagsViewController alloc] init];
             vc.MFTagsViewType = MF_TagsViewType_AllTags;
+            //默认选中的标签 第一次为nil
+            vc.selectArray = self.allTagsSelected2Array;
+            vc.selectBlock = ^(NSArray *selectArray) {
+                NSLog(@"------>个性标签%@",selectArray);
+                if (selectArray.count > 0 ) {
+                    //解析数组
+                    NSMutableArray *tempArray = [NSMutableArray array];
+                    [selectArray enumerateObjectsUsingBlock:^(id  _Nonnull  obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([obj isKindOfClass:[NSArray class]]) {
+                            NSArray *array = (NSArray*)obj;
+                            if (array.count>0) {
+                                [obj enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                                    [tempArray addObject:obj];
+                                }];
+                            }
+                        }else if ([obj isKindOfClass:[NSString class]]){//容错，防止回调传入的数组为空显示字符串
+                            if (![NSString iSBlankString:obj]) {
+                                [tempArray addObject:obj];
+                            }
+                        }
+                    }];
+                    if (tempArray.count > 0) {
+                        //保存选择的标签二维数组
+                        weakSelf.allTagsSelected2Array = selectArray;
+                        weakSelf.allTagsType = MF_TagsViewTypeNormal;
+                        [weakSelf.allTagsSelectedArray removeAllObjects];
+                        [weakSelf.allTagsSelectedArray addObjectsFromArray:tempArray];
+                        [weakSelf.PublishRoomateTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    }
+                }
+            };
             [weakSelf.navigationController pushViewController:vc animated:YES];
         };
         return cell;
-    }else  if (indexPath.section == 2){
+    }else  if (indexPath.section == 2){//室友要求标签的逻辑
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
-        [cell setUIwithModelArray:@[@"运动",@"看书",@"电影",@"运动",@"看书",@"电影"] andTagsName:@"为了找到对的人，添加上对合租说室友的小要求吧~" withTagStyle:MF_TagsViewTypeEdit];
+        [cell setUIwithModelArray:self.roommateRequiresSelectedArray andTagsName:@"添加上对合租说室友的小要求吧~" withTagStyle:self.roommateRequiresType];
         //合租说室友要求更多按钮回调跳转
         cell.CellMoreBlock = ^(UIButton *sender) {
             MFTagsViewController *vc = [[MFTagsViewController alloc] init];
             vc.MFTagsViewType = MF_TagsViewType_roommateRequires;
+            vc.selectBlock = ^(NSArray *selectArray) {
+                NSLog(@"------>室友要求的标签%@",selectArray);
+                if (selectArray.count >0) {
+                    [weakSelf.roommateRequiresSelectedArray removeAllObjects];
+                    weakSelf.roommateRequiresType = MF_TagsViewTypeNormal;
+                    [weakSelf.roommateRequiresSelectedArray addObjectsFromArray:selectArray];
+                }
+                [weakSelf.PublishRoomateTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            };
             [weakSelf.navigationController pushViewController:vc animated:YES];
         };
         return cell;
@@ -131,10 +210,15 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0: return 60.0f; break;
-        case 1:
+        case 1:{
+            MFRoommateTagsViewCell *cell = [[MFRoommateTagsViewCell alloc] init];
+            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:self.allTagsSelectedArray];
+            return height;
+        }
+            break;
         case 2: {
             MFRoommateTagsViewCell *cell = [[MFRoommateTagsViewCell alloc] init];
-            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:@[@"运动",@"看书",@"电影",@"运动",@"看书",@"电影"]];
+            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:self.roommateRequiresSelectedArray];
             return height;
         }
             break;

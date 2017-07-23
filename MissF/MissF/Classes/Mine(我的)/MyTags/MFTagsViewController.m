@@ -27,8 +27,14 @@
 @property(strong,nonatomic)UIView *paymentType;
 /** 保存按钮*/
 @property(strong,nonatomic)UIButton *saveBtn;
-/** 保存个性标签的二维数组*/
+/** 保存个人标签的二维数组*/
 @property(strong,nonatomic)NSMutableArray *allTagsArray;
+/** 保存兴趣标签数组*/
+@property(strong,nonatomic)NSMutableArray *interestArray;
+/** 保存习惯标签数组*/
+@property(strong,nonatomic)NSMutableArray *habitArray;
+/** 保存个性标签的数组*/
+@property(strong,nonatomic)NSMutableArray *personalArray;
 @end
 
 @implementation MFTagsViewController
@@ -38,9 +44,13 @@
     // Do any additional setup after loading the view
     self.name = @"选择标签";
     
+    self.interestArray = [NSMutableArray array];
+    self.habitArray = [NSMutableArray array];
+    self.personalArray = [NSMutableArray array];
+    
     switch (self.MFTagsViewType) {
         case 0:
-            [self setMyAllTags];
+            [self setMyAllTagsWithArray:self.selectArray];
             break;
         case 1:
             [self setOnlyTagsWithName:@"室友要求"];
@@ -63,12 +73,12 @@
     
     
     if (_MFTagsViewType == 1) {
-        [self setTagsViewWithBgView:self.roommateRequires withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:3];
+        [self setTagsViewWithBgView:self.roommateRequires withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:3 defaultSelectedArray:@[]];
         if (self.interest.frame.size.height > self.contentView.frame.size.height) {
             self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.roommateRequires.frame));
         }
     }else   if (_MFTagsViewType == 2) {
-        [self setTagsViewWithBgView:self.paymentType withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:4];
+        [self setTagsViewWithBgView:self.paymentType withOrigin:CGPointMake(0, 0) withName:nameText andTagIdentifier:4 defaultSelectedArray:@[]];
         if (self.interest.frame.size.height > self.contentView.frame.size.height) {
             self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.paymentType.frame));
         }
@@ -76,20 +86,38 @@
 }
 
 #pragma mark - 我的所有个性标签
--(void)setMyAllTags{
+-(void)setMyAllTagsWithArray:(NSArray *)selectArray{
     
-    self.allTagsArray = [NSMutableArray arrayWithObjects:@"",@"",@"", nil];
+    self.allTagsArray = [NSMutableArray arrayWithObjects:self.interestArray,self.habitArray,self.personalArray, nil];
     
+    weak(self);
+    [selectArray enumerateObjectsUsingBlock:^(NSArray *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        switch (idx) {
+            case 0:
+                weakSelf.interestArray = [NSMutableArray arrayWithArray:selectArray[0]];
+                break;
+            case 1:
+                weakSelf.habitArray = [NSMutableArray arrayWithArray:selectArray[1]];
+                break;
+            case 2:
+                weakSelf.personalArray = [NSMutableArray arrayWithArray:selectArray[2]];
+                break;
+            default:
+                break;
+        }
+    }];
+    
+
     
     self.contentView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-NaviBar_HEIGHT-50);
-    [self setTagsViewWithBgView:self.interest withOrigin:CGPointMake(0, 0) withName:@"爱好" andTagIdentifier:0];
-    [self setTagsViewWithBgView:self.habitView withOrigin:CGPointMake(0,CGRectGetMaxY(self.interest.frame)+10) withName:@"习惯" andTagIdentifier:1];
-    [self setTagsViewWithBgView:self.personality withOrigin:CGPointMake(0,CGRectGetMaxY(self.habitView.frame)+10) withName:@"个性" andTagIdentifier:2];
+    [self setTagsViewWithBgView:self.interest withOrigin:CGPointMake(0, 0) withName:@"爱好" andTagIdentifier:0 defaultSelectedArray:self.interestArray];
+    [self setTagsViewWithBgView:self.habitView withOrigin:CGPointMake(0,CGRectGetMaxY(self.interest.frame)+10) withName:@"习惯" andTagIdentifier:1 defaultSelectedArray:self.habitArray];
+    [self setTagsViewWithBgView:self.personality withOrigin:CGPointMake(0,CGRectGetMaxY(self.habitView.frame)+10) withName:@"个性" andTagIdentifier:2 defaultSelectedArray:self.personalArray];
     [self.view addSubview:self.saveBtn];
     self.contentView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(self.personality.frame));
 }
 
--(UIView*)setTagsViewWithBgView:(UIView*)bgView withOrigin:(CGPoint)origin withName:(NSString*)nameText andTagIdentifier:(NSInteger)IdentifierTag{
+-(UIView*)setTagsViewWithBgView:(UIView*)bgView withOrigin:(CGPoint)origin withName:(NSString*)nameText andTagIdentifier:(NSInteger)IdentifierTag defaultSelectedArray:(NSArray*)selectArray{
     
     bgView.frame = CGRectMake(0, origin.y, SCREEN_WIDTH, 0);
     bgView.userInteractionEnabled = YES;
@@ -135,11 +163,14 @@
             strArray = [self getTagNameArrFromModelArray:model.tag.habit];
             break;
         case 2:
-            strArray =  [self getTagNameArrFromModelArray:model.tag.personality];            break;
+            strArray =  [self getTagNameArrFromModelArray:model.tag.personality];
+            break;
         case 3://室友要求
-            strArray =  [self getTagNameArrFromModelArray:model.roommateRequires];            break;
+            strArray =  [self getTagNameArrFromModelArray:model.roommateRequires];
+            break;
         case 4://家居设施
-            strArray =  [self getTagNameArrFromModelArray:model.paymentType];            break;
+            strArray =  [self getTagNameArrFromModelArray:model.paymentType];
+            break;
             
         default:
             break;
@@ -155,12 +186,10 @@
     tagList.isSingleSelect=NO;
     tagList.signalTagColor=[UIColor whiteColor];
     [bgView addSubview:tagList];
-    
-    [tagList setTagWithTagArray:strArray];
- 
+    tagList.selectArray = selectArray;
     weak(self);
-    [tagList setDidselectItemBlock:^(NSArray *arr,NSInteger viewTag) {
-        //NSLog(@"------>视图%zd的选中的标签%@",viewTag,arr);//存在循环引用
+    tagList.didselectItemBlock = ^(NSArray *arr, NSInteger ViewTag) {
+        NSLog(@"------>视图%zd的选中的标签%@",ViewTag,arr);//存在循环引用
         if (arr.count>=3) {
             tipsLabe.hidden = NO;
         }else{
@@ -168,11 +197,14 @@
         }
         //判断是否是我的标签
         if (weakSelf.MFTagsViewType == 0 ) {
-            [weakSelf.allTagsArray replaceObjectAtIndex:viewTag withObject:arr];
+            if (arr.count>0 &&arr !=nil) {
+               [weakSelf.allTagsArray replaceObjectAtIndex:ViewTag withObject:arr];
+            }
         }else{
             weakSelf.allTagsArray = arr.copy;
         }
-    }];
+    };
+    [tagList setTagWithTagArray:strArray];
     
     bgView.frame = CGRectMake(0, origin.y, SCREEN_WIDTH, tagList.size.height+60);
     
@@ -181,13 +213,23 @@
 
 #pragma mark - 回调
 -(void)saveBtnClick:(UIButton*)sender{
+    
+    //解析数组去掉空元素
+    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.allTagsArray];
+    
+    [self.allTagsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[NSArray class]]) {
+            NSArray *array = (NSArray*)obj;
+            if (array.count == 0) {
+                [tempArray removeObject:array];
+            }
+        }
+    }];
+    
     if (self.selectBlock) {
-        self.selectBlock(self.allTagsArray);
+        self.selectBlock(tempArray);
     }
-    weak(self);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf.navigationController popViewControllerAnimated:YES];
-    });
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - private

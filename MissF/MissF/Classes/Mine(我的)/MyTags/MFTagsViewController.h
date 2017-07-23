@@ -25,5 +25,7 @@ typedef void(^MFTagsViewSelectBlock)(NSArray *selectArray);
  @param nameText 标签属性名称
  */
 -(void)setOnlyTagsWithName:(NSString*)nameText;
+/** 选中的标签数组*/
+@property(strong,nonatomic) NSArray *selectArray;
 
 @end
