@@ -24,7 +24,8 @@
 @property(strong,nonatomic) UIImageView* avatarView;
 @property(strong,nonatomic) UIView     * headerBackView;
 @property(strong,nonatomic) UILabel    * nameLabel;
-@property (nonatomic, strong) UITableView *PublishRoomateTableView;
+@property(strong,nonatomic) UITableView *PublishRoomateTableView;
+@property(strong,nonatomic) UIView *tableFooterView;
 
 @property (nonatomic, strong) YWPickerView* constellationPickerView;
 @property (nonatomic, strong) MFPublishViewModel* publishViewModel;
@@ -43,7 +44,6 @@
     self.isAutoBack = NO;
     self.rightStr_1 = @"发送";
     [self.view addSubview:self.PublishRoomateTableView];
-    [self getExifInfowithImage:nil];
 }
 -(void)right_1_action{
     [SVProgressHUD showSuccessWithStatus:@"发送"];
@@ -58,7 +58,7 @@
 
 #pragma mark - tableview deleagte & datasource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 3;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
@@ -124,10 +124,6 @@
             [weakSelf.navigationController pushViewController:vc animated:YES];
         };
         return cell;
-    }else if (indexPath.section == 3){
-        MFRoommateTableViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_OnlyValue];
-        [cell setTitleStr:@"补充要求" valueStr:@"我是一名律师，就是这么厉害"];
-        return cell;
     }
     return [UITableViewCell new];
 }
@@ -142,11 +138,6 @@
             return height;
         }
             break;
-        case 3: {
-            CGFloat height = [tableView cellHeightForIndexPath:indexPath cellContentViewWidth:SCREEN_WIDTH tableView:tableView];
-            return height;
-        }
-            break;
         default:
             break;
     }
@@ -155,7 +146,7 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10;
+    return 5;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01;
@@ -248,12 +239,9 @@
         self.nameLabel.hidden = NO;
         self.onePhotoView.hidden = YES;
     }
-    // 1.打印图片名字
-    [self printAssetsName:photos];
     // 2.图片位置信息
     if (iOS8Later) {
         for (HXPhotoModel *model in photos) {
-            
             NSLog(@"---->坐标位置%@",model.asset.location);
         }
     }
@@ -279,77 +267,10 @@
     
 }
 
-#pragma mark - 打印图片名字
-- (void)printAssetsName:(NSArray *)assets {
-    NSString *fileName;
-    for (id asset in assets) {
-        if ([asset isKindOfClass:[PHAsset class]]) {
-            PHAsset *phAsset = (PHAsset *)asset;
-            fileName = [phAsset valueForKey:@"filename"];
-        } else if ([asset isKindOfClass:[ALAsset class]]) {
-            ALAsset *alAsset = (ALAsset *)asset;
-            fileName = alAsset.defaultRepresentation.filename;;
-        }
-        //NSLog(@"图片名字:%@",fileName);
-    }
-}
-
-
-
-- (void)getExifInfowithImage:(UIImage*)image{
-    
-    
-    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"6011500630885_pic_hd" withExtension:@"jpg"];
-    CGImageSourceRef imageSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);
-    
-    CFDictionaryRef imageInfo = CGImageSourceCopyPropertiesAtIndex(imageSource, 0,NULL);
-    NSDictionary *exifDic = (__bridge NSDictionary *)CFDictionaryGetValue(imageInfo, kCGImagePropertyExifDictionary) ;
-     NSLog(@"照片信息--->%@\n",imageInfo);
-    
-    
-    
-    image = [UIImage imageNamed:@"6011500630885_pic_hd.jpg"];
-    
-//    NSData *imageData = UIImageJPEGRepresentation(image, 1);
-//    
-//    CGImageSourceRef imageSource1 = CGImageSourceCreateWithData((__bridge CFDataRef)imageData, NULL);
-//    
-//    NSDictionary *imageInfo1 = (__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(imageSource1, 0, NULL);
-//    
-//    NSMutableDictionary *metaDataDic = [imageInfo1 mutableCopy];
-//    NSMutableDictionary *exifDic1 =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyExifDictionary]mutableCopy];
-//    NSMutableDictionary *GPSDic1 =[[metaDataDic objectForKey:(NSString*)kCGImagePropertyGPSDictionary]mutableCopy];
-//    NSLog(@"exif信息--->%@\n,定位信息信息--->%@\n",exifDic1,GPSDic1);
-    
-    
-    //将UIimage转换为NSData
-    NSData *imageData1=UIImageJPEGRepresentation(image, 1.0);
-    //将NSData转换为CFDataRef并新建CGImageSourceRef对象
-    CGImageSourceRef imageRef=CGImageSourceCreateWithData((CFDataRef)imageData1, NULL);
-    NSDictionary*imageProperty=(NSDictionary*)CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(imageRef,0, NULL));
-    NSDictionary*ExifDictionary=[imageProperty valueForKey:(NSString*)kCGImagePropertyExifDictionary];
-      NSLog(@"exif信息--->%@\n\n",ExifDictionary);
-    
-}
-
-
-
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
     NSLog(@"%@",NSStringFromCGRect(frame));
     self.headerBackView.frame = CGRectMake(0, 0, SCREEN_WIDTH, frame.size.height+60);
     [self.PublishRoomateTableView reloadData];
-}
-
--(YWPickerView *)constellationPickerView{
-    if (!_constellationPickerView) {
-        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-        NSMutableArray *array = [NSMutableArray array];
-        [model.constellation enumerateObjectsUsingBlock:^(MFSymbolicBaseModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [array addObject:obj.cn];
-        }];
-        _constellationPickerView = [[YWPickerView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.bounds PickerViewType:FTT_PickerViewShowTypeAlert DataSoucre:array];
-    }
-    return _constellationPickerView;
 }
 
 #pragma mark - 设置cell的显示
@@ -385,7 +306,7 @@
         _PublishRoomateTableView.delegate = self;
         _PublishRoomateTableView.dataSource = self;
         _PublishRoomateTableView.tableHeaderView = self.headerBackView;
-        _PublishRoomateTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 10)];
+        _PublishRoomateTableView.tableFooterView = self.tableFooterView;
     }
     return _PublishRoomateTableView;
 }
@@ -412,6 +333,43 @@
     return _manager;
 }
 
+-(UIView *)tableFooterView{
+    if (!_tableFooterView) {
+        _tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180)];
+        _tableFooterView.backgroundColor = WHITECOLOR;
+        
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+        lineView.backgroundColor = BACKGROUNDCOLOR;
+        [_tableFooterView addSubview:lineView];
+        
+        UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, SCREEN_WIDTH, 50)];
+        titleLabel.backgroundColor = [UIColor clearColor];
+        titleLabel.text = @"室友要求";
+        titleLabel.font = [UIFont systemFontOfSize:15];
+        titleLabel.textColor = [UIColor blackColor];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        [_tableFooterView addSubview:titleLabel];
+        
+        MFplaceholderTextView *textView = [[MFplaceholderTextView alloc]init];
+        textView.placeholderLabel.font = [UIFont systemFontOfSize:15];
+        textView.placeholder = @"请输入您需要补充的要求...";
+        textView.font = [UIFont systemFontOfSize:15];
+        textView.frame = CGRectMake(10, 60, SCREEN_WIDTH-20,100);
+        textView.maxLength = 200;
+        textView.layer.cornerRadius = 5.f;
+        textView.layer.borderColor = [[UIColor grayColor]colorWithAlphaComponent:0.3].CGColor;
+        textView.layer.borderWidth = 0.5f;
+        [_tableFooterView addSubview:textView];
+        
+        weak(self);
+        [textView didChangeText:^(MFplaceholderTextView *textView) {
+            NSLog(@"%@",textView.text);
+             weakSelf.publishViewModel.publishModel.address = textView.text;
+        }];
+        
+    }
+    return _tableFooterView;
+}
 
 
 -(UIView *)headerBackView{
@@ -448,6 +406,19 @@
         _nameLabel.textColor = LIGHTTEXTCOLOR;
     }
     return _nameLabel;
+}
+
+
+-(YWPickerView *)constellationPickerView{
+    if (!_constellationPickerView) {
+        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
+        NSMutableArray *array = [NSMutableArray array];
+        [model.constellation enumerateObjectsUsingBlock:^(MFSymbolicBaseModel *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [array addObject:obj.cn];
+        }];
+        _constellationPickerView = [[YWPickerView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.bounds PickerViewType:FTT_PickerViewShowTypeAlert DataSoucre:array];
+    }
+    return _constellationPickerView;
 }
 
 

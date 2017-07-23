@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MFplaceholderTextView.h"
 
 #define kCellIdentifier_Input_OnlyText_TextField @"kCellIdentifier_Input_OnlyText_TextField"
 #define kCellIdentifier_TitleValue      @"kCellIdentifier_TitleValue"
 #define kCellIdentifier_TitleValueMore  @"kCellIdentifier_TitleValueMore"
 #define kCellIdentifier_OnlyValue        @"kCellIdentifier_Onlytext"
+#define kCellIdentifier_textView        @"kCellIdentifier_textView"
 
 @interface MFRoommateTableViewCell : UITableViewCell
 @property (strong, nonatomic) UITextField *textField;
@@ -22,4 +24,5 @@
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value;
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value withValueColor:(UIColor*)color;
 - (void)configWithPlaceholder:(NSString *)phStr valueStr:(NSString *)valueStr;
+@property (strong, nonatomic) MFplaceholderTextView *textView;
 @end
