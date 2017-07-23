@@ -213,19 +213,19 @@
 -(void)saveBtnClick:(UIButton*)sender{
     
     //解析数组去掉空元素
-    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.allTagsArray];
-    
-    [self.allTagsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass:[NSArray class]]) {
-            NSArray *array = (NSArray*)obj;
-            if (array.count == 0) {
-                [tempArray removeObject:array];
-            }
-        }
-    }];
+//    NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.allTagsArray];
+//    
+//    [self.allTagsArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([obj isKindOfClass:[NSArray class]]) {
+//            NSArray *array = (NSArray*)obj;
+//            if (array.count == 0) {
+//                [tempArray removeObject:array];
+//            }
+//        }
+//    }];
     
     if (self.selectBlock) {
-        self.selectBlock(tempArray);
+        self.selectBlock(self.allTagsArray);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

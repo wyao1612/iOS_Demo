@@ -174,18 +174,19 @@
                             }
                         }
                     }];
+                    
                     if (tempArray.count > 0) {
                         //保存选择的标签二维数组
                         weakSelf.allTagsSelected2Array = selectArray;
                         weakSelf.allTagsType = MF_TagsViewTypeNormal;
                         [weakSelf.allTagsSelectedArray removeAllObjects];
                         [weakSelf.allTagsSelectedArray addObjectsFromArray:tempArray];
+                    }else{
+                        //保存选择的标签二维数组
+                        weakSelf.allTagsSelected2Array = selectArray;
+                        weakSelf.allTagsType = MF_TagsViewTypeEdit;
+                        weakSelf.allTagsSelectedArray = nil;
                     }
-                }else{
-                    //保存选择的标签二维数组
-                    weakSelf.allTagsSelected2Array = selectArray;
-                    weakSelf.allTagsType = MF_TagsViewTypeEdit;
-                    self.allTagsSelectedArray = nil;
                 }
                 
               [weakSelf.PublishRoomateTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
@@ -194,6 +195,7 @@
         };
         return cell;
     }else  if (indexPath.section == 2){//室友要求标签的逻辑
+        weak(self);
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
         [cell setUIwithModelArray:self.roommateRequiresSelectedArray andTagsName:@"添加上对合租说室友的小要求吧~" withTagStyle:self.roommateRequiresType];
         //合租说室友要求更多按钮回调跳转
@@ -201,7 +203,7 @@
             MFTagsViewController *vc = [[MFTagsViewController alloc] init];
             vc.MFTagsViewType = MF_TagsViewType_roommateRequires;
             //默认选中的标签 第一次为nil
-            vc.selectArray = self.roommateRequiresArray;
+            vc.selectArray = weakSelf.roommateRequiresArray;
             vc.selectBlock = ^(NSArray *selectArray) {
                 NSLog(@"------>室友要求的标签%@",selectArray);
                 if (selectArray.count >0) {
@@ -209,6 +211,11 @@
                     [weakSelf.roommateRequiresSelectedArray removeAllObjects];
                     weakSelf.roommateRequiresType = MF_TagsViewTypeNormal;
                     [weakSelf.roommateRequiresSelectedArray addObjectsFromArray:selectArray];
+                }else{
+                    //保存选择的标签一维数组
+                    weakSelf.roommateRequiresArray = selectArray;
+                    weakSelf.roommateRequiresType = MF_TagsViewTypeEdit;
+                    weakSelf.roommateRequiresSelectedArray = nil;
                 }
                 [weakSelf.PublishRoomateTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
