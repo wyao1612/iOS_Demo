@@ -6,8 +6,8 @@
 //  Copyright © 2017年 wyao. All rights reserved.
 //
 
-#import "MFPublishModel.h"
+#import "MFPublishRoomateModel.h"
 
-@implementation MFPublishModel
+@implementation MFPublishRoomateModel
 
 @end

@@ -41,6 +41,7 @@
 		1222A02A1F18CFBF0075A102 /* 4311500026847.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1222A0291F18CFBF0075A102 /* 4311500026847.jpg */; };
 		122439D21F17ACBD007A1610 /* MFRoommateTagsViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */; };
 		122439D51F18640C007A1610 /* MFTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 122439D41F18640C007A1610 /* MFTagsView.m */; };
+		122765501F25D3D00073B085 /* MFPublishHouseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1227654F1F25D3D00073B085 /* MFPublishHouseModel.m */; };
 		122B095F1F1C95E700E285E8 /* MFMyProfessionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 122B095E1F1C95E700E285E8 /* MFMyProfessionViewController.m */; };
 		122B09621F1C9A7700E285E8 /* MFProfessionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 122B09611F1C9A7700E285E8 /* MFProfessionViewCell.m */; };
 		122B097E1F1CB55400E285E8 /* icon_enter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 122B096C1F1CB55400E285E8 /* icon_enter@2x.png */; };
@@ -146,7 +147,7 @@
 		12A174BA1F1DA93E00C7B320 /* WSDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 12A174B61F1DA93E00C7B320 /* WSDatePickerView.xib */; };
 		12A174BE1F1DB50900C7B320 /* YWPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174BD1F1DB50900C7B320 /* YWPickerView.m */; };
 		12A174C11F1DCE0200C7B320 /* DLPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174C01F1DCE0200C7B320 /* DLPickerView.m */; };
-		12A174C51F1E0EA200C7B320 /* MFPublishModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174C41F1E0EA200C7B320 /* MFPublishModel.m */; };
+		12A174C51F1E0EA200C7B320 /* MFPublishRoomateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174C41F1E0EA200C7B320 /* MFPublishRoomateModel.m */; };
 		12A174CB1F1E1E3B00C7B320 /* MFPublishViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12A174CA1F1E1E3B00C7B320 /* MFPublishViewModel.m */; };
 		12CE91B41F1F6BE9003F2942 /* MFAdressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 12CE91B31F1F6BE9003F2942 /* MFAdressModel.m */; };
 		12D4AE9C1F0E80FB00898F51 /* MissFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 12D4AE9B1F0E80FB00898F51 /* MissFTests.m */; };
@@ -308,6 +309,8 @@
 		122439D11F17ACBD007A1610 /* MFRoommateTagsViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFRoommateTagsViewCell.m; sourceTree = "<group>"; };
 		122439D31F18640C007A1610 /* MFTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsView.h; sourceTree = "<group>"; };
 		122439D41F18640C007A1610 /* MFTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsView.m; sourceTree = "<group>"; };
+		1227654E1F25D3D00073B085 /* MFPublishHouseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishHouseModel.h; sourceTree = "<group>"; };
+		1227654F1F25D3D00073B085 /* MFPublishHouseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishHouseModel.m; sourceTree = "<group>"; };
 		122B095D1F1C95E700E285E8 /* MFMyProfessionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFMyProfessionViewController.h; sourceTree = "<group>"; };
 		122B095E1F1C95E700E285E8 /* MFMyProfessionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFMyProfessionViewController.m; sourceTree = "<group>"; };
 		122B09601F1C9A7700E285E8 /* MFProfessionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFProfessionViewCell.h; sourceTree = "<group>"; };
@@ -452,8 +455,8 @@
 		12A174BD1F1DB50900C7B320 /* YWPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YWPickerView.m; sourceTree = "<group>"; };
 		12A174BF1F1DCE0200C7B320 /* DLPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLPickerView.h; sourceTree = "<group>"; };
 		12A174C01F1DCE0200C7B320 /* DLPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLPickerView.m; sourceTree = "<group>"; };
-		12A174C31F1E0EA200C7B320 /* MFPublishModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishModel.h; sourceTree = "<group>"; };
-		12A174C41F1E0EA200C7B320 /* MFPublishModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishModel.m; sourceTree = "<group>"; };
+		12A174C31F1E0EA200C7B320 /* MFPublishRoomateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishRoomateModel.h; sourceTree = "<group>"; };
+		12A174C41F1E0EA200C7B320 /* MFPublishRoomateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishRoomateModel.m; sourceTree = "<group>"; };
 		12A174C91F1E1E3B00C7B320 /* MFPublishViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishViewModel.h; sourceTree = "<group>"; };
 		12A174CA1F1E1E3B00C7B320 /* MFPublishViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishViewModel.m; sourceTree = "<group>"; };
 		12CE91B21F1F6BE9003F2942 /* MFAdressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFAdressModel.h; sourceTree = "<group>"; };
@@ -864,17 +867,9 @@
 			children = (
 				12A174C21F1E0E7F00C7B320 /* Model */,
 				122B09991F1CBE6F00E285E8 /* ViewModel */,
-				122B09951F1CBE6F00E285E8 /* View */,
 				122B09961F1CBE6F00E285E8 /* ViewController */,
 			);
 			path = publishRoomate;
-			sourceTree = "<group>";
-		};
-		122B09951F1CBE6F00E285E8 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		122B09961F1CBE6F00E285E8 /* ViewController */ = {
@@ -961,9 +956,7 @@
 			isa = PBXGroup;
 			children = (
 				12683A901F24B3AF00838F7A /* Model */,
-				12683A911F24B3AF00838F7A /* View */,
 				12683A921F24B3AF00838F7A /* ViewController */,
-				12683A931F24B3AF00838F7A /* ViewModel */,
 			);
 			path = publishHouse;
 			sourceTree = "<group>";
@@ -971,15 +964,10 @@
 		12683A901F24B3AF00838F7A /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				1227654E1F25D3D00073B085 /* MFPublishHouseModel.h */,
+				1227654F1F25D3D00073B085 /* MFPublishHouseModel.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		12683A911F24B3AF00838F7A /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		12683A921F24B3AF00838F7A /* ViewController */ = {
@@ -989,13 +977,6 @@
 				12683A951F24B3DB00838F7A /* MFPublishHouseViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		12683A931F24B3AF00838F7A /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		128BA5571F20D17800914E57 /* HXWeiboPhotoPicker */ = {
@@ -1086,8 +1067,8 @@
 		12A174C21F1E0E7F00C7B320 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				12A174C31F1E0EA200C7B320 /* MFPublishModel.h */,
-				12A174C41F1E0EA200C7B320 /* MFPublishModel.m */,
+				12A174C31F1E0EA200C7B320 /* MFPublishRoomateModel.h */,
+				12A174C41F1E0EA200C7B320 /* MFPublishRoomateModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2002,7 +1983,7 @@
 				128BA5931F20D17800914E57 /* HXAlbumTitleButton.m in Sources */,
 				120CA4A51F1F944100CEE313 /* OldMainViewController.m in Sources */,
 				12D4AF9E1F0E818100898F51 /* JKCountDownButton.m in Sources */,
-				12A174C51F1E0EA200C7B320 /* MFPublishModel.m in Sources */,
+				12A174C51F1E0EA200C7B320 /* MFPublishRoomateModel.m in Sources */,
 				12D4AF681F0E818100898F51 /* BaseObject.m in Sources */,
 				12D4AF9D1F0E818100898F51 /* ObjcRuntime.m in Sources */,
 				1202B03A1F160AE30097223B /* NSObject+params.m in Sources */,
@@ -2035,6 +2016,7 @@
 				12D4AF8A1F0E818100898F51 /* UIButton+Addtion.m in Sources */,
 				12D4AF7E1F0E818100898F51 /* NSObject+Common.m in Sources */,
 				128BA59C1F20D17800914E57 /* HXPhotoEditViewController.m in Sources */,
+				122765501F25D3D00073B085 /* MFPublishHouseModel.m in Sources */,
 				1217BC3D1F1724F500DC4B87 /* MFRoommateTableViewProxy.m in Sources */,
 				122439D21F17ACBD007A1610 /* MFRoommateTagsViewCell.m in Sources */,
 				12D4AF8E1F0E818100898F51 /* UIImage+Extension.m in Sources */,

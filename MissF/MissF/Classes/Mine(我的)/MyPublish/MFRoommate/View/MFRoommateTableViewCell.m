@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSString *phStr, *valueStr;
 @property (strong, nonatomic) NSString *currentReuseIdentifier;
 @property (strong, nonatomic) NSString *placeholder;
+@property (assign, nonatomic) BOOL  ispriceTf;
 @end
 
 @implementation MFRoommateTableViewCell
@@ -46,6 +47,8 @@
             if (!_textField) {
                 _textField = [UITextField new];
                 _textField.textColor = LIGHTTEXTCOLOR;
+                //通过KVC修改占位文字的颜色
+                [_textField setValue:LIGHTTEXTCOLOR forKeyPath:@"_placeholderLabel.textColor"];
                 [_textField setFont:[UIFont systemFontOfSize:15]];
                 [_textField addTarget:self action:@selector(editDidBegin:) forControlEvents:UIControlEventEditingDidBegin];
                 [_textField addTarget:self action:@selector(textValueChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -167,10 +170,21 @@
     [super layoutSubviews];
 }
 
-- (void)configWithPlaceholder:(NSString *)phStr valueStr:(NSString *)valueStr{
-    _titleLabel.text = phStr;
-    _textField.placeholder = valueStr;
-    self.placeholder = valueStr;
+- (void)configWithTitle:(NSString *)title valueStr:(NSString *)valueStr placeholderStr:(NSString *)placeholderStr  isPriceTf:(BOOL)isprice{
+    //标题
+    _titleLabel.text = title;
+    //是否是金额
+    if (isprice) {
+        _textField.keyboardType = UIKeyboardTypeNumberPad;
+    }else{
+        _textField.keyboardType = UIKeyboardTypeDefault;
+    }
+    _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    _textField.placeholder = placeholderStr;
+    _textField.text = valueStr;
+    _textField.textColor = BLACKTEXTCOLOR;
+    self.placeholder = placeholderStr;
+    self.ispriceTf = isprice;
 }
 
 #pragma mark - 只有标题和内容
@@ -201,7 +215,11 @@
     if (_textField.text.length == 0) {
         _textField.placeholder = self.placeholder;
     }else{
-        _textField.text = [NSString stringWithFormat:@"¥%@/月",_textField.text];
+        if (_ispriceTf) {
+          _textField.text = [NSString stringWithFormat:@"¥%@/月",_textField.text];
+        }else{
+          _textField.text = [NSString stringWithFormat:@"%@",_textField.text];
+        }
     }
     if (self.editDidEndBlock) {
         self.editDidEndBlock(self.textField.text);

@@ -17,13 +17,9 @@
 
 @interface MFPublishRoomateViewController ()
 @property (nonatomic, strong) YWPickerView* constellationPickerView;
-/** 个性标签数组*/
-@property (strong, nonatomic) NSMutableArray<NSString*> *allTagsSelectedArray;
 /** 个性标签数组( 保存选择的二维数组用于下次跳转的赋值)*/
 @property (strong, nonatomic) NSArray     *allTagsSelected2Array;
 @property (assign, nonatomic) MFCellTagsViewType allTagsType;
-/** 室友要求数组*/
-@property (strong, nonatomic) NSMutableArray *roommateRequiresSelectedArray;
 /** 室友要求默认选中的数组*/
 @property (strong, nonatomic) NSArray *roommateRequiresArray;
 @property (assign, nonatomic) MFCellTagsViewType roommateRequiresType;
@@ -31,39 +27,13 @@
 
 @implementation MFPublishRoomateViewController
 
--(NSMutableArray *)allTagsSelectedArray{
-    if (!_allTagsSelectedArray) {
-        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-        _allTagsSelectedArray = [NSMutableArray arrayWithCapacity:3];
-        if (model.tag.interest.count>0) {
-            for (int  i = 0; i<3; i++) {
-                [_allTagsSelectedArray addObject:model.tag.interest[i].name];
-            }
-        }
-    }
-    return _allTagsSelectedArray;
-}
-
--(NSMutableArray *)roommateRequiresSelectedArray{
-    if (!_roommateRequiresSelectedArray) {
-        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
-        _roommateRequiresSelectedArray = [NSMutableArray arrayWithCapacity:3];
-        if (model.roommateRequires.count>0) {
-            for (int  i = 0; i<3; i++) {
-                [_roommateRequiresSelectedArray addObject:model.roommateRequires[i].name];
-            }
-        }
-    }
-    return _roommateRequiresSelectedArray;
-}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.name = @"室友";
     self.isAutoBack = NO;
     self.rightStr_1 = @"发送";
+    self.headerViewStyle = MFpublishHeaderViewTypeRoomate;
     [self.view addSubview:self.PublishTableView];
     self.allTagsType = MF_TagsViewTypeEdit;
     self.roommateRequiresType = MF_TagsViewTypeEdit;
@@ -97,8 +67,12 @@
                 break;
             case 1:
             {
+                weak(self);
                 cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_Input_OnlyText_TextField];
-                [cell configWithPlaceholder:@"租金预算" valueStr:@"请输入小区地址或名称"];
+                [cell configWithTitle:@"租金预算" valueStr:self.publishViewModel.roomateModel.money placeholderStr:@"请输入租金预算金额" isPriceTf:NO];
+                cell.editDidEndBlock = ^(NSString *text) {
+                    weakSelf.publishViewModel.roomateModel.money = text;
+                };
                 return cell;
             }
                 break;
@@ -123,7 +97,7 @@
         return cell;
     }else  if (indexPath.section == 1){//个性标签的处理逻辑
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
-        [cell setUIwithModelArray:self.allTagsSelectedArray andTagsName:@"添加自己的个性标签更容易找到对的人哦~" withTagStyle:self.allTagsType];
+        [cell setUIwithModelArray:self.publishViewModel.allTagsSelectedArray andTagsName:@"添加自己的个性标签更容易找到对的人哦~" withTagStyle:self.allTagsType];
         //个性标签更多按钮回调跳转
         weak(self);
         cell.CellMoreBlock = ^(UIButton *sender) {
@@ -155,13 +129,13 @@
                         //保存选择的标签二维数组
                         weakSelf.allTagsSelected2Array = selectArray;
                         weakSelf.allTagsType = MF_TagsViewTypeNormal;
-                        [weakSelf.allTagsSelectedArray removeAllObjects];
-                        [weakSelf.allTagsSelectedArray addObjectsFromArray:tempArray];
+                        [weakSelf.publishViewModel.allTagsSelectedArray removeAllObjects];
+                        [weakSelf.publishViewModel.allTagsSelectedArray addObjectsFromArray:tempArray];
                     }else{
                         //保存选择的标签二维数组
                         weakSelf.allTagsSelected2Array = selectArray;
                         weakSelf.allTagsType = MF_TagsViewTypeEdit;
-                        weakSelf.allTagsSelectedArray = nil;
+                        weakSelf.publishViewModel.allTagsSelectedArray = nil;
                     }
                 }
                 
@@ -173,7 +147,7 @@
     }else  if (indexPath.section == 2){//室友要求标签的逻辑
         weak(self);
         MFRoommateTagsViewCell  *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier_TagsViewCell];
-        [cell setUIwithModelArray:self.roommateRequiresSelectedArray andTagsName:@"添加上对合租说室友的小要求吧~" withTagStyle:self.roommateRequiresType];
+        [cell setUIwithModelArray:self.publishViewModel.roommateRequiresSelectedArray andTagsName:@"添加上对合租说室友的小要求吧~" withTagStyle:self.roommateRequiresType];
         //合租说室友要求更多按钮回调跳转
         cell.CellMoreBlock = ^(UIButton *sender) {
             MFTagsViewController *vc = [[MFTagsViewController alloc] init];
@@ -184,14 +158,14 @@
                 NSLog(@"------>室友要求的标签%@",selectArray);
                 if (selectArray.count >0) {
                     weakSelf.roommateRequiresArray = selectArray;
-                    [weakSelf.roommateRequiresSelectedArray removeAllObjects];
+                    [weakSelf.publishViewModel.roommateRequiresSelectedArray removeAllObjects];
                     weakSelf.roommateRequiresType = MF_TagsViewTypeNormal;
-                    [weakSelf.roommateRequiresSelectedArray addObjectsFromArray:selectArray];
+                    [weakSelf.publishViewModel.roommateRequiresSelectedArray addObjectsFromArray:selectArray];
                 }else{
                     //保存选择的标签一维数组
                     weakSelf.roommateRequiresArray = selectArray;
                     weakSelf.roommateRequiresType = MF_TagsViewTypeEdit;
-                    weakSelf.roommateRequiresSelectedArray = nil;
+                    weakSelf.publishViewModel.roommateRequiresSelectedArray = nil;
                 }
                 [weakSelf.PublishTableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
             };
@@ -207,13 +181,13 @@
         case 0: return 60.0f; break;
         case 1:{
             MFRoommateTagsViewCell *cell = [[MFRoommateTagsViewCell alloc] init];
-            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:self.allTagsSelectedArray];
+            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:self.publishViewModel.allTagsSelectedArray];
             return height;
         }
             break;
         case 2: {
             MFRoommateTagsViewCell *cell = [[MFRoommateTagsViewCell alloc] init];
-            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:self.roommateRequiresSelectedArray];
+            CGFloat height = [cell getCellHeightWtihBtnsWithModelArray:self.publishViewModel.roommateRequiresSelectedArray];
             return height;
         }
             break;
@@ -247,7 +221,7 @@
                   NSLog(@"选择的经度--->%f\n,选择的纬度--->%f,选择的地址名称--->%@",latitude,longitude,addresArr);
                     if (addresArr.count>0) {
                       NSString *address = [NSString stringWithFormat:@"%@ %@",addresArr[2],addresArr[3]];
-                      weakSelf.publishViewModel.publishModel.address = address;
+                      weakSelf.publishViewModel.roomateModel.address = address;
                     [cell setTitleStr:@"欲搬区域" valueStr:address withValueColor:BLACKTEXTCOLOR];
                     }
                 };
@@ -258,7 +232,7 @@
             {
                 WSDatePickerView *datepicker = [[WSDatePickerView alloc] initWithDateStyle:DateStyleShowYearMonthDay CompleteBlock:^(NSDate *startDate) {
                     NSString *date = [startDate stringWithFormat:@"yyyy-MM-dd"];
-                    weakSelf.publishViewModel.publishModel.datetime = date;
+                    weakSelf.publishViewModel.roomateModel.datetime = date;
                     [cell setTitleStr:@"欲搬时间" valueStr:date withValueColor:BLACKTEXTCOLOR];
                 }];
                 datepicker.doneButtonColor = GLOBALCOLOR;
@@ -270,7 +244,7 @@
                 [self.constellationPickerView showCityView:^(NSString *distr) {
                     NSString *str = [NSString string];
                     str = [NSString stringWithFormat:@"%@",[NSString iSBlankString:distr]?@"请选择星座":distr];
-                    weakSelf.publishViewModel.publishModel.constellation = str;
+                    weakSelf.publishViewModel.roomateModel.constellation = str;
                     [cell setTitleStr:@"星座" valueStr:distr withValueColor:BLACKTEXTCOLOR];
                 }];
             }
@@ -281,7 +255,7 @@
                 vc.cellSelectBlock = ^(NSString *text) {
                     NSString *str;
                     str = [NSString stringWithFormat:@"%@",[NSString iSBlankString:text]?@"请选择职业":text];
-                    weakSelf.publishViewModel.publishModel.profession = str;
+                    weakSelf.publishViewModel.roomateModel.profession = str;
                     [cell setTitleStr:@"职业" valueStr:str withValueColor:BLACKTEXTCOLOR];
                 };
                 [self.navigationController pushViewController:vc animated:YES];
@@ -293,7 +267,6 @@
         }
     }
 }
-
 
 #pragma mark  - 懒加载
 #pragma mark - lazy method

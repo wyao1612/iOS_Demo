@@ -23,6 +23,6 @@
 @property (strong, nonatomic) UILabel *titleLabel, *valueLabel;
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value;
 - (void)setTitleStr:(NSString *)title valueStr:(NSString *)value withValueColor:(UIColor*)color;
-- (void)configWithPlaceholder:(NSString *)phStr valueStr:(NSString *)valueStr;
+- (void)configWithTitle:(NSString *)title valueStr:(NSString *)valueStr placeholderStr:(NSString *)placeholderStr  isPriceTf:(BOOL)isprice;
 @property (strong, nonatomic) MFplaceholderTextView *textView;
 @end

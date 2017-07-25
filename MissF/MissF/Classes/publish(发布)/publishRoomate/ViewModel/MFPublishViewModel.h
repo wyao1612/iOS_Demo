@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MFPublishModel.h"
+#import "MFPublishRoomateModel.h"
+#import "MFPublishHouseModel.h"
 #import "MFRoommateTableViewCell.h"
+#import "HXPhotoModel.h"
 
 typedef NS_ENUM(NSInteger , MFPublishVMTag) {
     MF_PublishVM_personality = 0,
@@ -17,8 +19,8 @@ typedef NS_ENUM(NSInteger , MFPublishVMTag) {
 };
 
 @interface MFPublishViewModel : NSObject
-@property(strong,nonatomic) MFPublishModel *publishModel;
-
+/** 发布室友模型*/
+@property(strong,nonatomic) MFPublishRoomateModel *roomateModel;
 /** 地址*/
 @property(nonatomic,copy) NSString  *address;
 /** 欲搬时间*/
@@ -37,6 +39,32 @@ typedef NS_ENUM(NSInteger , MFPublishVMTag) {
 @property(nonatomic,copy) NSString  *desc;
 /** 职业*/
 @property(nonatomic,copy) NSString  *profession;
+/** 室友要求数组*/
+@property (strong, nonatomic) NSMutableArray *roommateRequiresSelectedArray;
+/** 个性标签数组*/
+@property (strong, nonatomic) NSMutableArray<NSString*> *allTagsSelectedArray;
+
+/******************************发布房源***************************/
+/** 发布房屋模型*/
+@property(strong,nonatomic) MFPublishHouseModel *houseModel;
+/** 对应房间的模型数组*/
+@property(strong,nonatomic) NSMutableArray<houseRoomModel*> *houseRoomModelArray;
+/** 获取房屋名称*/
+-(NSString *)getHouseNameFromIndex:(NSInteger)index;
+/** 获取房屋金额*/
+-(NSString *)getHousePriceFromIndex:(NSInteger)index;
+/** 获取房屋类型*/
+-(NSString *)getHouseRoomTypeFromIndex:(NSInteger)index;
+/** 获取房屋朝向*/
+-(NSString *)getHouseOrientateFromIndex:(NSInteger)index;
+/** 房屋Id*/
+@property(nonatomic,copy) NSString  *userHouseId;
+/** 房屋类型 主卧 次卧*/
+@property(nonatomic,copy) NSString  *roomType;
+/** orientate*/
+@property(nonatomic,copy) NSString  *orientate;
+/** 封面照片数组*/
+@property(nonatomic,strong) NSArray  *images;
 
 
 /**
@@ -55,4 +83,18 @@ typedef NS_ENUM(NSInteger , MFPublishVMTag) {
  @return 字符串
  */
 -(NSString*)setModelStringFromArrayWithTag:(MFPublishVMTag)tag andArray:(NSArray*)array;
+
+
+/** 所有上传的照片二维数组记录对应的照片选择器*/
+@property(nonatomic,strong)NSMutableArray<NSMutableArray*> *allPhotoArray;
+/** 所有上传的照片二维数组记录对应的照片选择器上传成功以后返回的地址*/
+@property(nonatomic,strong)NSMutableArray<NSMutableArray*> *allUrlArray;
+
+/**
+ 判断照片上传对应选择器 删除 添加操作
+
+ @param photos <#photos description#>
+ @param photoView <#photoView description#>
+ */
+-(void)upLoadPhotos:(NSArray<HXPhotoModel *> *)photos withPhotoView:(UIView*)photoView;
 @end

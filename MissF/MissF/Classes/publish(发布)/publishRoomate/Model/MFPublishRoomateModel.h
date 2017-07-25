@@ -9,7 +9,7 @@
 /** 该模型*/
 #import <Foundation/Foundation.h>
 
-@interface MFPublishModel : NSObject
+@interface MFPublishRoomateModel : NSObject
 /** id*/
 @property(nonatomic,copy) NSString  *ID;
 /** 用户uid*/

@@ -9,11 +9,7 @@
 #import "MFpublishViewController.h"
 #import "MFplaceholderTextView.h"
 
-
-
-
 @interface MFpublishViewController ()
-
 @end
 
 @implementation MFpublishViewController
@@ -31,51 +27,56 @@
 }
 
 - (void)photoView:(HXPhotoView *)photoView changeComplete:(NSArray<HXPhotoModel *> *)allList photos:(NSArray<HXPhotoModel *> *)photos videos:(NSArray<HXPhotoModel *> *)videos original:(BOOL)isOriginal {
-    
     NSLog(@"onePhotoView - %@",photos);
-    if (photos.count>0) {
-        self.headerImageView.hidden = YES;
-        self.nameLabel.hidden = YES;
-        self.onePhotoView.hidden = NO;
-    }else{
-        self.headerImageView.hidden = NO;
-        self.nameLabel.hidden = NO;
-        self.onePhotoView.hidden = YES;
-    }
-    // 2.图片位置信息
-    if (iOS8Later) {
-        for (HXPhotoModel *model in photos) {
-            NSLog(@"---->坐标位置%@",model.asset.location);
-        }
-    }
-    
-    
-     if (photos.count>0) {
-      /*
-       
-     [SVProgressHUD showWithStatus:@"正在上传图片"];
-     NSDictionary *parameter = @{@"file":@".png",
-     @"type":@"roommate"};
-    
-     //上传图片
-     [[MFNetAPIClient sharedInstance] uploadImageWithUrlString:kupload parameters:parameter ImageArray:photos  SuccessBlock:^(id responObject) {
-     [SVProgressHUD showInfoWithStatus:responObject[@"message"]];
-     } FailurBlock:^(NSInteger errCode, NSString *errorMsg) {
-     [SVProgressHUD showInfoWithStatus:errorMsg];
-     } UpLoadProgress:^(int64_t bytesProgress, int64_t totalBytesProgress) {
-     
-     }];
-          
-       */
-     }
-
+    [self setOnePhotoViewWith:photoView andPhotos:photos];
 }
 
 - (void)photoView:(HXPhotoView *)photoView updateFrame:(CGRect)frame {
-    NSLog(@"%@",NSStringFromCGRect(frame));
-    self.headerBackView.frame = CGRectMake(0, 0, SCREEN_WIDTH, frame.size.height+60);
-    [self.PublishTableView reloadData];
+    //NSLog(@"%@",NSStringFromCGRect(frame));
+    if (photoView == self.onePhotoView) {
+        self.headerBackView.frame = CGRectMake(0, 0, SCREEN_WIDTH, frame.size.height+60);
+        [self.PublishTableView reloadData];
+    }
 }
+
+#pragma mark - 头部相册选择
+-(void)setOnePhotoViewWith:(UIView*)photoView andPhotos:(NSArray<HXPhotoModel *> *)photos{
+    
+    if (photoView == self.onePhotoView) {
+        
+        if (self.headerViewStyle == MFpublishHeaderViewTypeRoomate) {
+            if (photos.count>0) {
+                self.headerImageView.hidden = YES;
+                self.nameLabel.hidden = YES;
+                self.onePhotoView.hidden = NO;
+            }else{
+                self.headerImageView.hidden = NO;
+                self.nameLabel.hidden = NO;
+                self.onePhotoView.hidden = YES;
+            }
+        }else if(self.headerViewStyle == MFpublishHeaderViewTypeHouse){
+            if (photos.count>0) {
+                self.headerImageView.hidden = NO;
+                self.nameLabel.hidden = YES;
+                self.onePhotoView.hidden = YES;
+                self.headerImageView.image = photos[0].thumbPhoto;
+                self.headerImageView.frame = self.headerBackView.bounds;
+            }else{
+                 self.headerImageView.hidden = NO;
+                self.nameLabel.hidden = NO;
+                self.onePhotoView.hidden = YES;
+            }
+
+        }
+    }
+
+    [self.publishViewModel upLoadPhotos:photos withPhotoView:photoView];
+    
+    for (HXPhotoModel *model in photos) {
+        NSLog(@"---->坐标位置%@",model.asset.location);
+    }
+}
+
 
 #pragma mark - 设置cell的显示
 -(void)setCellwith:(MFRoommateTableViewCell *)cell title:(NSString*)title withValue:(NSString*)value andPlaceholderText:(NSString*)placeholderText{
@@ -88,12 +89,16 @@
 }
 
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    //二维数组记录有多少个选择器（父类初始化一个头部，子类初始化调用添加一个组选择器，点击添加的时候再增加）
+    //图片数组
+    [self.publishViewModel.allPhotoArray addObject:[NSMutableArray arrayWithCapacity:9]];
+    //图片地址数组
+    [self.publishViewModel.allUrlArray addObject:[NSMutableArray arrayWithCapacity:9]];
 }
+
 
 -(MFPublishViewModel *)publishViewModel{
     if (!_publishViewModel) {
@@ -133,6 +138,7 @@
     if (!_onePhotoView) {
         _onePhotoView = [[HXPhotoView alloc] initWithFrame:CGRectMake(13, 14, SCREEN_WIDTH-26, 116) WithManager:self.manager];
         _onePhotoView.hidden= YES;//默认不显示
+        _onePhotoView.tag = 100;
         _onePhotoView.delegate = self;
     }
     return _onePhotoView;
@@ -144,7 +150,12 @@
         _manager.openCamera = YES;
         _manager.outerCamera = YES;
         _manager.showFullScreenCamera = YES;
-        _manager.photoMaxNum = 9;
+        if (self.headerViewStyle == MFpublishHeaderViewTypeRoomate) {
+            _manager.photoMaxNum = 9;
+        }else if (self.headerViewStyle == MFpublishHeaderViewTypeHouse){
+            _manager.photoMaxNum = 1;
+        }
+       
         _manager.maxNum = 9;
     }
     return _manager;
@@ -219,7 +230,11 @@
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake((SCREEN_WIDTH - 280)*0.5, CGRectGetMaxY(self.headerImageView.frame)+20, 280, 15)];
         _nameLabel.font = [UIFont systemFontOfSize:15];
         _nameLabel.textAlignment = NSTextAlignmentCenter;
-        _nameLabel.text = @"听说长得好看的人租房费用都比较低哦~";
+        if (self.headerViewStyle == MFpublishHeaderViewTypeRoomate) {
+            _nameLabel.text = @"听说长得好看的人租房费用都比较低哦~";
+        }else if (self.headerViewStyle == MFpublishHeaderViewTypeHouse){
+            _nameLabel.text = @"上传清晰的房屋照片可以更快的找到室友哟~";
+        }
         _nameLabel.textColor = LIGHTTEXTCOLOR;
     }
     return _nameLabel;
