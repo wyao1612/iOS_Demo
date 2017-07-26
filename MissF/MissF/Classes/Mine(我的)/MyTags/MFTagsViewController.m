@@ -169,7 +169,7 @@
             strArray =  [self getTagNameArrFromModelArray:model.roommateRequires];
             break;
         case 4://家居设施
-            strArray =  [self getTagNameArrFromModelArray:model.paymentType];
+            strArray =  [self getTagNameArrFromModelArray:model.facilities.common];
             break;
             
         default:

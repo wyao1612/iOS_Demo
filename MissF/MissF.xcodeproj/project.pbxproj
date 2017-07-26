@@ -25,6 +25,7 @@
 		120CA4A31F1F944100CEE313 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA4971F1F944100CEE313 /* MainViewController.m */; };
 		120CA4A51F1F944100CEE313 /* OldMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA49C1F1F944100CEE313 /* OldMainViewController.m */; };
 		120CA4A61F1F944100CEE313 /* MFLocationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 120CA49F1F1F944100CEE313 /* MFLocationTableViewCell.m */; };
+		120D69CA1F27769E009FFF30 /* MFPublishMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 120D69C91F27769E009FFF30 /* MFPublishMoreViewController.m */; };
 		1216F14A1F19DAEB00906EB0 /* MFTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */; };
 		1217BC381F1724F500DC4B87 /* MFHouseTableViewProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC231F1724F500DC4B87 /* MFHouseTableViewProxy.m */; };
 		1217BC391F1724F500DC4B87 /* MFHouseBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1217BC261F1724F500DC4B87 /* MFHouseBottomView.m */; };
@@ -278,6 +279,8 @@
 		120CA49C1F1F944100CEE313 /* OldMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldMainViewController.m; sourceTree = "<group>"; };
 		120CA49E1F1F944100CEE313 /* MFLocationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFLocationTableViewCell.h; sourceTree = "<group>"; };
 		120CA49F1F1F944100CEE313 /* MFLocationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFLocationTableViewCell.m; sourceTree = "<group>"; };
+		120D69C81F27769E009FFF30 /* MFPublishMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFPublishMoreViewController.h; sourceTree = "<group>"; };
+		120D69C91F27769E009FFF30 /* MFPublishMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFPublishMoreViewController.m; sourceTree = "<group>"; };
 		1216F1481F19DAEB00906EB0 /* MFTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFTagsViewController.h; sourceTree = "<group>"; };
 		1216F1491F19DAEB00906EB0 /* MFTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFTagsViewController.m; sourceTree = "<group>"; };
 		1217BC221F1724F500DC4B87 /* MFHouseTableViewProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFHouseTableViewProxy.h; sourceTree = "<group>"; };
@@ -702,6 +705,15 @@
 				120CA49F1F1F944100CEE313 /* MFLocationTableViewCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		120D69C41F27749D009FFF30 /* publishMore */ = {
+			isa = PBXGroup;
+			children = (
+				120D69C81F27769E009FFF30 /* MFPublishMoreViewController.h */,
+				120D69C91F27769E009FFF30 /* MFPublishMoreViewController.m */,
+			);
+			path = publishMore;
 			sourceTree = "<group>";
 		};
 		1216F1471F19DAD400906EB0 /* MyTags */ = {
@@ -1244,6 +1256,7 @@
 				12683A971F24C83100838F7A /* MFpublishViewController.h */,
 				12683A981F24C83100838F7A /* MFpublishViewController.m */,
 				12CE91A81F1EF78B003F2942 /* Location */,
+				120D69C41F27749D009FFF30 /* publishMore */,
 				12683A8F1F24B37E00838F7A /* publishHouse */,
 				122B09901F1CB70300E285E8 /* publishRoomate */,
 				12D4AECF1F0E818100898F51 /* CYLPlusButtonSubclass.h */,
@@ -2052,6 +2065,7 @@
 				1217BC3B1F1724F500DC4B87 /* MFHousingListViewController.m in Sources */,
 				122F8CC31F21F47D00241F19 /* UIImage+CompressImage.m in Sources */,
 				12D4AF8F1F0E818100898F51 /* UIImageView+size.m in Sources */,
+				120D69CA1F27769E009FFF30 /* MFPublishMoreViewController.m in Sources */,
 				12D4AF9F1F0E818100898F51 /* NSString+Emojize.m in Sources */,
 				128BA59A1F20D17800914E57 /* HXPhotoConst.m in Sources */,
 				12D4AF8B1F0E818100898F51 /* UIButton+category.m in Sources */,

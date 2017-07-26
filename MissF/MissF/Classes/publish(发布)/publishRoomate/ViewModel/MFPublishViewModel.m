@@ -117,6 +117,19 @@
     return _roommateRequiresSelectedArray;
 }
 
+-(NSMutableArray *)facilitiesSelectedArray{
+    if (!_facilitiesSelectedArray) {
+        MFCommonModel *model = [[commonViewModel shareInstance] getCommonModelFromCache];
+        _facilitiesSelectedArray = [NSMutableArray arrayWithCapacity:3];
+        if (model.roommateRequires.count>0) {
+            for (int  i = 0; i<3; i++) {
+                [_facilitiesSelectedArray addObject:model.facilities.common[i].name];
+            }
+        }
+    }
+    return _facilitiesSelectedArray;
+}
+
 
 -(NSMutableArray<houseRoomModel *> *)houseRoomModelArray{
     if (!_houseRoomModelArray) {

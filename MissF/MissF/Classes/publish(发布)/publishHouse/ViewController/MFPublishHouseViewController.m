@@ -8,7 +8,9 @@
 
 #import "MFPublishHouseViewController.h"
 #import "MFRoommateTableViewCell.h"
+#import "MainViewController.h"
 #import "HXPhotoView.h"
+#import "MFPublishMoreViewController.h"
 
 
 @interface MFPublishHouseViewController ()
@@ -73,7 +75,7 @@
     if (section == 0) {
         return 1;
     }else if(section == 1){
-        return 4;
+        return 5;
     }else if (section > 2 || section == 2){
         return 4;
     }
@@ -249,10 +251,53 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     weak(self);
-    if (indexPath.section == 2 || indexPath.section > 2 ) {
+    MFRoommateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == 1) {
         
-        MFRoommateTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        switch (indexPath.row) {
+            case 0:
+            {
+                
+            }
+                break;
+            case 1:
+            {
+                MainViewController *vc = [[MainViewController alloc] init];
+                vc.locationSelectBlock = ^(CGFloat latitude, CGFloat longitude, NSArray *addresArr) {
+                    NSLog(@"选择的经度--->%f\n,选择的纬度--->%f,选择的地址名称--->%@",latitude,longitude,addresArr);
+                    if (addresArr.count>0) {
+                        NSString *address = [NSString stringWithFormat:@"%@ %@",addresArr[2],addresArr[3]];
+                        weakSelf.publishViewModel.roomateModel.address = address;
+                        [cell setTitleStr:@"欲搬区域" valueStr:address withValueColor:BLACKTEXTCOLOR];
+                    }
+                };
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+                break;
+            case 2:
+            {
+                
+            }
+                break;
+            case 3:
+            {
+                
+            }
+                break;
+            case 4:
+            {
+                
+            }
+                break;
+                
+            default:
+                break;
+        }
         
+        
+    }else if (indexPath.section == 2 || indexPath.section > 2 ) {
+
         switch (indexPath.row) {
             case 1:
             {
@@ -306,6 +351,8 @@
     [SVProgressHUD showSuccessWithStatus:@"下一步"];
     NSLog(@"%@",self.publishViewModel.houseRoomModelArray);
     NSLog(@"图片数组%@,地址数组%@",self.publishViewModel.allPhotoArray,self.publishViewModel.allUrlArray);
+    MFPublishMoreViewController *vc = [[MFPublishMoreViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 

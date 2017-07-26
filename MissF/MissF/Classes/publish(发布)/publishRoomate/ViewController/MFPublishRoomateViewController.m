@@ -11,7 +11,6 @@
 #import "MFRoommateTagsViewCell.h"
 #import "MFTagsViewController.h"
 #import "MainViewController.h"
-#import "MFRoommateTagsViewCell.h"
 #import "MFMyProfessionViewController.h"
 
 

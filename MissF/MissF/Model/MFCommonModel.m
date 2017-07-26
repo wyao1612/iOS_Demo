@@ -36,6 +36,13 @@
 
 
 @implementation facilitiesModel
++ (NSDictionary *)mj_objectClassInArray
+{
+    return @{
+             @"room" : @"MFCommonBaseModel",
+             @"common":@"MFCommonBaseModel"
+             };
+}
 @end
 
 

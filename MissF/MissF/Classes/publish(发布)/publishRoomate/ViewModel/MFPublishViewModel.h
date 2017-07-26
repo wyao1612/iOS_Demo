@@ -43,6 +43,8 @@ typedef NS_ENUM(NSInteger , MFPublishVMTag) {
 @property (strong, nonatomic) NSMutableArray *roommateRequiresSelectedArray;
 /** 个性标签数组*/
 @property (strong, nonatomic) NSMutableArray<NSString*> *allTagsSelectedArray;
+/** 公共设备*/
+@property (strong, nonatomic) NSMutableArray *facilitiesSelectedArray;
 
 /******************************发布房源***************************/
 /** 发布房屋模型*/
